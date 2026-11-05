@@ -2,12 +2,25 @@
 
 私有源码仓库：`Startust/household-ledger`，分支 `main`。
 Railway 项目：`household-ledger`，生产环境与本地演示数据分开。
-应用：https://web-production-53641.up.railway.app
+应用：https://home-ledger.hoshikuzu.io
+原 Railway 地址保留：https://web-production-53641.up.railway.app
 项目：https://railway.com/project/cb170b23-9d1b-4ecd-8629-16635c4b1909
 Environment ID: `65edffcd-17f8-4890-9e90-81d808bb1db3`。
 Web: `05cee313-f284-4e71-bcd4-eb9b1fff231a`；Worker: `f117ee3d-8616-468a-9b5a-4426b6ca669d`。
 Railway 插件连接过期时使用已登录 CLI；首次上线使用 CLI 5.71.0 和锁定的 IaC SDK 3.16.0。
 旧 `railway.json` 配置已被新服务拒绝，改为 `.railway/railway.ts`；变量由 Railway 管理，不写进 IaC。
+
+## 自定义域名
+
+`home-ledger.hoshikuzu.io` 绑定 Web 服务端口 8000，由 Railway 签发和管理 HTTPS 证书。
+Cloudflare 中的 `home-ledger` CNAME 指向 `jeoecxg1.up.railway.app`，代理为 DNS only、TTL Auto；
+`_railway-verify.home-ledger` TXT 保留 Railway 提供的所有权验证值。
+只修改此应用的两条 DNS 记录，不改变主域名或其他子域名。
+
+Web/worker 的 `APP_ORIGIN` 均为 `https://home-ledger.hoshikuzu.io`，
+`PLAID_REDIRECT_URI` 为该域名的 `/oauth`，`PLAID_WEBHOOK_URL` 为 `/webhooks/plaid`。
+实际启用 Plaid 前仍需在其控制台登记新回调地址。iPhone 请从新域名添加到主屏幕；
+旧域名的会话和 PWA 安装不会自动迁移，需要重新登录。
 
 ## 服务与变量
 

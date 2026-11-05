@@ -31,6 +31,10 @@ export default defineRailway(() => {
       healthcheckPath: '/health/ready',
       healthcheckTimeout: 120,
     },
+    domains: [{ domain: 'home-ledger.hoshikuzu.io', port: 8000 }],
+    networking: {
+      serviceDomains: { 'web-production-53641.up.railway.app': { port: 8000 } },
+    },
     replicas: { 'us-east4-eqdc4a': 1 },
   });
   const worker = service('worker', {

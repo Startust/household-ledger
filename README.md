@@ -2,7 +2,7 @@
 
 两位家庭成员共用一个 USD Checking/debit 账户：共享交易分类、确认状态、备注、月度统计和每日汇总。英文 PWA 和 NestJS 使用同源部署，可在桌面浏览器查看，也可添加到 iPhone 主屏幕。
 
-线上入口：[Home Ledger](https://web-production-53641.up.railway.app/)，源码：[Startust/household-ledger](https://github.com/Startust/household-ledger)（私有）。
+线上入口：[Home Ledger](https://home-ledger.hoshikuzu.io/)，源码：[Startust/household-ledger](https://github.com/Startust/household-ledger)（私有）。
 本地演示：[Home Ledger](http://127.0.0.1:8765/)，接口文档：[Swagger](http://127.0.0.1:8765/api/docs)。
 正式环境使用独立空账本和 `yihui` 账号；本地仍为 6 笔模拟交易。真实 BOA 授权、iPhone 真机安装尚未验证。
 

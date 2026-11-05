@@ -46,7 +46,8 @@ Worker scans every 30s, retries capped at 6h, catch-up sync every 6h. One worker
 GET /health/ready checks DB only. Client must show bank state/last sync; worker presence needs operational monitoring.
 Sessions/CSRF are same-origin. Production trusts one Railway proxy hop and redirects HTTP to configured HTTPS origin.
 Secrets are runtime env vars; migrations run in web pre-deploy.
-Production: https://web-production-53641.up.railway.app, Railway project household-ledger.
+Production: https://home-ledger.hoshikuzu.io, Railway project household-ledger.
+Cloudflare provides DNS only; Railway terminates HTTPS. Both the custom domain and original Railway hostname are retained in IaC.
 Infrastructure is .railway/railway.ts with railway SDK 3.16.0; legacy railway.json is removed.
 Web/worker deploy committed Git snapshots via CLI until Railway's GitHub integration is granted repository access.
 Postgres and worker are private; only Web has a public domain. Daily volume snapshots retain six days;

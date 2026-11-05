@@ -98,3 +98,11 @@ transactions remain. Audit/version increments from QA are intentional.
 - Daily volume backup schedule enabled and read back: 10:45 UTC, six-day retention. Restore has not been tested. Backup schedule is managed in Railway outside IaC.
 - Temporary SSH key used for account initialization and worker check was revoked from Railway and removed from both local temporary paths. Local development services remain unchanged.
 - Outstanding external configuration: Plaid credentials/real bank authorization and optional GitHub repository integration. No live bank sync, iPhone device installation, push delivery or restore exercise claimed.
+
+## Custom domain — 2026-11-05
+
+- Bound `home-ledger.hoshikuzu.io` to Web port 8000. Added only its CNAME and Railway ownership TXT in the existing Cloudflare zone; CNAME uses DNS only and TTL Auto. Railway reports DNS propagated, ownership verified and certificate VALID/COMPLETE.
+- Updated Web/worker `APP_ORIGIN`, `PLAID_REDIRECT_URI` and `PLAID_WEBHOOK_URL` to the custom origin. Web deployment `e39eb5df-d7a1-47ff-acd8-ba8227535432` and worker deployment `c680b6b8-ffcd-434a-9867-935f28041225` both report SUCCESS. Runtime source and credentials are unchanged.
+- On the new HTTPS origin verified readiness, manifest/icons/service worker/OAuth shell, immutable assets, anonymous transaction/export denial, Secure/HttpOnly/SameSite cookies, login/logout and authenticated CSV/PDF exports. Ledger remains empty with seven categories.
+- Both public hostnames are represented in IaC; `railway config plan` reports `No changes.` IaC formatting and `git diff --check` pass. Local ignored login instructions now use the custom URL; password unchanged.
+- Cloudflare evidence: `.impeccable/review/custom-domain-dns.png`. Actual iPhone installation remains untested; install from the new hostname and sign in again if previously using the Railway hostname.

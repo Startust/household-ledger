@@ -106,3 +106,12 @@ transactions remain. Audit/version increments from QA are intentional.
 - On the new HTTPS origin verified readiness, manifest/icons/service worker/OAuth shell, immutable assets, anonymous transaction/export denial, Secure/HttpOnly/SameSite cookies, login/logout and authenticated CSV/PDF exports. Ledger remains empty with seven categories.
 - Both public hostnames are represented in IaC; `railway config plan` reports `No changes.` IaC formatting and `git diff --check` pass. Local ignored login instructions now use the custom URL; password unchanged.
 - Cloudflare evidence: `.impeccable/review/custom-domain-dns.png`. Actual iPhone installation remains untested; install from the new hostname and sign in again if previously using the Railway hostname.
+
+## Plaid Production configuration — 2026-11-05
+
+- Verified the user's existing Plaid account has a Production trial for up to 20 connections, with Transactions enabled as Trial and 0 connections used. No paid plan was activated and no keys were rotated.
+- Retrieved the authorized Client ID/Production secret from the existing Chrome session without printing their values. Configured Web in Railway, Worker uses references to Web's credentials, and both use `PLAID_ENV=production`. Temporary credential files were removed; no Plaid secrets were committed or kept in local configuration.
+- Registered `https://home-ledger.hoshikuzu.io/oauth` in Plaid's Allowed redirect URIs after Google identity verification. Confirmed the saved value after page reload. Evidence: `.impeccable/review/plaid-oauth-config.png`.
+- Web deployment `8dd6b8d6-35ff-4e58-8527-d9030bbaa20c` and worker deployment `c47c2344-1f64-45ad-99f7-81e18acdca3b` report SUCCESS. Runtime source is unchanged.
+- Initially Plaid rejected the new redirect while the setting propagated. Subsequently the authenticated live `/api/bank/link-token` returned a valid, unexpired Production token with the configured OAuth redirect. Bank state remained `not_connected` before and after the check; no public token was exchanged and no bank consent was granted.
+- Rechecked HTTPS readiness, PWA assets, session cookies, authentication, anonymous access denial and CSV/PDF exports. The production ledger remains empty with seven categories. Real bank authorization/sync and physical iPhone installation remain unverified.

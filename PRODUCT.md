@@ -24,7 +24,7 @@ Bank sync and scheduled daily summaries run on the server. Imported bank facts c
 ## Capabilities and Constraints
 One USD Checking account; no credit cards/public registration. Integer cents and optimistic edit versions.
 Local sample contains six clearly labeled demo transactions; production is an independent empty ledger.
-Real Plaid/BOA authorization remains unverified and credentials are not configured in production.
+Plaid Production credentials and the custom-domain OAuth callback are configured. Production Link token creation is verified; real Plaid/BOA authorization remains unverified and must be completed by the account holder.
 Notifications currently mean the in-app digest inbox. External Web Push remains a separately configured channel.
 Offline shell is allowed, sensitive account responses are not persisted in service-worker caches.
 

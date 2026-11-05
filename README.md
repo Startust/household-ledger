@@ -106,7 +106,7 @@ npm run cli -- change-password your_username
 签名 webhook、分页增量同步、断连状态和重试。PWA Settings 已实现 Link、账户选择和 `/oauth` 返回页；
 真实 BOA 授权需要账户持有人在官方流程完成，不收集银行密码。
 
-Plaid 凭据通过环境变量配置，初次使用 sandbox。
+Plaid 凭据通过环境变量配置。本地测试使用 sandbox；线上已配置 Production 凭据及 OAuth 回调，连接令牌验证通过，实际银行授权由账户持有人完成。
 `PLAID_WEBHOOK_URL=https://<domain>/webhooks/plaid`；
 `PLAID_REDIRECT_URI` 对应后续客户端的已登记 OAuth 返回页。
 选择错误账户后可继续选择，不需再次交换 token。

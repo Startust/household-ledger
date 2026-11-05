@@ -59,3 +59,4 @@ Test DB is explicitly TEST_DATABASE_URL ending in _test; tests truncate only tha
 See VERIFICATION.md for evidence and limitations. See ADR 0002 for stack migration/compatibility decisions and ADR 0003 for PWA/session/cache boundaries.
 Django source/SQLite snapshots remain in ignored .local; original db.sqlite3 retained. No real data/token migration was needed.
 Production HTTPS/login/CSV/PDF and worker one-cycle execution verified; no live BOA authorization.
+Plaid Production credentials are configured in Railway; Worker references Web's credentials. Custom-domain OAuth redirect is allowlisted and Production Link token creation is verified. No bank connection or real transaction sync has been completed.

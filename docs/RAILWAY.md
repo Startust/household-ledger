@@ -19,7 +19,7 @@ Cloudflare 中的 `home-ledger` CNAME 指向 `jeoecxg1.up.railway.app`，代理�
 
 Web/worker 的 `APP_ORIGIN` 均为 `https://home-ledger.hoshikuzu.io`，
 `PLAID_REDIRECT_URI` 为该域名的 `/oauth`，`PLAID_WEBHOOK_URL` 为 `/webhooks/plaid`。
-实际启用 Plaid 前仍需在其控制台登记新回调地址。iPhone 请从新域名添加到主屏幕；
+Plaid 控制台已登记新回调地址。iPhone 请从新域名添加到主屏幕；
 旧域名的会话和 PWA 安装不会自动迁移，需要重新登录。
 
 ## 服务与变量
@@ -49,8 +49,8 @@ push 本身不会自动上线。后续授权此仓库后可为两个应用服务
 | DATABASE_URL | Railway Postgres 内部 URL 引用，选实际服务变量 |
 | SESSION_SECRET | 随机至少 48 字符 |
 | BANK_TOKEN_KEY | 独立随机 32 字节，base64url 编码；保管备份 |
-| PLAID_ENV | 初次 sandbox；生产账本用独立数据库和 production |
-| PLAID_CLIENT_ID / PLAID_SECRET | Plaid 控制台中对应环境凭据 |
+| PLAID_ENV | production；本地测试才用 sandbox |
+| PLAID_CLIENT_ID / PLAID_SECRET | 已配置于 Web；Worker 引用 Web 的同名变量 |
 | PLAID_WEBHOOK_URL | https://<Web 域名>/webhooks/plaid |
 | PLAID_REDIRECT_URI | https://<Web 域名>/oauth；需在 Plaid 控制台登记 |
 
@@ -98,4 +98,8 @@ railway up <release-directory> --path-as-root --project cb170b23-9d1b-4ecd-8629-
 
 首次须等 Web 迁移就绪再启动 worker。发布后检查 deployment status 和 `/health/ready`。
 2026-11-05 发布应用提交 `dd50ede7f387d2f7fd8470e83fb9de788864b19e`；随后仅更新运维文档/IaC 默认值。
-Plaid 尚未配置凭据，因此目前不能连接真实银行；不要把本地演示账号或数据库迁移到正式环境。
+Plaid Production 凭据已配置于 Railway，Worker 通过引用共享；密钥不在 Git、镜像或本地配置中。
+当前个人 Plaid 账号提供最多 20 个连接的 Production 试用权限，Transactions 为 Trial；未升级付费方案。
+`https://home-ledger.hoshikuzu.io/oauth` 已登记为 Allowed redirect URI。
+线上已验证 Production Link token 创建成功；下一步由账户持有人在 Settings → Connect bank 完成银行授权。
+尚未连接真实银行或同步实际交易。不要把本地演示账号或数据库迁移到正式环境。

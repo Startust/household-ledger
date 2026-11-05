@@ -1,17 +1,24 @@
-# Railway 部署准备 · NestJS
+# Railway 部署 · NestJS
 
-本轮验证本地生产容器，没有创建 Railway 项目或远程部署。
-已有连接器需重新认证，正式部署时再连接。
+私有源码仓库：`Startust/household-ledger`，分支 `main`。
+Railway 项目：`household-ledger`，生产环境与本地演示数据分开。
+Railway 插件连接过期时使用已登录 CLI；首次上线使用 CLI 5.71.0 和锁定的 IaC SDK 3.16.0。
+旧 `railway.json` 配置已被新服务拒绝，改为 `.railway/railway.ts`；变量由 Railway 管理，不写进 IaC。
 
 ## 服务与变量
 
 同一项目/环境建立 PostgreSQL、Web 和 Worker。代码根目录为 household-ledger。
 
-- Web 用 `railway.json`：Dockerfile 构建，pre-deploy 执行 `npm run db:migrate`，
+- Web：根目录 Dockerfile 自动识别，pre-deploy 执行 `npm run db:migrate`，
   镜像同时构建并包含 PWA，`/` 为应用、`/api/docs` 为 Swagger；默认启动 `node dist/src/main.js`，读取 Railway 的 PORT，健康检查 `/health/ready`。
-- Worker 用 `railway.worker.json`：同镜像，`node dist/src/worker.js`，一个副本。
+- Worker：同镜像，`node dist/src/worker.js`，一个副本。
   不配置公开域名、HTTP healthcheck 或休眠。
 - 首次先完成 Web 迁移，再启动 worker；后续使用兼容旧版本的数据库迁移。
+
+使用 CLI 5.71.0 或更新兼容版本，`npm ci` 安装已锁定的 IaC SDK，然后执行 `railway config plan`。
+确认计划仅包含预期服务变更后 `railway config apply`。普通应用代码 push 到 main 自动部署；
+IaC 变更需要单独 plan/apply。构建监听源码、web、prisma、字体、包锁、Dockerfile 和 TS/Prisma 配置；
+仅文档更新不会触发构建。数据库服务和卷也在完整 IaC 图中保留，不能从文件中随意移除。
 
 两个应用服务共享：
 

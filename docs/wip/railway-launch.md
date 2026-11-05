@@ -22,3 +22,7 @@ Verification: APPROVE, exact service selectors and artifact inspection before up
 
 ## Execution
 In progress. Railway plugin authentication is expired; existing authenticated CLI is the fallback.
+Platform change discovered: new services reject Config as Code. Replaced legacy railway.json files
+with .railway/railway.ts and pinned railway SDK 3.16.0. CLI 5.71.0 is used as an ignored local executable;
+the app/runtime dependency set remains unchanged. Variables stay outside IaC. A read-only baseline plan
+confirmed existing database/volume are preserved; service updates are reviewed before applying.

@@ -1,0 +1,66 @@
+{
+  "name": "household-ledger",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "web"
+  ],
+  "engines": {
+    "node": ">=24.22.1 <25"
+  },
+  "scripts": {
+    "build": "npm run build:server && npm run build:client",
+    "build:server": "prisma generate && tsc -p tsconfig.json",
+    "build:client": "npm run build --workspace @household-ledger/web",
+    "dev:client": "npm run dev --workspace @household-ledger/web",
+    "start": "node dist/src/main.js",
+    "start:dev": "node --watch dist/src/main.js",
+    "build:watch": "tsc -p tsconfig.json --watch",
+    "worker": "node dist/src/worker.js",
+    "worker:once": "node dist/src/worker.js --once",
+    "db:migrate": "prisma migrate deploy",
+    "db:generate": "prisma generate",
+    "cli": "node dist/src/cli.js",
+    "seed:demo": "node dist/src/cli.js seed-demo",
+    "test": "npm run build && node --test --test-concurrency=1 dist/test/*.test.js",
+    "format": "prettier --write src test web/src web/index.html web/vite.config.ts web/tsconfig.json scripts/*.mjs prisma.config.ts *.json *.yaml",
+    "format:check": "prettier --check src test web/src web/index.html web/vite.config.ts web/tsconfig.json scripts/*.mjs prisma.config.ts *.json *.yaml",
+    "smoke": "node scripts/smoke.mjs"
+  },
+  "dependencies": {
+    "@nestjs/common": "12.3.3",
+    "@nestjs/core": "12.3.3",
+    "@nestjs/platform-express": "12.3.3",
+    "@nestjs/swagger": "12.1.0",
+    "@prisma/adapter-pg": "7.10.1",
+    "@prisma/client": "7.10.1",
+    "argon2": "0.45.2",
+    "class-transformer": "0.5.1",
+    "class-validator": "0.15.1",
+    "connect-pg-simple": "10.0.0",
+    "csrf-sync": "4.2.1",
+    "dotenv": "18.0.9",
+    "express-session": "1.19.0",
+    "jose": "6.2.15",
+    "pdfkit": "0.20.2",
+    "pg": "8.23.1",
+    "prisma": "7.10.1",
+    "reflect-metadata": "0.2.2",
+    "rxjs": "7.8.2"
+  },
+  "devDependencies": {
+    "@nestjs/testing": "12.3.3",
+    "@types/connect-pg-simple": "7.0.3",
+    "@types/express": "5.0.6",
+    "@types/express-session": "1.19.0",
+    "@types/node": "24.19.2",
+    "@types/pdfkit": "0.17.7",
+    "@types/pg": "8.23.1",
+    "@types/supertest": "7.2.1",
+    "prettier": "3.9.10",
+    "sharp": "0.35.5",
+    "supertest": "7.3.1",
+    "typescript": "6.0.3"
+  }
+}

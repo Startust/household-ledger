@@ -1,0 +1,391 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-05T16:40:10.388Z",
+  "title": "Design System: Home Ledger",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "tonalRamp": [
+          "oklch(15.00% 0.00933 99.98)",
+          "oklch(26.43% 0.00933 99.98)",
+          "oklch(37.86% 0.00933 99.98)",
+          "oklch(49.29% 0.00933 99.98)",
+          "oklch(60.71% 0.00933 99.98)",
+          "oklch(72.14% 0.00933 99.98)",
+          "oklch(83.57% 0.00933 99.98)",
+          "oklch(95.00% 0.00933 99.98)"
+        ]
+      },
+      "ivory": {
+        "role": "neutral",
+        "displayName": "Ivory",
+        "tonalRamp": [
+          "oklch(15.00% 0.00539 95.10)",
+          "oklch(26.43% 0.00539 95.10)",
+          "oklch(37.86% 0.00539 95.10)",
+          "oklch(49.29% 0.00539 95.10)",
+          "oklch(60.71% 0.00539 95.10)",
+          "oklch(72.14% 0.00539 95.10)",
+          "oklch(83.57% 0.00539 95.10)",
+          "oklch(95.00% 0.00539 95.10)"
+        ]
+      },
+      "sand": {
+        "role": "neutral",
+        "displayName": "Sand",
+        "tonalRamp": [
+          "oklch(15.00% 0.01354 97.45)",
+          "oklch(26.43% 0.01354 97.45)",
+          "oklch(37.86% 0.01354 97.45)",
+          "oklch(49.29% 0.01354 97.45)",
+          "oklch(60.71% 0.01354 97.45)",
+          "oklch(72.14% 0.01354 97.45)",
+          "oklch(83.57% 0.01354 97.45)",
+          "oklch(95.00% 0.01354 97.45)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "tonalRamp": [
+          "oklch(15.00% 0.01126 122.19)",
+          "oklch(26.43% 0.01126 122.19)",
+          "oklch(37.86% 0.01126 122.19)",
+          "oklch(49.29% 0.01126 122.19)",
+          "oklch(60.71% 0.01126 122.19)",
+          "oklch(72.14% 0.01126 122.19)",
+          "oklch(83.57% 0.01126 122.19)",
+          "oklch(95.00% 0.01126 122.19)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted",
+        "tonalRamp": [
+          "oklch(15.00% 0.00931 99.01)",
+          "oklch(26.43% 0.00931 99.01)",
+          "oklch(37.86% 0.00931 99.01)",
+          "oklch(49.29% 0.00931 99.01)",
+          "oklch(60.71% 0.00931 99.01)",
+          "oklch(72.14% 0.00931 99.01)",
+          "oklch(83.57% 0.00931 99.01)",
+          "oklch(95.00% 0.00931 99.01)"
+        ]
+      },
+      "secondary": {
+        "role": "neutral",
+        "displayName": "Secondary",
+        "tonalRamp": [
+          "oklch(15.00% 0.00853 88.71)",
+          "oklch(26.43% 0.00853 88.71)",
+          "oklch(37.86% 0.00853 88.71)",
+          "oklch(49.29% 0.00853 88.71)",
+          "oklch(60.71% 0.00853 88.71)",
+          "oklch(72.14% 0.00853 88.71)",
+          "oklch(83.57% 0.00853 88.71)",
+          "oklch(95.00% 0.00853 88.71)"
+        ]
+      },
+      "blue": {
+        "role": "primary",
+        "displayName": "Blue",
+        "tonalRamp": [
+          "oklch(15.00% 0.07674 257.71)",
+          "oklch(26.43% 0.07674 257.71)",
+          "oklch(37.86% 0.07674 257.71)",
+          "oklch(49.29% 0.07674 257.71)",
+          "oklch(60.71% 0.07674 257.71)",
+          "oklch(72.14% 0.07674 257.71)",
+          "oklch(83.57% 0.07674 257.71)",
+          "oklch(95.00% 0.07674 257.71)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Line",
+        "tonalRamp": [
+          "oklch(15.00% 0.01350 102.04)",
+          "oklch(26.43% 0.01350 102.04)",
+          "oklch(37.86% 0.01350 102.04)",
+          "oklch(49.29% 0.01350 102.04)",
+          "oklch(60.71% 0.01350 102.04)",
+          "oklch(72.14% 0.01350 102.04)",
+          "oklch(83.57% 0.01350 102.04)",
+          "oklch(95.00% 0.01350 102.04)"
+        ]
+      },
+      "green": {
+        "role": "neutral",
+        "displayName": "Green",
+        "tonalRamp": [
+          "oklch(15.00% 0.03773 140.90)",
+          "oklch(26.43% 0.03773 140.90)",
+          "oklch(37.86% 0.03773 140.90)",
+          "oklch(49.29% 0.03773 140.90)",
+          "oklch(60.71% 0.03773 140.90)",
+          "oklch(72.14% 0.03773 140.90)",
+          "oklch(83.57% 0.03773 140.90)",
+          "oklch(95.00% 0.03773 140.90)"
+        ]
+      },
+      "blue-hover": {
+        "role": "primary",
+        "displayName": "Blue Hover",
+        "tonalRamp": [
+          "oklch(15.00% 0.07372 255.00)",
+          "oklch(26.43% 0.07372 255.00)",
+          "oklch(37.86% 0.07372 255.00)",
+          "oklch(49.29% 0.07372 255.00)",
+          "oklch(60.71% 0.07372 255.00)",
+          "oklch(72.14% 0.07372 255.00)",
+          "oklch(83.57% 0.07372 255.00)",
+          "oklch(95.00% 0.07372 255.00)"
+        ]
+      },
+      "field-border": {
+        "role": "neutral",
+        "displayName": "Field Border",
+        "tonalRamp": [
+          "oklch(15.00% 0.01511 102.50)",
+          "oklch(26.43% 0.01511 102.50)",
+          "oklch(37.86% 0.01511 102.50)",
+          "oklch(49.29% 0.01511 102.50)",
+          "oklch(60.71% 0.01511 102.50)",
+          "oklch(72.14% 0.01511 102.50)",
+          "oklch(83.57% 0.01511 102.50)",
+          "oklch(95.00% 0.01511 102.50)"
+        ]
+      },
+      "sidebar": {
+        "role": "neutral",
+        "displayName": "Sidebar",
+        "tonalRamp": [
+          "oklch(15.00% 0.01069 100.83)",
+          "oklch(26.43% 0.01069 100.83)",
+          "oklch(37.86% 0.01069 100.83)",
+          "oklch(49.29% 0.01069 100.83)",
+          "oklch(60.71% 0.01069 100.83)",
+          "oklch(72.14% 0.01069 100.83)",
+          "oklch(83.57% 0.01069 100.83)",
+          "oklch(95.00% 0.01069 100.83)"
+        ]
+      },
+      "nav-active": {
+        "role": "neutral",
+        "displayName": "Nav Active",
+        "tonalRamp": [
+          "oklch(15.00% 0.00454 214.33)",
+          "oklch(26.43% 0.00454 214.33)",
+          "oklch(37.86% 0.00454 214.33)",
+          "oklch(49.29% 0.00454 214.33)",
+          "oklch(60.71% 0.00454 214.33)",
+          "oklch(72.14% 0.00454 214.33)",
+          "oklch(83.57% 0.00454 214.33)",
+          "oklch(95.00% 0.00454 214.33)"
+        ]
+      },
+      "review-surface": {
+        "role": "neutral",
+        "displayName": "Review Surface",
+        "tonalRamp": [
+          "oklch(15.00% 0.01213 116.81)",
+          "oklch(26.43% 0.01213 116.81)",
+          "oklch(37.86% 0.01213 116.81)",
+          "oklch(49.29% 0.01213 116.81)",
+          "oklch(60.71% 0.01213 116.81)",
+          "oklch(72.14% 0.01213 116.81)",
+          "oklch(83.57% 0.01213 116.81)",
+          "oklch(95.00% 0.01213 116.81)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Serif page headings."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Serif section headings."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Sans-serif working copy."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Controls and labels."
+      },
+      "amount-primary": {
+        "displayName": "Primary Amount",
+        "purpose": "Sans-serif tabular lining numerals for the monthly figure."
+      },
+      "amount-row": {
+        "displayName": "Row Amount",
+        "purpose": "Sans-serif tabular lining numerals aligned to the right."
+      }
+    },
+    "shadows": [
+      {
+        "name": "toast",
+        "value": "0 6px 24px #30352e21",
+        "purpose": "Transient feedback."
+      },
+      {
+        "name": "dialog",
+        "value": "0 16px 72px #24262033",
+        "purpose": "Modal overlays."
+      }
+    ],
+    "motion": [
+      {
+        "name": "button-state",
+        "value": "background 0.18s ease-out, transform 0.18s ease-out",
+        "purpose": "Enabled button feedback; disabled under reduced motion."
+      },
+      {
+        "name": "button-press",
+        "value": "translateY(1px)",
+        "purpose": "Enabled button press."
+      },
+      {
+        "name": "refresh-spin",
+        "value": "spin 1.2s linear infinite",
+        "purpose": "Refresh progress; disabled under reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "narrow",
+        "value": "370px"
+      },
+      {
+        "name": "compact-heading",
+        "value": "400px"
+      },
+      {
+        "name": "mobile-max",
+        "value": "760px"
+      },
+      {
+        "name": "tablet-min",
+        "value": "761px"
+      },
+      {
+        "name": "tablet-max",
+        "value": "1100px"
+      },
+      {
+        "name": "wide-min",
+        "value": "1450px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "primary button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "A standard task action.",
+      "html": "<button class=\"ds-primary\">Save changes</button>",
+      "css": ".ds-primary{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:8px;padding:12px 20px;min-height:46px;font-family:var(--ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif);font-size:14px;font-weight:500;line-height:1.55;background:var(--blue,#1b365d);color:var(--ivory,#faf9f5);cursor:pointer;transition:background .18s ease-out,transform .18s ease-out}.ds-primary:not(:disabled):hover{background:#2d4b71}.ds-primary:not(:disabled):active{transform:translateY(1px)}.ds-primary:focus-visible{outline:2px solid var(--blue,#1b365d);outline-offset:4px;}.ds-primary:disabled{opacity:.48;cursor:default}@media(prefers-reduced-motion:reduce){.ds-primary{transition:none}}"
+    },
+    {
+      "name": "secondary button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "A standard task action.",
+      "html": "<button class=\"ds-secondary\">Cancel</button>",
+      "css": ".ds-secondary{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:8px;padding:12px 20px;min-height:46px;font-family:var(--ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif);font-size:14px;font-weight:500;line-height:1.55;background:var(--sand,#e8e6dc);color:var(--secondary,#504e49);cursor:pointer;transition:background .18s ease-out,transform .18s ease-out}.ds-secondary:not(:disabled):hover{background:#dddbcf}.ds-secondary:not(:disabled):active{transform:translateY(1px)}.ds-secondary:focus-visible{outline:2px solid var(--blue,#1b365d);outline-offset:4px;}.ds-secondary:disabled{opacity:.48;cursor:default}@media(prefers-reduced-motion:reduce){.ds-secondary{transition:none}}"
+    },
+    {
+      "name": "Text button",
+      "kind": "button",
+      "refersTo": "button-text",
+      "description": "An inline supporting action.",
+      "html": "<button class=\"ds-text\">All transactions</button>",
+      "css": ".ds-text{border:0;background:transparent;color:var(--blue,#1b365d);padding:8px 0;min-height:44px;font-family:var(--ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif);font-size:13px;font-weight:500;cursor:pointer}.ds-text:hover{text-decoration:underline;text-underline-offset:4px}.ds-text:focus-visible{outline:2px solid var(--blue,#1b365d);outline-offset:4px;}"
+    },
+    {
+      "name": "Icon button",
+      "kind": "button",
+      "refersTo": "button-icon",
+      "description": "A compact action with an accessible name.",
+      "html": "<button class=\"ds-icon\" aria-label=\"Next month\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m9 6 6 6-6 6\"/></svg></button>",
+      "css": ".ds-icon{display:inline-flex;align-items:center;justify-content:center;padding:10px;min-width:44px;min-height:44px;border:0;border-radius:8px;background:transparent;color:var(--secondary,#504e49);cursor:pointer}.ds-icon:hover{background:var(--sand,#e8e6dc)}.ds-icon:focus-visible{outline:2px solid var(--blue,#1b365d);outline-offset:4px;}"
+    },
+    {
+      "name": "Text field",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "An explicit label and legible placeholder.",
+      "html": "<label class=\"ds-label\">Note<input class=\"ds-field\" placeholder=\"Add a note\" /></label>",
+      "css": ".ds-label{display:flex;flex-direction:column;gap:8px;font-family:var(--ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif);font-size:14px;font-weight:500;color:var(--ink,#242620)}.ds-field{min-height:46px;padding:11px 13px;border:1px solid #c9c8bd;border-radius:7px;background:var(--ivory,#faf9f5);color:var(--ink,#242620);font-family:var(--ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif);font-size:15px;font-weight:400;caret-color:var(--blue,#1b365d)}.ds-field::placeholder{color:var(--muted,#6b6a64);opacity:1}.ds-field:focus-visible{outline:2px solid var(--blue,#1b365d);outline-offset:4px;}@media(max-width:760px){.ds-field{font-size:16px}}"
+    },
+    {
+      "name": "Desktop navigation",
+      "kind": "nav",
+      "refersTo": "navigation-active",
+      "description": "Current route has a tinted surface and stronger weight.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Preview navigation\"><a href=\"#home\" aria-current=\"page\">Overview</a><a href=\"#transactions\">Transactions</a></nav>",
+      "css": ".ds-nav{display:grid;gap:7px;padding:14px;background:#eeede5}.ds-nav a{display:flex;align-items:center;min-height:48px;padding:12px 17px;border-radius:7px;color:var(--secondary,#504e49);text-decoration:none;font-family:var(--ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif);font-size:15px;line-height:1.55}.ds-nav a:hover{background:#e5e4da}.ds-nav a[aria-current=page]{background:#e0e4e5;color:var(--blue,#1b365d);font-weight:600}.ds-nav a:focus-visible{outline:2px solid var(--blue,#1b365d);outline-offset:4px;}"
+    },
+    {
+      "name": "Transaction filter",
+      "kind": "chip",
+      "refersTo": "filter-active",
+      "description": "A visible selected filter with aria-pressed state.",
+      "html": "<div class=\"ds-filters\"><button aria-pressed=\"false\">All transactions</button><button aria-pressed=\"true\">To review</button></div>",
+      "css": ".ds-filters{display:flex;gap:4px;flex-wrap:wrap}.ds-filters button{border:0;border-radius:6px;min-height:44px;padding:11px 14px;background:transparent;color:var(--secondary,#504e49);font-family:var(--ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif);font-size:13px;cursor:pointer}.ds-filters button[aria-pressed=true]{background:var(--sand,#e8e6dc);color:var(--blue,#1b365d);font-weight:600}.ds-filters button:hover{background:#eceae1}.ds-filters button:focus-visible{outline:2px solid var(--blue,#1b365d);outline-offset:4px;}"
+    },
+    {
+      "name": "Monthly folio",
+      "kind": "card",
+      "refersTo": "monthly-folio",
+      "description": "Flat ivory grouping for the leading monthly amount.",
+      "html": "<section class=\"ds-folio\" aria-label=\"Monthly summary\"><h2>Net spending</h2><div class=\"ds-amount\">$119.99</div><p>Posted transactions</p></section>",
+      "css": ".ds-folio{padding:27px 30px 24px;border:1px solid var(--line,#deddd3);border-radius:12px;background:var(--ivory,#faf9f5);color:var(--ink,#242620)}.ds-folio h2{margin:0;font-family:var(--serif,Charter,Georgia,serif);font-size:17px;font-weight:500;line-height:1.4;color:var(--secondary,#504e49)}.ds-amount{margin-top:18px;font-family:var(--number,-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif);font-variant-numeric:tabular-nums lining-nums;font-size:48px;font-weight:500;line-height:1.2;letter-spacing:-.025em;color:var(--blue,#1b365d);overflow-wrap:anywhere}.ds-folio p{margin:9px 0 0;font-family:var(--ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif);font-size:12px;color:var(--muted,#6b6a64)}@media(max-width:760px){.ds-amount{font-size:42px}}@media(max-width:370px){.ds-amount{font-size:38px}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Shared Monthly Folio",
+    "overview": "Warm parchment and ivory surfaces support ink-blue actions. Charter-led headings establish sections; system sans-serif labels and tabular amounts keep the ledger easy to scan. Fine rules and restrained surfaces give this working interface its character.\n\nCopy stays short, English, and task-oriented. The folio metaphor guides materials and hierarchy without adding slogans, decorative prose, photography, or illustrations.",
+    "keyCharacteristics": [
+      "Warm neutral surfaces with ink-blue actions.",
+      "Serif headings and sans-serif tabular amounts.",
+      "Ruled transaction rows with explicit status.",
+      "Comfortable mobile controls and compact desktop navigation."
+    ],
+    "rules": [
+      {
+        "name": "The Ink Rule",
+        "body": "Use ink-blue for actions, selection, and the primary monthly figure while keeping neutral surfaces dominant.",
+        "section": "colors"
+      },
+      {
+        "name": "The Numeric Rule",
+        "body": "All amounts use sans-serif tabular lining numerals; serif type is reserved for headings and the wordmark.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Surface Rule",
+        "body": "Routine ledger content stays flat; shadows distinguish temporary overlays.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep interface copy in English and state the task directly.",
+      "Do use the existing parchment, ivory, and ink-blue palette.",
+      "Do use sans-serif tabular lining numerals for amounts.",
+      "Do preserve keyboard focus, explicit state labels, and safe-area clearance."
+    ],
+    "donts": [
+      "Don't add slogans, cute empty states, or redundant descriptions.",
+      "Don't use serif type for financial amounts.",
+      "Don't communicate financial or review states through color alone.",
+      "Don't add routine card shadows or decorative imagery.\r"
+    ]
+  }
+}

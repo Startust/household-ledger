@@ -1,0 +1,146 @@
+generator client {
+  provider = "prisma-client"
+  output = "../src/generated/prisma"
+  moduleFormat = "esm"
+}
+datasource db {
+  provider = "postgresql"
+}
+enum Flow {
+  expense
+  income
+  transfer
+  refund
+}
+model Household {
+  id String @id @default(uuid()) @db.Uuid
+  name String @default("家庭账本") @db.VarChar(80)
+  timezone String @default("America/New_York") @db.VarChar(64)
+  digest_hour Int @default(21)
+  digest_enabled Boolean @default(true)
+  created_at DateTime @default(now())
+  users User[]
+  categories Category[]
+  bank BankConnection?
+  digests DailyDigest[]
+}
+model User {
+  id String @id @default(uuid()) @db.Uuid
+  username String @unique @db.VarChar(64)
+  password_hash String
+  active Boolean @default(true)
+  household_id String @db.Uuid
+  household Household @relation(fields:[household_id], references:[id], onDelete:Cascade)
+  reviewed LedgerTransaction[]
+  edits TransactionEdit[]
+  reads DigestRead[]
+}
+model Category {
+  id Int @id @default(autoincrement())
+  household_id String @db.Uuid
+  household Household @relation(fields:[household_id], references:[id], onDelete:Cascade)
+  name String @db.VarChar(60)
+  active Boolean @default(true)
+  transactions LedgerTransaction[]
+  @@unique([household_id, name])
+}
+model BankConnection {
+  id String @id @default(uuid()) @db.Uuid
+  household_id String @unique @db.Uuid
+  household Household @relation(fields:[household_id], references:[id], onDelete:Cascade)
+  provider String @default("plaid") @db.VarChar(10)
+  item_id String @unique @db.VarChar(150)
+  encrypted_access_token String @default("")
+  account_id String @default("") @db.VarChar(150)
+  account_name String @db.VarChar(150)
+  mask String @default("") @db.VarChar(8)
+  institution_id String @default("") @db.VarChar(100)
+  cursor String @default("")
+  initial_sync_complete Boolean @default(false)
+  state String @default("connected") @db.VarChar(30)
+  error_code String @default("") @db.VarChar(100)
+  sync_requested Int @default(1)
+  sync_completed Int @default(0)
+  failures Int @default(0)
+  next_attempt_at DateTime @default(now())
+  last_synced_at DateTime?
+  connected_at DateTime @default(now())
+  transactions LedgerTransaction[]
+}
+model LedgerTransaction {
+  id String @id @default(uuid()) @db.Uuid
+  bank_id String @db.Uuid
+  bank BankConnection @relation(fields:[bank_id], references:[id], onDelete:Cascade)
+  provider_id String @db.VarChar(150)
+  amount_cents BigInt
+  currency String @default("USD") @db.VarChar(3)
+  date DateTime @db.Date
+  authorized_date DateTime? @db.Date
+  name String @db.VarChar(500)
+  merchant String @default("") @db.VarChar(250)
+  pending Boolean @default(false)
+  removed Boolean @default(false)
+  suggested_category String @default("") @db.VarChar(150)
+  category_id Int?
+  category Category? @relation(fields:[category_id], references:[id], onDelete:Restrict)
+  flow Flow
+  flow_manual Boolean @default(false)
+  reviewed Boolean @default(false)
+  note String @default("") @db.VarChar(1000)
+  reviewed_by_id String? @db.Uuid
+  reviewed_by User? @relation(fields:[reviewed_by_id], references:[id], onDelete:SetNull)
+  reviewed_at DateTime?
+  version Int @default(1)
+  first_seen_at DateTime @default(now())
+  notify_at DateTime?
+  updated_at DateTime @default(now())
+  edits TransactionEdit[]
+  @@unique([bank_id, provider_id])
+  @@index([bank_id, date])
+  @@index([notify_at])
+}
+model TransactionEdit {
+  id Int @id @default(autoincrement())
+  transaction_id String @db.Uuid
+  transaction LedgerTransaction @relation(fields:[transaction_id], references:[id], onDelete:Cascade)
+  actor_id String? @db.Uuid
+  actor User? @relation(fields:[actor_id], references:[id], onDelete:SetNull)
+  changes Json
+  created_at DateTime @default(now())
+}
+model DailyDigest {
+  id Int @id @default(autoincrement())
+  household_id String @db.Uuid
+  household Household @relation(fields:[household_id], references:[id], onDelete:Cascade)
+  local_date DateTime @db.Date
+  window_start DateTime
+  window_end DateTime
+  new_count Int
+  expense_cents BigInt
+  unreviewed_count Int
+  snapshot Json
+  created_at DateTime @default(now())
+  reads DigestRead[]
+  @@unique([household_id, local_date])
+}
+model DigestRead {
+  id Int @id @default(autoincrement())
+  digest_id Int
+  digest DailyDigest @relation(fields:[digest_id], references:[id], onDelete:Cascade)
+  user_id String @db.Uuid
+  user User @relation(fields:[user_id], references:[id], onDelete:Cascade)
+  read_at DateTime @default(now())
+  @@unique([digest_id,user_id])
+}
+model LoginAttempt {
+  key String @id @db.VarChar(64)
+  attempts Int @default(0)
+  window_start DateTime @default(now())
+}
+model Session {
+  sid String @id @db.VarChar
+  sess Json @db.Json
+  expire DateTime @db.Timestamp(6)
+  @@index([expire])
+  @@map("session")
+}

@@ -12,7 +12,7 @@ export default defineRailway(() => {
   const web = service('web', {
     build: {
       buildEnvironment: 'V3',
-      builder: 'RAILPACK',
+      builder: 'DOCKERFILE',
       dockerfilePath: 'Dockerfile',
       watchPatterns: [
         'src/**',
@@ -39,7 +39,7 @@ export default defineRailway(() => {
   const worker = service('worker', {
     build: {
       buildEnvironment: 'V3',
-      builder: 'RAILPACK',
+      builder: 'DOCKERFILE',
       dockerfilePath: 'Dockerfile',
       watchPatterns: [
         'src/**',

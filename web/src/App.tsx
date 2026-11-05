@@ -12,6 +12,7 @@ import {
 import { useRegisterSW } from 'virtual:pwa-register/react';
 import { api, clearSession } from './api';
 import { Brand, InstallHelp, Notice, Skeleton } from './components';
+import { AtlasModeToggle } from './hoshikuzu/atlas-mode';
 import { Login } from './Login';
 import { Overview } from './Overview';
 import { Transactions } from './Transactions';
@@ -246,18 +247,22 @@ export function App() {
       <div className="app-body">
         <div className="mobile-topbar">
           <Brand compact />
-          <button
-            className="icon-button"
-            onClick={() => setInstall(true)}
-            aria-label="Add to Home Screen"
-          >
-            <Download size={19} />
-          </button>
+          <div className="mobile-actions">
+            <AtlasModeToggle compact />
+            <button
+              className="icon-button"
+              onClick={() => setInstall(true)}
+              aria-label="Add to Home Screen"
+            >
+              <Download size={19} />
+            </button>
+          </div>
         </div>
         <div className="desktop-topbar">
           <span>{home?.name || 'Our household ledger'}</span>
           <div>
             {bank.provider === 'demo' && <span className="demo-badge">Demo ledger</span>}
+            <AtlasModeToggle />
             <button
               className="icon-button"
               aria-label="Refresh ledger"

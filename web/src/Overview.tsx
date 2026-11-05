@@ -1,5 +1,12 @@
 import { ArrowRight, CheckCheck, ChevronLeft, ChevronRight, RefreshCw } from 'lucide-react';
 import { useResource } from './hooks';
+import {
+  Measurement,
+  MeasurementGrid,
+  MeasurementLabel,
+  MeasurementValue,
+} from './hoshikuzu/measurement';
+import { StarPanel } from './hoshikuzu/star-panel';
 import { ExportMenu } from './ExportMenu';
 import { Empty, HelpTip, Notice, Skeleton, TransactionRows } from './components';
 import { money, timeText, type Bank, type Page, type Summary, type Transaction } from './types';
@@ -111,22 +118,22 @@ export function Overview({
                 </HelpTip>
               </div>
               <p className="folio-note">Posted transactions</p>
-              <dl className="month-facts">
-                <div>
-                  <dt>Income</dt>
-                  <dd>{money(summary.data.income_cents)}</dd>
-                </div>
-                <div>
-                  <dt>Spending</dt>
-                  <dd>{money(summary.data.expense_cents)}</dd>
-                </div>
-                <div>
-                  <dt>Refunds</dt>
-                  <dd>{money(summary.data.refund_cents)}</dd>
-                </div>
-              </dl>
+              <MeasurementGrid className="ledger-measurements">
+                <Measurement>
+                  <MeasurementLabel>Income</MeasurementLabel>
+                  <MeasurementValue>{money(summary.data.income_cents)}</MeasurementValue>
+                </Measurement>
+                <Measurement>
+                  <MeasurementLabel>Spending</MeasurementLabel>
+                  <MeasurementValue>{money(summary.data.expense_cents)}</MeasurementValue>
+                </Measurement>
+                <Measurement>
+                  <MeasurementLabel>Refunds</MeasurementLabel>
+                  <MeasurementValue>{money(summary.data.refund_cents)}</MeasurementValue>
+                </Measurement>
+              </MeasurementGrid>
             </section>
-            <section className="review-note">
+            <StarPanel className="review-note">
               <span className="review-symbol">
                 <CheckCheck size={28} strokeWidth={1.5} />
               </span>
@@ -147,7 +154,7 @@ export function Overview({
                 {summary.data.unreviewed_count ? 'Review' : 'See transactions'}
                 <ArrowRight size={17} />
               </button>
-            </section>
+            </StarPanel>
           </div>
         )
       )}

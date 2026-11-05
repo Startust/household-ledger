@@ -1,0 +1,475 @@
+@layer theme, base, components, responsive, utilities;
+@import 'tailwindcss/theme.css' layer(theme);
+@import './hoshikuzu/theme.css';
+@import './styles.css';
+@import 'tailwindcss/utilities.css' layer(utilities);
+
+/* Hoshikuzu UI semantic tokens bridge the existing ledger controls. */
+:root {
+  --paper: var(--background);
+  --ivory: var(--card);
+  --sand: var(--secondary);
+  --ink: var(--foreground);
+  --ledger-muted: var(--muted-foreground);
+  --ledger-secondary: var(--muted-foreground);
+  --blue: var(--signal);
+  --blue-soft: var(--accent);
+  --line: var(--border);
+  --green: var(--success);
+  --error: var(--destructive);
+  --ui: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic UI', 'Segoe UI', system-ui, sans-serif;
+  --serif: var(--ui);
+  --number: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  scrollbar-color: var(--border-strong) var(--background);
+}
+::selection {
+  background: var(--signal);
+  color: var(--signal-foreground);
+}
+h1 {
+  font-size: 32px;
+  font-weight: 300;
+  letter-spacing: 0;
+}
+h2,
+h3 {
+  font-weight: 400;
+  letter-spacing: 0;
+}
+input:not([type='checkbox']),
+select,
+textarea {
+  border-color: var(--input);
+  border-radius: 2px;
+}
+input:not([type='checkbox']):hover,
+select:hover,
+textarea:hover {
+  border-color: var(--border-strong);
+}
+:is(button, a, input, select, textarea, summary):focus-visible {
+  outline-color: var(--ring);
+}
+.button,
+.icon-button,
+.month-control,
+.search-field,
+.category-choice,
+.filter-tabs button,
+.notice,
+.digest,
+.export-options,
+.export-options button,
+.help-copy,
+.demo-badge,
+.sidebar nav a,
+.bottom-nav a,
+.skeleton span {
+  border-radius: 2px;
+}
+.button {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+}
+.button.primary,
+.skip-link {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+.button.primary:not(:disabled):hover {
+  background: var(--primary-hover);
+}
+.button.secondary {
+  background: transparent;
+  color: var(--muted-foreground);
+  border-color: var(--border);
+}
+.button.secondary:not(:disabled):hover {
+  background: var(--accent);
+  border-color: var(--border-strong);
+}
+.button.danger,
+.category-delete {
+  background: var(--destructive);
+  color: var(--destructive-foreground);
+}
+.text-button {
+  color: var(--signal);
+}
+.brand {
+  color: var(--foreground);
+  gap: 10px;
+}
+.brand-mark,
+.brand.compact .brand-mark {
+  border-color: var(--border-strong);
+  border-radius: 2px;
+  width: 32px;
+  height: 34px;
+  color: var(--signal);
+}
+.brand-name,
+.brand.compact .brand-name {
+  font-size: 18px;
+  font-weight: 300;
+  letter-spacing: 0.01em;
+}
+.sidebar {
+  background: var(--sidebar);
+  padding-top: 29px;
+}
+.sidebar nav {
+  margin-top: 46px;
+  gap: 8px;
+}
+.sidebar nav a {
+  font-size: 13px;
+  border: 1px solid transparent;
+}
+.sidebar nav a:hover {
+  background: var(--accent);
+}
+.sidebar nav a[aria-current='page'] {
+  color: var(--foreground);
+  background: transparent;
+  border-color: var(--border-strong);
+  font-weight: 500;
+}
+.sidebar nav a[aria-current='page'] svg {
+  color: var(--signal);
+}
+.avatar,
+.avatar-1 {
+  background: var(--secondary);
+  color: var(--muted-foreground);
+  border: 1px solid var(--border);
+  font-size: 14px;
+}
+.desktop-topbar {
+  height: 76px;
+  border-bottom: 1px solid var(--border-faint);
+}
+.page-heading {
+  margin-top: 27px;
+  margin-bottom: 28px;
+}
+.desktop-topbar [data-slot='atlas-mode-toggle'],
+.mobile-topbar [data-slot='atlas-mode-toggle'],
+.login-brand [data-slot='atlas-mode-toggle'] {
+  min-height: 44px;
+  min-width: 44px;
+}
+.mobile-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.login-brand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.overview-top {
+  gap: 24px;
+}
+.monthly-folio {
+  background: transparent;
+  border: 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  padding: 24px 0 0;
+}
+.folio-heading h2,
+.folio-heading > span {
+  font: 600 11px/1.4 var(--ui);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.spending-number {
+  font-size: 54px;
+  color: var(--foreground);
+  font-weight: 300;
+  letter-spacing: -0.025em;
+}
+.folio-note {
+  color: var(--muted-foreground);
+}
+.ledger-measurements {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 0;
+  border-top: 1px solid var(--border-faint);
+  border-radius: 0;
+  margin-top: 24px;
+  background: transparent;
+  gap: 0;
+  overflow: visible;
+}
+.ledger-measurements [data-slot='measurement'] {
+  padding: 21px 18px;
+  min-height: 96px;
+  gap: 10px;
+  background: transparent;
+}
+.ledger-measurements [data-slot='measurement']:first-child {
+  padding-left: 0;
+}
+.ledger-measurements [data-slot='measurement'] + [data-slot='measurement'] {
+  border-left: 1px solid var(--border-faint);
+}
+.ledger-measurements [data-slot='measurement-value'] {
+  display: block;
+  font-family: var(--number);
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}
+.ledger-measurements [data-slot='measurement-label'] {
+  font-size: 10px;
+  color: var(--muted-foreground);
+}
+.review-note {
+  max-width: none;
+  border-radius: 2px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: none;
+  padding: 24px;
+}
+.review-symbol {
+  color: var(--signal);
+}
+.review-note h2 {
+  font-size: 16px;
+  font-weight: 400;
+}
+.review-count {
+  color: var(--foreground);
+  font-weight: 300;
+  font-size: 44px;
+}
+.review-note .button {
+  font-size: 11px;
+  min-height: 44px;
+}
+.section-heading h2,
+.settings-section h2 {
+  font-size: 17px;
+  font-weight: 400;
+}
+.transaction-row {
+  padding: 17px 0;
+  border-bottom-color: var(--border-faint);
+}
+.transaction-row:hover {
+  background: var(--accent);
+}
+.merchant-icon,
+.merchant-icon.transfer {
+  background: transparent;
+  color: var(--muted-foreground);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+}
+.merchant-icon.income,
+.merchant-icon.refund {
+  background: transparent;
+  color: var(--success);
+}
+.transaction-copy > strong {
+  font-size: 13px;
+  font-weight: 500;
+}
+.transaction-amount strong,
+.category-bar strong,
+.editor-summary > strong {
+  color: var(--foreground);
+  font-weight: 400;
+}
+.transaction-amount strong {
+  font-size: 17px;
+}
+.transaction-amount .credit {
+  color: var(--success);
+}
+.state.unreviewed {
+  color: var(--warning);
+}
+.state.reviewed {
+  color: var(--success);
+}
+.dot,
+.row-chevron,
+.bank-symbol,
+.empty svg,
+.page-symbol {
+  color: var(--muted-foreground);
+}
+.bar-track {
+  height: 2px;
+  background: var(--border-faint);
+  border-radius: 0;
+}
+.bar-track > span {
+  background: var(--signal);
+  border-radius: 0;
+}
+.bar-track > .refund-bar {
+  background: var(--success);
+}
+.category-section {
+  border-left: 1px solid var(--border-faint);
+  padding-left: 24px;
+}
+.filter-tabs button {
+  border: 1px solid transparent;
+}
+.filter-tabs button[aria-pressed='true'] {
+  color: var(--foreground);
+  background: transparent;
+  border-color: var(--border-strong);
+}
+.filter-tabs button:hover {
+  background: var(--accent);
+}
+.category-choice:has(:checked),
+.category-choice[aria-pressed='true'] {
+  color: var(--foreground);
+  background: var(--accent);
+  border-color: var(--signal);
+}
+.notice {
+  color: var(--destructive);
+  background: var(--destructive-surface);
+  border: 1px solid var(--destructive-border);
+}
+.notice.info {
+  color: var(--info);
+  background: var(--info-surface);
+  border-color: var(--info-border);
+}
+.notice.success {
+  color: var(--success);
+  background: var(--success-surface);
+  border-color: var(--success-border);
+}
+.skeleton span {
+  background: var(--secondary);
+}
+.update-banner {
+  background: var(--info-surface);
+  color: var(--info);
+}
+.dialog,
+.export-options,
+.help-copy,
+.toast {
+  background: var(--popover);
+  color: var(--popover-foreground);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  box-shadow: var(--shadow-overlay-value);
+}
+.dialog::backdrop {
+  background: var(--overlay);
+}
+.dialog-heading h2 {
+  font-weight: 300;
+}
+.confirmation-dialog {
+  width: 400px;
+}
+.confirmation-dialog .dialog-heading {
+  margin-bottom: 28px;
+}
+.confirmation-dialog .dialog-actions {
+  flex-wrap: wrap;
+}
+.read-dot.read {
+  background: var(--faint-foreground);
+}
+.login-form-panel {
+  max-width: 436px;
+}
+.login-details {
+  color: var(--muted-foreground);
+}
+.bottom-nav a[aria-current='page'] {
+  color: var(--signal);
+}
+@media (max-width: 760px) {
+  h1 {
+    font-size: 28px;
+  }
+  .page-heading {
+    margin-top: 0;
+    margin-bottom: 24px;
+  }
+  .mobile-topbar {
+    background: var(--card);
+    padding-top: calc(12px + env(safe-area-inset-top));
+    padding-bottom: 12px;
+  }
+  .monthly-folio {
+    padding: 22px 0 0;
+  }
+  .spending-number {
+    font-size: 46px;
+  }
+  .ledger-measurements [data-slot='measurement'] {
+    padding: 18px 12px;
+    min-height: 92px;
+  }
+  .ledger-measurements [data-slot='measurement-value'] {
+    font-size: 20px;
+  }
+  .ledger-measurements [data-slot='measurement-label'] {
+    letter-spacing: 0.1em;
+  }
+  .review-note {
+    padding: 19px 18px;
+  }
+  .review-count {
+    font-size: 28px;
+  }
+  .review-note h2 {
+    font-size: 16px;
+  }
+  .category-section {
+    border-left: 0;
+    padding-left: 0;
+  }
+  .section-heading h2 {
+    font-size: 17px;
+  }
+  .section-heading .text-button {
+    font-size: 12px;
+  }
+  .dialog {
+    border-radius: 4px 4px 0 0;
+  }
+  .confirmation-dialog {
+    width: 100%;
+  }
+  .bottom-nav a {
+    letter-spacing: 0.02em;
+  }
+}
+@media (max-width: 370px) {
+  .ledger-measurements [data-slot='measurement'] {
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+  .ledger-measurements [data-slot='measurement-value'] {
+    font-size: 18px;
+  }
+  .spending-number {
+    font-size: 42px;
+  }
+}

@@ -1,10 +1,12 @@
 import { defineConfig } from 'vite';
+import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
   plugins: [
     react(),
+    tailwindcss(),
     VitePWA({
       registerType: 'prompt',
       injectRegister: false,
@@ -18,8 +20,8 @@ export default defineConfig({
         start_url: '/',
         scope: '/',
         display: 'standalone',
-        background_color: '#f5f4ed',
-        theme_color: '#f5f4ed',
+        background_color: '#02040a',
+        theme_color: '#02040a',
         icons: [
           { src: '/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
           { src: '/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any maskable' },
@@ -35,8 +37,9 @@ export default defineConfig({
     }),
   ],
   server: {
-    port: 5173,
-    proxy: { '/api': 'http://127.0.0.1:8765', '/health': 'http://127.0.0.1:8765' },
+    port: 5180,
+    strictPort: true,
+    proxy: { '/api': 'http://127.0.0.1:8766', '/health': 'http://127.0.0.1:8766' },
   },
   build: { target: 'es2022' },
 });

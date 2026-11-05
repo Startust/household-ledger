@@ -1,9 +1,19 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { App } from './App';
-import './styles.css';
+import { AtlasModeProvider, applyAtlasMode, isAtlasMode } from './hoshikuzu/atlas-mode';
+import './hoshikuzu.css';
+
+try {
+  const stored = localStorage.getItem('hoshikuzu-atlas-mode');
+  applyAtlasMode(isAtlasMode(stored) ? stored : 'night');
+} catch {
+  applyAtlasMode('night');
+}
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <AtlasModeProvider>
+      <App />
+    </AtlasModeProvider>
   </StrictMode>,
 );

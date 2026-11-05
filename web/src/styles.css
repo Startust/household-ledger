@@ -35,7 +35,7 @@
   }
   .export-options p {
     margin: 4px 8px 8px;
-    color: var(--muted);
+    color: var(--ledger-muted);
     font-size: 12px;
   }
   .export-options button {
@@ -81,8 +81,8 @@
     --ivory: #faf9f5;
     --sand: #e8e6dc;
     --ink: #242620;
-    --muted: #6b6a64;
-    --secondary: #504e49;
+    --ledger-muted: #6b6a64;
+    --ledger-secondary: #504e49;
     --blue: #1b365d;
     --blue-soft: #e7ebee;
     --line: #deddd3;
@@ -196,7 +196,7 @@
   }
   .muted,
   .helper {
-    color: var(--muted);
+    color: var(--ledger-muted);
   }
   .helper {
     font-size: 13px;
@@ -230,7 +230,7 @@
   }
   .button.secondary {
     background: var(--sand);
-    color: var(--secondary);
+    color: var(--ledger-secondary);
   }
   .button.secondary:not(:disabled):hover {
     background: #dddbcf;
@@ -248,7 +248,7 @@
     background: transparent;
     border: 0;
     border-radius: 8px;
-    color: var(--secondary);
+    color: var(--ledger-secondary);
   }
   .icon-button:not(:disabled):hover {
     background: var(--sand);
@@ -285,7 +285,7 @@
     margin-bottom: 20px;
   }
   label small {
-    color: var(--muted);
+    color: var(--ledger-muted);
     font-size: 12px;
     font-weight: 400;
   }
@@ -303,7 +303,7 @@
   }
   input::placeholder,
   textarea::placeholder {
-    color: var(--muted);
+    color: var(--ledger-muted);
     opacity: 1;
   }
   textarea {
@@ -366,7 +366,7 @@
   .brand-caption {
     display: block;
     font-size: 11px;
-    color: var(--secondary);
+    color: var(--ledger-secondary);
     letter-spacing: 0.08em;
     margin-top: 3px;
   }
@@ -403,7 +403,7 @@
     min-height: 48px;
     padding: 12px 17px;
     text-decoration: none;
-    color: var(--secondary);
+    color: var(--ledger-secondary);
     border-radius: 7px;
     font-size: 15px;
   }
@@ -420,7 +420,7 @@
   }
   .shared-note {
     padding: 35px 12px;
-    color: var(--secondary);
+    color: var(--ledger-secondary);
   }
   .shared-note p {
     font-family: var(--serif);
@@ -458,7 +458,7 @@
   }
   .sidebar-user small {
     display: block;
-    color: var(--muted);
+    color: var(--ledger-muted);
     font-size: 11px;
   }
   .sidebar-user strong {
@@ -492,7 +492,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: var(--muted);
+    color: var(--ledger-muted);
     font-size: 12px;
   }
   .desktop-topbar > div {
@@ -503,7 +503,7 @@
   .demo-badge {
     padding: 4px 9px;
     background: var(--sand);
-    color: var(--secondary);
+    color: var(--ledger-secondary);
     border-radius: 4px;
     font-size: 11px;
   }
@@ -527,7 +527,7 @@
     margin: 10px 0 34px;
   }
   .page-heading p {
-    color: var(--muted);
+    color: var(--ledger-muted);
     font-size: 13px;
     margin-top: 10px;
   }
@@ -574,11 +574,11 @@
   }
   .folio-heading h2 {
     font-size: 17px;
-    color: var(--secondary);
+    color: var(--ledger-secondary);
   }
   .folio-heading > span {
     font-size: 11px;
-    color: var(--muted);
+    color: var(--ledger-muted);
     letter-spacing: 0.08em;
   }
   .spending-line {
@@ -598,7 +598,7 @@
     overflow-wrap: anywhere;
   }
   .folio-note {
-    color: var(--muted);
+    color: var(--ledger-muted);
     font-size: 12px;
     margin-top: 9px;
   }
@@ -611,7 +611,7 @@
     border-top: 1px solid var(--line);
   }
   .month-facts dt {
-    color: var(--muted);
+    color: var(--ledger-muted);
     font-size: 12px;
     margin-bottom: 6px;
   }
@@ -644,7 +644,7 @@
     color: var(--blue);
   }
   .review-note p {
-    color: var(--secondary);
+    color: var(--ledger-secondary);
     font-size: 12px;
     line-height: 1.85;
     margin: 10px 0 20px;
@@ -732,7 +732,7 @@
     align-items: center;
     gap: 6px;
     font-size: 11px;
-    color: var(--muted);
+    color: var(--ledger-muted);
     margin-top: 5px;
   }
   .dot {
@@ -769,7 +769,7 @@
     color: #67725e;
   }
   .state.pending {
-    color: var(--muted);
+    color: var(--ledger-muted);
   }
   .row-chevron {
     color: #9d9c90;
@@ -780,14 +780,14 @@
     gap: 6px;
     align-items: center;
     font-size: 11px;
-    color: var(--muted);
+    color: var(--ledger-muted);
     margin-top: 18px;
   }
   .category-section {
     padding-left: 8px;
   }
   .section-caption {
-    color: var(--muted);
+    color: var(--ledger-muted);
     font-size: 12px;
     margin: -1px 0 24px;
   }
@@ -824,7 +824,7 @@
     background: #939e85;
   }
   .category-bar small {
-    color: var(--muted);
+    color: var(--ledger-muted);
     font-size: 10px;
     display: block;
     margin-top: 5px;
@@ -836,13 +836,13 @@
   }
   .quiet-note > span {
     font-size: 11px;
-    color: var(--muted);
+    color: var(--ledger-muted);
   }
   .quiet-note p {
     font-family: var(--serif);
     font-size: 16px;
     line-height: 1.9;
-    color: var(--secondary);
+    color: var(--ledger-secondary);
     margin-top: 8px;
   }
   .app-footer {
@@ -852,7 +852,7 @@
     border-top: 1px solid var(--line);
     padding-top: 20px;
     margin-top: 48px;
-    color: var(--muted);
+    color: var(--ledger-muted);
     font-size: 11px;
   }
   .help-tip {
@@ -866,7 +866,7 @@
     width: 230px;
     padding: 12px 15px;
     background: var(--sand);
-    color: var(--secondary);
+    color: var(--ledger-secondary);
     font-size: 12px;
     border-radius: 6px;
   }
@@ -885,7 +885,7 @@
   }
   .filter-tabs button {
     background: transparent;
-    color: var(--secondary);
+    color: var(--ledger-secondary);
     border: 0;
     padding: 11px 14px;
     border-radius: 6px;
@@ -910,7 +910,7 @@
     border: 1px solid var(--line);
     padding: 0 11px;
     border-radius: 7px;
-    color: var(--muted);
+    color: var(--ledger-muted);
   }
   .search-field input {
     border: 0;
@@ -927,7 +927,7 @@
     display: flex;
     justify-content: space-between;
     gap: 16px;
-    color: var(--muted);
+    color: var(--ledger-muted);
     font-size: 12px;
     margin-bottom: 12px;
   }
@@ -966,14 +966,14 @@
   .empty {
     text-align: center;
     padding: 55px 20px;
-    color: var(--muted);
+    color: var(--ledger-muted);
   }
   .empty svg {
     margin-bottom: 20px;
     color: #8a9181;
   }
   .empty h3 {
-    color: var(--secondary);
+    color: var(--ledger-secondary);
     margin-bottom: 10px;
   }
   .empty p {
@@ -1087,12 +1087,12 @@
     color: var(--blue);
   }
   .editor-summary p {
-    color: var(--muted);
+    color: var(--ledger-muted);
     font-size: 12px;
   }
   .optional {
     font-size: 12px;
-    color: var(--muted);
+    color: var(--ledger-muted);
     font-weight: 400;
     margin-top: -4px;
   }
@@ -1101,14 +1101,14 @@
   }
   .history-list {
     font-size: 12px;
-    color: var(--secondary);
+    color: var(--ledger-secondary);
   }
   .history-list > div {
     border-top: 1px solid var(--line);
     padding: 12px 0;
   }
   .history-list span {
-    color: var(--muted);
+    color: var(--ledger-muted);
     float: right;
   }
   .history-list p {
@@ -1124,7 +1124,7 @@
     font-size: 14px;
   }
   .inbox-explainer p {
-    color: var(--muted);
+    color: var(--ledger-muted);
     font-size: 12px;
     margin-top: 6px;
   }
@@ -1157,7 +1157,7 @@
   }
   .digest-heading p {
     font-size: 12px;
-    color: var(--muted);
+    color: var(--ledger-muted);
     margin-top: 7px;
   }
   .digest-heading > strong {
@@ -1171,7 +1171,7 @@
     display: block;
     font-family: var(--ui);
     font-size: 11px;
-    color: var(--muted);
+    color: var(--ledger-muted);
     margin-top: 5px;
   }
   .read-dot {
@@ -1193,7 +1193,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    color: var(--muted);
+    color: var(--ledger-muted);
     font-size: 11px;
   }
   .digest-detail {
@@ -1248,7 +1248,7 @@
   }
   .member small {
     display: block;
-    color: var(--muted);
+    color: var(--ledger-muted);
     font-size: 11px;
     margin-top: 3px;
   }
@@ -1288,7 +1288,7 @@
   }
   .category-more {
     flex-shrink: 0;
-    color: var(--muted);
+    color: var(--ledger-muted);
   }
   .category-swipe button:focus-visible {
     outline-offset: -3px;
@@ -1306,7 +1306,7 @@
     pointer-events: none;
   }
   .category-settings small {
-    color: var(--muted);
+    color: var(--ledger-muted);
     font-size: 10px;
     margin-left: 9px;
   }
@@ -1392,7 +1392,7 @@
     font-size: 14px;
   }
   .bank-summary p {
-    color: var(--muted);
+    color: var(--ledger-muted);
     font-size: 12px;
     margin-top: 5px;
   }
@@ -1419,13 +1419,13 @@
     color: var(--blue);
   }
   .logout-action {
-    color: var(--secondary);
+    color: var(--ledger-secondary);
   }
   .install-intro {
     padding: 10px 0 20px;
   }
   .install-intro p {
-    color: var(--muted);
+    color: var(--ledger-muted);
     font-size: 13px;
     margin-top: 16px;
   }
@@ -1446,7 +1446,7 @@
   }
   .install-steps span {
     display: block;
-    color: var(--muted);
+    color: var(--ledger-muted);
     font-size: 12px;
     margin-top: 4px;
   }
@@ -1474,7 +1474,7 @@
   .login-letter p {
     font-family: var(--serif);
     font-size: 20px;
-    color: var(--secondary);
+    color: var(--ledger-secondary);
     line-height: 2;
     margin-top: 32px;
   }
@@ -1487,7 +1487,7 @@
   .login-letter > span,
   .login-footnote {
     font-size: 12px;
-    color: var(--muted);
+    color: var(--ledger-muted);
   }
   .login-form-panel {
     display: flex;
@@ -1525,7 +1525,7 @@
     justify-content: center;
     border: 0;
     background: none;
-    color: var(--muted);
+    color: var(--ledger-muted);
   }
   .login-form .button {
     margin-top: 8px;
@@ -1535,13 +1535,13 @@
     gap: 7px;
     justify-content: center;
     font-size: 11px;
-    color: var(--muted);
+    color: var(--ledger-muted);
     margin-top: 20px;
     align-items: center;
   }
   .login-details {
     margin-top: 28px;
-    color: var(--muted);
+    color: var(--ledger-muted);
     font-size: 12px;
     text-align: center;
   }
@@ -1678,7 +1678,7 @@
     .mobile-demo {
       display: block;
       font-size: 11px;
-      color: var(--muted);
+      color: var(--ledger-muted);
       margin-bottom: 18px;
     }
     .page-heading {
@@ -1840,7 +1840,7 @@
       gap: 4px;
       flex: 1;
       min-height: 49px;
-      color: var(--muted);
+      color: var(--ledger-muted);
       font-size: 10px;
       text-decoration: none;
       border-radius: 7px;

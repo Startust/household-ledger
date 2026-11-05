@@ -1,259 +1,527 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-05T16:40:10.388Z",
-  "title": "Design System: Home Ledger",
+  "generatedAt": "2026-11-05T22:31:54.411Z",
+  "title": "Design System: Home Ledger — Hoshikuzu preview",
   "extensions": {
     "colorMeta": {
-      "paper": {
+      "night-background": {
         "role": "neutral",
-        "displayName": "Paper",
+        "displayName": "Night Background",
         "tonalRamp": [
-          "oklch(15.00% 0.00933 99.98)",
-          "oklch(26.43% 0.00933 99.98)",
-          "oklch(37.86% 0.00933 99.98)",
-          "oklch(49.29% 0.00933 99.98)",
-          "oklch(60.71% 0.00933 99.98)",
-          "oklch(72.14% 0.00933 99.98)",
-          "oklch(83.57% 0.00933 99.98)",
-          "oklch(95.00% 0.00933 99.98)"
+          "oklch(15.00% 0.01940 262.03)",
+          "oklch(26.43% 0.01940 262.03)",
+          "oklch(37.86% 0.01940 262.03)",
+          "oklch(49.29% 0.01940 262.03)",
+          "oklch(60.71% 0.01940 262.03)",
+          "oklch(72.14% 0.01940 262.03)",
+          "oklch(83.57% 0.01940 262.03)",
+          "oklch(95.00% 0.01940 262.03)"
         ]
       },
-      "ivory": {
+      "night-foreground": {
         "role": "neutral",
-        "displayName": "Ivory",
+        "displayName": "Night Foreground",
         "tonalRamp": [
-          "oklch(15.00% 0.00539 95.10)",
-          "oklch(26.43% 0.00539 95.10)",
-          "oklch(37.86% 0.00539 95.10)",
-          "oklch(49.29% 0.00539 95.10)",
-          "oklch(60.71% 0.00539 95.10)",
-          "oklch(72.14% 0.00539 95.10)",
-          "oklch(83.57% 0.00539 95.10)",
-          "oklch(95.00% 0.00539 95.10)"
+          "oklch(15.00% 0.00341 247.86)",
+          "oklch(26.43% 0.00341 247.86)",
+          "oklch(37.86% 0.00341 247.86)",
+          "oklch(49.29% 0.00341 247.86)",
+          "oklch(60.71% 0.00341 247.86)",
+          "oklch(72.14% 0.00341 247.86)",
+          "oklch(83.57% 0.00341 247.86)",
+          "oklch(95.00% 0.00341 247.86)"
         ]
       },
-      "sand": {
+      "night-card": {
         "role": "neutral",
-        "displayName": "Sand",
+        "displayName": "Night Card",
         "tonalRamp": [
-          "oklch(15.00% 0.01354 97.45)",
-          "oklch(26.43% 0.01354 97.45)",
-          "oklch(37.86% 0.01354 97.45)",
-          "oklch(49.29% 0.01354 97.45)",
-          "oklch(60.71% 0.01354 97.45)",
-          "oklch(72.14% 0.01354 97.45)",
-          "oklch(83.57% 0.01354 97.45)",
-          "oklch(95.00% 0.01354 97.45)"
+          "oklch(15.00% 0.01498 266.38)",
+          "oklch(26.43% 0.01498 266.38)",
+          "oklch(37.86% 0.01498 266.38)",
+          "oklch(49.29% 0.01498 266.38)",
+          "oklch(60.71% 0.01498 266.38)",
+          "oklch(72.14% 0.01498 266.38)",
+          "oklch(83.57% 0.01498 266.38)",
+          "oklch(95.00% 0.01498 266.38)"
         ]
       },
-      "ink": {
-        "role": "neutral",
-        "displayName": "Ink",
-        "tonalRamp": [
-          "oklch(15.00% 0.01126 122.19)",
-          "oklch(26.43% 0.01126 122.19)",
-          "oklch(37.86% 0.01126 122.19)",
-          "oklch(49.29% 0.01126 122.19)",
-          "oklch(60.71% 0.01126 122.19)",
-          "oklch(72.14% 0.01126 122.19)",
-          "oklch(83.57% 0.01126 122.19)",
-          "oklch(95.00% 0.01126 122.19)"
-        ]
-      },
-      "muted": {
-        "role": "neutral",
-        "displayName": "Muted",
-        "tonalRamp": [
-          "oklch(15.00% 0.00931 99.01)",
-          "oklch(26.43% 0.00931 99.01)",
-          "oklch(37.86% 0.00931 99.01)",
-          "oklch(49.29% 0.00931 99.01)",
-          "oklch(60.71% 0.00931 99.01)",
-          "oklch(72.14% 0.00931 99.01)",
-          "oklch(83.57% 0.00931 99.01)",
-          "oklch(95.00% 0.00931 99.01)"
-        ]
-      },
-      "secondary": {
-        "role": "neutral",
-        "displayName": "Secondary",
-        "tonalRamp": [
-          "oklch(15.00% 0.00853 88.71)",
-          "oklch(26.43% 0.00853 88.71)",
-          "oklch(37.86% 0.00853 88.71)",
-          "oklch(49.29% 0.00853 88.71)",
-          "oklch(60.71% 0.00853 88.71)",
-          "oklch(72.14% 0.00853 88.71)",
-          "oklch(83.57% 0.00853 88.71)",
-          "oklch(95.00% 0.00853 88.71)"
-        ]
-      },
-      "blue": {
+      "night-primary": {
         "role": "primary",
-        "displayName": "Blue",
+        "displayName": "Night Primary",
         "tonalRamp": [
-          "oklch(15.00% 0.07674 257.71)",
-          "oklch(26.43% 0.07674 257.71)",
-          "oklch(37.86% 0.07674 257.71)",
-          "oklch(49.29% 0.07674 257.71)",
-          "oklch(60.71% 0.07674 257.71)",
-          "oklch(72.14% 0.07674 257.71)",
-          "oklch(83.57% 0.07674 257.71)",
-          "oklch(95.00% 0.07674 257.71)"
+          "oklch(15.00% 0.02691 95.34)",
+          "oklch(26.43% 0.02691 95.34)",
+          "oklch(37.86% 0.02691 95.34)",
+          "oklch(49.29% 0.02691 95.34)",
+          "oklch(60.71% 0.02691 95.34)",
+          "oklch(72.14% 0.02691 95.34)",
+          "oklch(83.57% 0.02691 95.34)",
+          "oklch(95.00% 0.02691 95.34)"
         ]
       },
-      "line": {
-        "role": "neutral",
-        "displayName": "Line",
-        "tonalRamp": [
-          "oklch(15.00% 0.01350 102.04)",
-          "oklch(26.43% 0.01350 102.04)",
-          "oklch(37.86% 0.01350 102.04)",
-          "oklch(49.29% 0.01350 102.04)",
-          "oklch(60.71% 0.01350 102.04)",
-          "oklch(72.14% 0.01350 102.04)",
-          "oklch(83.57% 0.01350 102.04)",
-          "oklch(95.00% 0.01350 102.04)"
-        ]
-      },
-      "green": {
-        "role": "neutral",
-        "displayName": "Green",
-        "tonalRamp": [
-          "oklch(15.00% 0.03773 140.90)",
-          "oklch(26.43% 0.03773 140.90)",
-          "oklch(37.86% 0.03773 140.90)",
-          "oklch(49.29% 0.03773 140.90)",
-          "oklch(60.71% 0.03773 140.90)",
-          "oklch(72.14% 0.03773 140.90)",
-          "oklch(83.57% 0.03773 140.90)",
-          "oklch(95.00% 0.03773 140.90)"
-        ]
-      },
-      "blue-hover": {
+      "night-primary-hover": {
         "role": "primary",
-        "displayName": "Blue Hover",
+        "displayName": "Night Primary Hover",
         "tonalRamp": [
-          "oklch(15.00% 0.07372 255.00)",
-          "oklch(26.43% 0.07372 255.00)",
-          "oklch(37.86% 0.07372 255.00)",
-          "oklch(49.29% 0.07372 255.00)",
-          "oklch(60.71% 0.07372 255.00)",
-          "oklch(72.14% 0.07372 255.00)",
-          "oklch(83.57% 0.07372 255.00)",
-          "oklch(95.00% 0.07372 255.00)"
+          "oklch(15.00% 0.03475 94.54)",
+          "oklch(26.43% 0.03475 94.54)",
+          "oklch(37.86% 0.03475 94.54)",
+          "oklch(49.29% 0.03475 94.54)",
+          "oklch(60.71% 0.03475 94.54)",
+          "oklch(72.14% 0.03475 94.54)",
+          "oklch(83.57% 0.03475 94.54)",
+          "oklch(95.00% 0.03475 94.54)"
         ]
       },
-      "field-border": {
+      "night-secondary": {
         "role": "neutral",
-        "displayName": "Field Border",
+        "displayName": "Night Secondary",
         "tonalRamp": [
-          "oklch(15.00% 0.01511 102.50)",
-          "oklch(26.43% 0.01511 102.50)",
-          "oklch(37.86% 0.01511 102.50)",
-          "oklch(49.29% 0.01511 102.50)",
-          "oklch(60.71% 0.01511 102.50)",
-          "oklch(72.14% 0.01511 102.50)",
-          "oklch(83.57% 0.01511 102.50)",
-          "oklch(95.00% 0.01511 102.50)"
+          "oklch(15.00% 0.03231 262.41)",
+          "oklch(26.43% 0.03231 262.41)",
+          "oklch(37.86% 0.03231 262.41)",
+          "oklch(49.29% 0.03231 262.41)",
+          "oklch(60.71% 0.03231 262.41)",
+          "oklch(72.14% 0.03231 262.41)",
+          "oklch(83.57% 0.03231 262.41)",
+          "oklch(95.00% 0.03231 262.41)"
         ]
       },
-      "sidebar": {
+      "night-muted": {
         "role": "neutral",
-        "displayName": "Sidebar",
+        "displayName": "Night Muted",
         "tonalRamp": [
-          "oklch(15.00% 0.01069 100.83)",
-          "oklch(26.43% 0.01069 100.83)",
-          "oklch(37.86% 0.01069 100.83)",
-          "oklch(49.29% 0.01069 100.83)",
-          "oklch(60.71% 0.01069 100.83)",
-          "oklch(72.14% 0.01069 100.83)",
-          "oklch(83.57% 0.01069 100.83)",
-          "oklch(95.00% 0.01069 100.83)"
+          "oklch(15.00% 0.02409 258.37)",
+          "oklch(26.43% 0.02409 258.37)",
+          "oklch(37.86% 0.02409 258.37)",
+          "oklch(49.29% 0.02409 258.37)",
+          "oklch(60.71% 0.02409 258.37)",
+          "oklch(72.14% 0.02409 258.37)",
+          "oklch(83.57% 0.02409 258.37)",
+          "oklch(95.00% 0.02409 258.37)"
         ]
       },
-      "nav-active": {
+      "night-faint": {
         "role": "neutral",
-        "displayName": "Nav Active",
+        "displayName": "Night Faint",
         "tonalRamp": [
-          "oklch(15.00% 0.00454 214.33)",
-          "oklch(26.43% 0.00454 214.33)",
-          "oklch(37.86% 0.00454 214.33)",
-          "oklch(49.29% 0.00454 214.33)",
-          "oklch(60.71% 0.00454 214.33)",
-          "oklch(72.14% 0.00454 214.33)",
-          "oklch(83.57% 0.00454 214.33)",
-          "oklch(95.00% 0.00454 214.33)"
+          "oklch(15.00% 0.03120 258.37)",
+          "oklch(26.43% 0.03120 258.37)",
+          "oklch(37.86% 0.03120 258.37)",
+          "oklch(49.29% 0.03120 258.37)",
+          "oklch(60.71% 0.03120 258.37)",
+          "oklch(72.14% 0.03120 258.37)",
+          "oklch(83.57% 0.03120 258.37)",
+          "oklch(95.00% 0.03120 258.37)"
         ]
       },
-      "review-surface": {
-        "role": "neutral",
-        "displayName": "Review Surface",
+      "night-signal": {
+        "role": "secondary",
+        "displayName": "Night Signal",
         "tonalRamp": [
-          "oklch(15.00% 0.01213 116.81)",
-          "oklch(26.43% 0.01213 116.81)",
-          "oklch(37.86% 0.01213 116.81)",
-          "oklch(49.29% 0.01213 116.81)",
-          "oklch(60.71% 0.01213 116.81)",
-          "oklch(72.14% 0.01213 116.81)",
-          "oklch(83.57% 0.01213 116.81)",
-          "oklch(95.00% 0.01213 116.81)"
+          "oklch(15.00% 0.04738 204.70)",
+          "oklch(26.43% 0.04738 204.70)",
+          "oklch(37.86% 0.04738 204.70)",
+          "oklch(49.29% 0.04738 204.70)",
+          "oklch(60.71% 0.04738 204.70)",
+          "oklch(72.14% 0.04738 204.70)",
+          "oklch(83.57% 0.04738 204.70)",
+          "oklch(95.00% 0.04738 204.70)"
+        ]
+      },
+      "night-accent": {
+        "role": "secondary",
+        "displayName": "Night Accent",
+        "tonalRamp": [
+          "oklch(15.00% 0.04738 204.70)",
+          "oklch(26.43% 0.04738 204.70)",
+          "oklch(37.86% 0.04738 204.70)",
+          "oklch(49.29% 0.04738 204.70)",
+          "oklch(60.71% 0.04738 204.70)",
+          "oklch(72.14% 0.04738 204.70)",
+          "oklch(83.57% 0.04738 204.70)",
+          "oklch(95.00% 0.04738 204.70)"
+        ]
+      },
+      "night-border": {
+        "role": "neutral",
+        "displayName": "Night Border",
+        "tonalRamp": [
+          "oklch(15.00% 0.00000 89.88)",
+          "oklch(26.43% 0.00000 89.88)",
+          "oklch(37.86% 0.00000 89.88)",
+          "oklch(49.29% 0.00000 89.88)",
+          "oklch(60.71% 0.00000 89.88)",
+          "oklch(72.14% 0.00000 89.88)",
+          "oklch(83.57% 0.00000 89.88)",
+          "oklch(95.00% 0.00000 89.88)"
+        ]
+      },
+      "night-border-faint": {
+        "role": "neutral",
+        "displayName": "Night Border Faint",
+        "tonalRamp": [
+          "oklch(15.00% 0.00000 89.88)",
+          "oklch(26.43% 0.00000 89.88)",
+          "oklch(37.86% 0.00000 89.88)",
+          "oklch(49.29% 0.00000 89.88)",
+          "oklch(60.71% 0.00000 89.88)",
+          "oklch(72.14% 0.00000 89.88)",
+          "oklch(83.57% 0.00000 89.88)",
+          "oklch(95.00% 0.00000 89.88)"
+        ]
+      },
+      "night-border-strong": {
+        "role": "neutral",
+        "displayName": "Night Border Strong",
+        "tonalRamp": [
+          "oklch(15.00% 0.00000 89.88)",
+          "oklch(26.43% 0.00000 89.88)",
+          "oklch(37.86% 0.00000 89.88)",
+          "oklch(49.29% 0.00000 89.88)",
+          "oklch(60.71% 0.00000 89.88)",
+          "oklch(72.14% 0.00000 89.88)",
+          "oklch(83.57% 0.00000 89.88)",
+          "oklch(95.00% 0.00000 89.88)"
+        ]
+      },
+      "night-input": {
+        "role": "neutral",
+        "displayName": "Night Input",
+        "tonalRamp": [
+          "oklch(15.00% 0.00000 89.88)",
+          "oklch(26.43% 0.00000 89.88)",
+          "oklch(37.86% 0.00000 89.88)",
+          "oklch(49.29% 0.00000 89.88)",
+          "oklch(60.71% 0.00000 89.88)",
+          "oklch(72.14% 0.00000 89.88)",
+          "oklch(83.57% 0.00000 89.88)",
+          "oklch(95.00% 0.00000 89.88)"
+        ]
+      },
+      "night-success": {
+        "role": "neutral",
+        "displayName": "Night Success",
+        "tonalRamp": [
+          "oklch(15.00% 0.10765 162.98)",
+          "oklch(26.43% 0.10765 162.98)",
+          "oklch(37.86% 0.10765 162.98)",
+          "oklch(49.29% 0.10765 162.98)",
+          "oklch(60.71% 0.10765 162.98)",
+          "oklch(72.14% 0.10765 162.98)",
+          "oklch(83.57% 0.10765 162.98)",
+          "oklch(95.00% 0.10765 162.98)"
+        ]
+      },
+      "night-warning": {
+        "role": "neutral",
+        "displayName": "Night Warning",
+        "tonalRamp": [
+          "oklch(15.00% 0.09846 84.57)",
+          "oklch(26.43% 0.09846 84.57)",
+          "oklch(37.86% 0.09846 84.57)",
+          "oklch(49.29% 0.09846 84.57)",
+          "oklch(60.71% 0.09846 84.57)",
+          "oklch(72.14% 0.09846 84.57)",
+          "oklch(83.57% 0.09846 84.57)",
+          "oklch(95.00% 0.09846 84.57)"
+        ]
+      },
+      "night-destructive": {
+        "role": "neutral",
+        "displayName": "Night Destructive",
+        "tonalRamp": [
+          "oklch(15.00% 0.12460 20.48)",
+          "oklch(26.43% 0.12460 20.48)",
+          "oklch(37.86% 0.12460 20.48)",
+          "oklch(49.29% 0.12460 20.48)",
+          "oklch(60.71% 0.12460 20.48)",
+          "oklch(72.14% 0.12460 20.48)",
+          "oklch(83.57% 0.12460 20.48)",
+          "oklch(95.00% 0.12460 20.48)"
+        ]
+      },
+      "archive-background": {
+        "role": "neutral",
+        "displayName": "Archive Background",
+        "tonalRamp": [
+          "oklch(15.00% 0.00667 115.70)",
+          "oklch(26.43% 0.00667 115.70)",
+          "oklch(37.86% 0.00667 115.70)",
+          "oklch(49.29% 0.00667 115.70)",
+          "oklch(60.71% 0.00667 115.70)",
+          "oklch(72.14% 0.00667 115.70)",
+          "oklch(83.57% 0.00667 115.70)",
+          "oklch(95.00% 0.00667 115.70)"
+        ]
+      },
+      "archive-foreground": {
+        "role": "neutral",
+        "displayName": "Archive Foreground",
+        "tonalRamp": [
+          "oklch(15.00% 0.03877 264.35)",
+          "oklch(26.43% 0.03877 264.35)",
+          "oklch(37.86% 0.03877 264.35)",
+          "oklch(49.29% 0.03877 264.35)",
+          "oklch(60.71% 0.03877 264.35)",
+          "oklch(72.14% 0.03877 264.35)",
+          "oklch(83.57% 0.03877 264.35)",
+          "oklch(95.00% 0.03877 264.35)"
+        ]
+      },
+      "archive-card": {
+        "role": "neutral",
+        "displayName": "Archive Card",
+        "tonalRamp": [
+          "oklch(15.00% 0.00394 106.47)",
+          "oklch(26.43% 0.00394 106.47)",
+          "oklch(37.86% 0.00394 106.47)",
+          "oklch(49.29% 0.00394 106.47)",
+          "oklch(60.71% 0.00394 106.47)",
+          "oklch(72.14% 0.00394 106.47)",
+          "oklch(83.57% 0.00394 106.47)",
+          "oklch(95.00% 0.00394 106.47)"
+        ]
+      },
+      "archive-primary": {
+        "role": "primary",
+        "displayName": "Archive Primary",
+        "tonalRamp": [
+          "oklch(15.00% 0.03877 264.35)",
+          "oklch(26.43% 0.03877 264.35)",
+          "oklch(37.86% 0.03877 264.35)",
+          "oklch(49.29% 0.03877 264.35)",
+          "oklch(60.71% 0.03877 264.35)",
+          "oklch(72.14% 0.03877 264.35)",
+          "oklch(83.57% 0.03877 264.35)",
+          "oklch(95.00% 0.03877 264.35)"
+        ]
+      },
+      "archive-primary-hover": {
+        "role": "primary",
+        "displayName": "Archive Primary Hover",
+        "tonalRamp": [
+          "oklch(15.00% 0.04125 261.32)",
+          "oklch(26.43% 0.04125 261.32)",
+          "oklch(37.86% 0.04125 261.32)",
+          "oklch(49.29% 0.04125 261.32)",
+          "oklch(60.71% 0.04125 261.32)",
+          "oklch(72.14% 0.04125 261.32)",
+          "oklch(83.57% 0.04125 261.32)",
+          "oklch(95.00% 0.04125 261.32)"
+        ]
+      },
+      "archive-secondary": {
+        "role": "neutral",
+        "displayName": "Archive Secondary",
+        "tonalRamp": [
+          "oklch(15.00% 0.00857 128.56)",
+          "oklch(26.43% 0.00857 128.56)",
+          "oklch(37.86% 0.00857 128.56)",
+          "oklch(49.29% 0.00857 128.56)",
+          "oklch(60.71% 0.00857 128.56)",
+          "oklch(72.14% 0.00857 128.56)",
+          "oklch(83.57% 0.00857 128.56)",
+          "oklch(95.00% 0.00857 128.56)"
+        ]
+      },
+      "archive-muted": {
+        "role": "neutral",
+        "displayName": "Archive Muted",
+        "tonalRamp": [
+          "oklch(15.00% 0.02527 250.42)",
+          "oklch(26.43% 0.02527 250.42)",
+          "oklch(37.86% 0.02527 250.42)",
+          "oklch(49.29% 0.02527 250.42)",
+          "oklch(60.71% 0.02527 250.42)",
+          "oklch(72.14% 0.02527 250.42)",
+          "oklch(83.57% 0.02527 250.42)",
+          "oklch(95.00% 0.02527 250.42)"
+        ]
+      },
+      "archive-faint": {
+        "role": "neutral",
+        "displayName": "Archive Faint",
+        "tonalRamp": [
+          "oklch(15.00% 0.02411 252.63)",
+          "oklch(26.43% 0.02411 252.63)",
+          "oklch(37.86% 0.02411 252.63)",
+          "oklch(49.29% 0.02411 252.63)",
+          "oklch(60.71% 0.02411 252.63)",
+          "oklch(72.14% 0.02411 252.63)",
+          "oklch(83.57% 0.02411 252.63)",
+          "oklch(95.00% 0.02411 252.63)"
+        ]
+      },
+      "archive-signal": {
+        "role": "secondary",
+        "displayName": "Archive Signal",
+        "tonalRamp": [
+          "oklch(15.00% 0.05851 211.01)",
+          "oklch(26.43% 0.05851 211.01)",
+          "oklch(37.86% 0.05851 211.01)",
+          "oklch(49.29% 0.05851 211.01)",
+          "oklch(60.71% 0.05851 211.01)",
+          "oklch(72.14% 0.05851 211.01)",
+          "oklch(83.57% 0.05851 211.01)",
+          "oklch(95.00% 0.05851 211.01)"
+        ]
+      },
+      "archive-accent": {
+        "role": "secondary",
+        "displayName": "Archive Accent",
+        "tonalRamp": [
+          "oklch(15.00% 0.05851 211.01)",
+          "oklch(26.43% 0.05851 211.01)",
+          "oklch(37.86% 0.05851 211.01)",
+          "oklch(49.29% 0.05851 211.01)",
+          "oklch(60.71% 0.05851 211.01)",
+          "oklch(72.14% 0.05851 211.01)",
+          "oklch(83.57% 0.05851 211.01)",
+          "oklch(95.00% 0.05851 211.01)"
+        ]
+      },
+      "archive-border": {
+        "role": "neutral",
+        "displayName": "Archive Border",
+        "tonalRamp": [
+          "oklch(15.00% 0.03338 255.78)",
+          "oklch(26.43% 0.03338 255.78)",
+          "oklch(37.86% 0.03338 255.78)",
+          "oklch(49.29% 0.03338 255.78)",
+          "oklch(60.71% 0.03338 255.78)",
+          "oklch(72.14% 0.03338 255.78)",
+          "oklch(83.57% 0.03338 255.78)",
+          "oklch(95.00% 0.03338 255.78)"
+        ]
+      },
+      "archive-border-faint": {
+        "role": "neutral",
+        "displayName": "Archive Border Faint",
+        "tonalRamp": [
+          "oklch(15.00% 0.03338 255.78)",
+          "oklch(26.43% 0.03338 255.78)",
+          "oklch(37.86% 0.03338 255.78)",
+          "oklch(49.29% 0.03338 255.78)",
+          "oklch(60.71% 0.03338 255.78)",
+          "oklch(72.14% 0.03338 255.78)",
+          "oklch(83.57% 0.03338 255.78)",
+          "oklch(95.00% 0.03338 255.78)"
+        ]
+      },
+      "archive-border-strong": {
+        "role": "neutral",
+        "displayName": "Archive Border Strong",
+        "tonalRamp": [
+          "oklch(15.00% 0.03338 255.78)",
+          "oklch(26.43% 0.03338 255.78)",
+          "oklch(37.86% 0.03338 255.78)",
+          "oklch(49.29% 0.03338 255.78)",
+          "oklch(60.71% 0.03338 255.78)",
+          "oklch(72.14% 0.03338 255.78)",
+          "oklch(83.57% 0.03338 255.78)",
+          "oklch(95.00% 0.03338 255.78)"
+        ]
+      },
+      "archive-input": {
+        "role": "neutral",
+        "displayName": "Archive Input",
+        "tonalRamp": [
+          "oklch(15.00% 0.03338 255.78)",
+          "oklch(26.43% 0.03338 255.78)",
+          "oklch(37.86% 0.03338 255.78)",
+          "oklch(49.29% 0.03338 255.78)",
+          "oklch(60.71% 0.03338 255.78)",
+          "oklch(72.14% 0.03338 255.78)",
+          "oklch(83.57% 0.03338 255.78)",
+          "oklch(95.00% 0.03338 255.78)"
+        ]
+      },
+      "archive-success": {
+        "role": "neutral",
+        "displayName": "Archive Success",
+        "tonalRamp": [
+          "oklch(15.00% 0.10009 161.32)",
+          "oklch(26.43% 0.10009 161.32)",
+          "oklch(37.86% 0.10009 161.32)",
+          "oklch(49.29% 0.10009 161.32)",
+          "oklch(60.71% 0.10009 161.32)",
+          "oklch(72.14% 0.10009 161.32)",
+          "oklch(83.57% 0.10009 161.32)",
+          "oklch(95.00% 0.10009 161.32)"
+        ]
+      },
+      "archive-warning": {
+        "role": "neutral",
+        "displayName": "Archive Warning",
+        "tonalRamp": [
+          "oklch(15.00% 0.09443 66.23)",
+          "oklch(26.43% 0.09443 66.23)",
+          "oklch(37.86% 0.09443 66.23)",
+          "oklch(49.29% 0.09443 66.23)",
+          "oklch(60.71% 0.09443 66.23)",
+          "oklch(72.14% 0.09443 66.23)",
+          "oklch(83.57% 0.09443 66.23)",
+          "oklch(95.00% 0.09443 66.23)"
+        ]
+      },
+      "archive-destructive": {
+        "role": "neutral",
+        "displayName": "Archive Destructive",
+        "tonalRamp": [
+          "oklch(15.00% 0.13562 23.33)",
+          "oklch(26.43% 0.13562 23.33)",
+          "oklch(37.86% 0.13562 23.33)",
+          "oklch(49.29% 0.13562 23.33)",
+          "oklch(60.71% 0.13562 23.33)",
+          "oklch(72.14% 0.13562 23.33)",
+          "oklch(83.57% 0.13562 23.33)",
+          "oklch(95.00% 0.13562 23.33)"
         ]
       }
     },
     "typographyMeta": {
       "headline": {
-        "displayName": "Headline",
-        "purpose": "Serif page headings."
-      },
-      "title": {
-        "displayName": "Title",
-        "purpose": "Serif section headings."
-      },
-      "body": {
-        "displayName": "Body",
-        "purpose": "Sans-serif working copy."
-      },
-      "label": {
-        "displayName": "Label",
-        "purpose": "Controls and labels."
+        "displayName": "Light ledger heading",
+        "purpose": "Page titles; mobile size is documented in DESIGN.md."
       },
       "amount-primary": {
-        "displayName": "Primary Amount",
-        "purpose": "Sans-serif tabular lining numerals for the monthly figure."
+        "displayName": "Leading currency",
+        "purpose": "Sans-serif tabular lining amounts; overrides the library readout treatment."
       },
-      "amount-row": {
-        "displayName": "Row Amount",
-        "purpose": "Sans-serif tabular lining numerals aligned to the right."
+      "measurement-label": {
+        "displayName": "Instrument label",
+        "purpose": "Short uppercase labels; normal-case body text stays untracked."
       }
     },
     "shadows": [
       {
-        "name": "toast",
-        "value": "0 6px 24px #30352e21",
-        "purpose": "Transient feedback."
+        "name": "overlay-night",
+        "value": "0 10px 14px rgba(0, 0, 0, 0.42)",
+        "purpose": "Night dialogs, export menus, help popovers, and toasts via --shadow-overlay-value."
       },
       {
-        "name": "dialog",
-        "value": "0 16px 72px #24262033",
-        "purpose": "Modal overlays."
+        "name": "overlay-archive",
+        "value": "0 10px 14px rgba(23, 32, 51, 0.14)",
+        "purpose": "Archive dialogs, export menus, help popovers, and toasts via --shadow-overlay-value."
       }
     ],
     "motion": [
       {
-        "name": "button-state",
-        "value": "background 0.18s ease-out, transform 0.18s ease-out",
-        "purpose": "Enabled button feedback; disabled under reduced motion."
+        "name": "ledger-button",
+        "value": "180ms ease-out",
+        "purpose": "Existing background and press feedback."
       },
       {
-        "name": "button-press",
-        "value": "translateY(1px)",
-        "purpose": "Enabled button press."
+        "name": "atlas-mode",
+        "value": "150ms cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Mode-toggle colors and borders; press scale 0.97."
       },
       {
-        "name": "refresh-spin",
-        "value": "spin 1.2s linear infinite",
-        "purpose": "Refresh progress; disabled under reduced motion."
+        "name": "reduced-motion",
+        "value": "animation: none !important; transition: none !important",
+        "purpose": "Inherited reduced-motion preference suppression."
       }
     ],
     "breakpoints": [
@@ -262,130 +530,142 @@
         "value": "370px"
       },
       {
-        "name": "compact-heading",
+        "name": "month-controls",
         "value": "400px"
       },
       {
-        "name": "mobile-max",
+        "name": "mobile",
         "value": "760px"
-      },
-      {
-        "name": "tablet-min",
-        "value": "761px"
       },
       {
         "name": "tablet-max",
         "value": "1100px"
       },
       {
-        "name": "wide-min",
+        "name": "wide",
         "value": "1450px"
       }
     ]
   },
   "components": [
     {
-      "name": "primary button",
+      "name": "Save changes",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "A standard task action.",
-      "html": "<button class=\"ds-primary\">Save changes</button>",
-      "css": ".ds-primary{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:8px;padding:12px 20px;min-height:46px;font-family:var(--ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif);font-size:14px;font-weight:500;line-height:1.55;background:var(--blue,#1b365d);color:var(--ivory,#faf9f5);cursor:pointer;transition:background .18s ease-out,transform .18s ease-out}.ds-primary:not(:disabled):hover{background:#2d4b71}.ds-primary:not(:disabled):active{transform:translateY(1px)}.ds-primary:focus-visible{outline:2px solid var(--blue,#1b365d);outline-offset:4px;}.ds-primary:disabled{opacity:.48;cursor:default}@media(prefers-reduced-motion:reduce){.ds-primary{transition:none}}"
+      "description": "Ledger action adapted to the active atlas mode.",
+      "html": "<button class=\"ds-button-primary\" type=\"button\">Save changes</button>",
+      "css": ".ds-button-primary{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:46px;padding:12px 20px;border:1px solid transparent;border-radius:2px;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:background 180ms ease-out,transform 180ms ease-out;font-family:var(--ui, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic UI', 'Segoe UI', system-ui, sans-serif);background:var(--primary,#f5f0dc);color:var(--primary-foreground,#02040a)}.ds-button-primary:hover:not(:disabled){background:var(--primary-hover,#fff8de)}.ds-button-primary:active:not(:disabled){transform:translateY(1px)}.ds-button-primary:disabled{opacity:.48;cursor:not-allowed}.ds-button-primary:focus-visible{outline:2px solid var(--ring,#aad7dc);outline-offset:4px}@media(prefers-reduced-motion:reduce){.ds-button-primary{transition:none}}"
     },
     {
-      "name": "secondary button",
+      "name": "Review transactions",
       "kind": "button",
-      "refersTo": "button-secondary",
-      "description": "A standard task action.",
-      "html": "<button class=\"ds-secondary\">Cancel</button>",
-      "css": ".ds-secondary{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:8px;padding:12px 20px;min-height:46px;font-family:var(--ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif);font-size:14px;font-weight:500;line-height:1.55;background:var(--sand,#e8e6dc);color:var(--secondary,#504e49);cursor:pointer;transition:background .18s ease-out,transform .18s ease-out}.ds-secondary:not(:disabled):hover{background:#dddbcf}.ds-secondary:not(:disabled):active{transform:translateY(1px)}.ds-secondary:focus-visible{outline:2px solid var(--blue,#1b365d);outline-offset:4px;}.ds-secondary:disabled{opacity:.48;cursor:default}@media(prefers-reduced-motion:reduce){.ds-secondary{transition:none}}"
+      "refersTo": "button-outline",
+      "description": "Ledger action adapted to the active atlas mode.",
+      "html": "<button class=\"ds-button-outline\" type=\"button\">Review transactions</button>",
+      "css": ".ds-button-outline{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:46px;padding:12px 20px;border:1px solid transparent;border-radius:2px;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:background 180ms ease-out,transform 180ms ease-out;font-family:var(--ui, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic UI', 'Segoe UI', system-ui, sans-serif);background:transparent;color:var(--muted-foreground,#aeb8c7);border-color:var(--border,rgba(255,255,255,.14))}.ds-button-outline:hover:not(:disabled){background:var(--accent,rgba(170,215,220,.1));border-color:var(--border-strong,rgba(255,255,255,.26))}.ds-button-outline:active:not(:disabled){transform:translateY(1px)}.ds-button-outline:disabled{opacity:.48;cursor:not-allowed}.ds-button-outline:focus-visible{outline:2px solid var(--ring,#aad7dc);outline-offset:4px}@media(prefers-reduced-motion:reduce){.ds-button-outline{transition:none}}"
     },
     {
-      "name": "Text button",
+      "name": "Delete category",
+      "kind": "button",
+      "refersTo": "button-danger",
+      "description": "Ledger action adapted to the active atlas mode.",
+      "html": "<button class=\"ds-button-danger\" type=\"button\">Delete category</button>",
+      "css": ".ds-button-danger{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:46px;padding:12px 20px;border:1px solid transparent;border-radius:2px;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:background 180ms ease-out,transform 180ms ease-out;font-family:var(--ui, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic UI', 'Segoe UI', system-ui, sans-serif);background:var(--destructive,#f08a8a);color:var(--destructive-foreground,#02040a)}.ds-button-danger:hover:not(:disabled){}.ds-button-danger:active:not(:disabled){transform:translateY(1px)}.ds-button-danger:disabled{opacity:.48;cursor:not-allowed}.ds-button-danger:focus-visible{outline:2px solid var(--ring,#aad7dc);outline-offset:4px}@media(prefers-reduced-motion:reduce){.ds-button-danger{transition:none}}"
+    },
+    {
+      "name": "Text action",
       "kind": "button",
       "refersTo": "button-text",
-      "description": "An inline supporting action.",
-      "html": "<button class=\"ds-text\">All transactions</button>",
-      "css": ".ds-text{border:0;background:transparent;color:var(--blue,#1b365d);padding:8px 0;min-height:44px;font-family:var(--ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif);font-size:13px;font-weight:500;cursor:pointer}.ds-text:hover{text-decoration:underline;text-underline-offset:4px}.ds-text:focus-visible{outline:2px solid var(--blue,#1b365d);outline-offset:4px;}"
+      "description": "Unboxed ledger action with a 44px minimum target.",
+      "html": "<button class=\"ds-text\" type=\"button\">View all</button>",
+      "css": ".ds-text{background:transparent;color:var(--signal,#aad7dc);border:0;padding:8px 0;min-height:44px;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--ui, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic UI', 'Segoe UI', system-ui, sans-serif);}.ds-text:hover{text-decoration:underline}.ds-text:active{opacity:.8}.ds-text:focus-visible{outline:2px solid var(--ring,#aad7dc);outline-offset:4px}"
     },
     {
-      "name": "Icon button",
+      "name": "Icon action",
       "kind": "button",
       "refersTo": "button-icon",
-      "description": "A compact action with an accessible name.",
-      "html": "<button class=\"ds-icon\" aria-label=\"Next month\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m9 6 6 6-6 6\"/></svg></button>",
-      "css": ".ds-icon{display:inline-flex;align-items:center;justify-content:center;padding:10px;min-width:44px;min-height:44px;border:0;border-radius:8px;background:transparent;color:var(--secondary,#504e49);cursor:pointer}.ds-icon:hover{background:var(--sand,#e8e6dc)}.ds-icon:focus-visible{outline:2px solid var(--blue,#1b365d);outline-offset:4px;}"
+      "description": "Labeled icon-only control; inline SVG needs no icon runtime.",
+      "html": "<button class=\"ds-icon\" type=\"button\" aria-label=\"Close\"><svg aria-hidden=\"true\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"m6 6 12 12M18 6 6 18\"/></svg></button>",
+      "css": ".ds-icon{display:inline-flex;align-items:center;justify-content:center;background:transparent;color:var(--muted-foreground,#aeb8c7);border:0;border-radius:2px;padding:10px;min-width:44px;min-height:44px;cursor:pointer}.ds-icon:hover{background:var(--secondary,#101827)}.ds-icon:active{opacity:.8}.ds-icon:focus-visible{outline:2px solid var(--ring,#aad7dc);outline-offset:4px}"
     },
     {
       "name": "Text field",
       "kind": "input",
       "refersTo": "field",
-      "description": "An explicit label and legible placeholder.",
-      "html": "<label class=\"ds-label\">Note<input class=\"ds-field\" placeholder=\"Add a note\" /></label>",
-      "css": ".ds-label{display:flex;flex-direction:column;gap:8px;font-family:var(--ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif);font-size:14px;font-weight:500;color:var(--ink,#242620)}.ds-field{min-height:46px;padding:11px 13px;border:1px solid #c9c8bd;border-radius:7px;background:var(--ivory,#faf9f5);color:var(--ink,#242620);font-family:var(--ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif);font-size:15px;font-weight:400;caret-color:var(--blue,#1b365d)}.ds-field::placeholder{color:var(--muted,#6b6a64);opacity:1}.ds-field:focus-visible{outline:2px solid var(--blue,#1b365d);outline-offset:4px;}@media(max-width:760px){.ds-field{font-size:16px}}"
+      "description": "Card-surface field with a visible input stroke and keyboard focus.",
+      "html": "<label class=\"ds-field-label\">Note<input class=\"ds-field\" type=\"text\" placeholder=\"Add a note\"></label>",
+      "css": ".ds-field-label{display:grid;gap:7px;color:var(--muted-foreground,#aeb8c7);font-size:13px;font-family:var(--ui, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic UI', 'Segoe UI', system-ui, sans-serif);}.ds-field{background:var(--card,#05070d);color:var(--foreground,#f8fafc);border:1px solid var(--input,rgba(255,255,255,.16));border-radius:2px;padding:11px 13px;min-height:46px;font-size:15px;font-family:var(--ui, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic UI', 'Segoe UI', system-ui, sans-serif);}.ds-field::placeholder{color:var(--muted-foreground,#aeb8c7);opacity:1}.ds-field:hover{border-color:var(--border-strong,rgba(255,255,255,.26))}.ds-field:focus-visible{outline:2px solid var(--ring,#aad7dc);outline-offset:4px}"
     },
     {
-      "name": "Desktop navigation",
+      "name": "Current navigation",
       "kind": "nav",
       "refersTo": "navigation-active",
-      "description": "Current route has a tinted surface and stronger weight.",
-      "html": "<nav class=\"ds-nav\" aria-label=\"Preview navigation\"><a href=\"#home\" aria-current=\"page\">Overview</a><a href=\"#transactions\">Transactions</a></nav>",
-      "css": ".ds-nav{display:grid;gap:7px;padding:14px;background:#eeede5}.ds-nav a{display:flex;align-items:center;min-height:48px;padding:12px 17px;border-radius:7px;color:var(--secondary,#504e49);text-decoration:none;font-family:var(--ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif);font-size:15px;line-height:1.55}.ds-nav a:hover{background:#e5e4da}.ds-nav a[aria-current=page]{background:#e0e4e5;color:var(--blue,#1b365d);font-weight:600}.ds-nav a:focus-visible{outline:2px solid var(--blue,#1b365d);outline-offset:4px;}"
+      "description": "Retained ledger rail uses an outlined current item and signal icon.",
+      "html": "<nav aria-label=\"Preview navigation\"><a class=\"ds-nav\" href=\"#overview\" aria-current=\"page\"><svg aria-hidden=\"true\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"m3 10 9-7 9 7v10H3Z\"/><path d=\"M9 20v-7h6v7\"/></svg>Overview</a></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;gap:12px;padding:12px 17px;min-height:44px;border:1px solid var(--border-strong,rgba(255,255,255,.26));border-radius:2px;background:transparent;color:var(--foreground,#f8fafc);font-size:13px;font-weight:500;text-decoration:none;font-family:var(--ui, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic UI', 'Segoe UI', system-ui, sans-serif);}.ds-nav svg{color:var(--signal,#aad7dc)}.ds-nav:hover{background:var(--accent,rgba(170,215,220,.1))}.ds-nav:active{opacity:.8}.ds-nav:focus-visible{outline:2px solid var(--ring,#aad7dc);outline-offset:4px}"
     },
     {
-      "name": "Transaction filter",
+      "name": "Selected category",
       "kind": "chip",
-      "refersTo": "filter-active",
-      "description": "A visible selected filter with aria-pressed state.",
-      "html": "<div class=\"ds-filters\"><button aria-pressed=\"false\">All transactions</button><button aria-pressed=\"true\">To review</button></div>",
-      "css": ".ds-filters{display:flex;gap:4px;flex-wrap:wrap}.ds-filters button{border:0;border-radius:6px;min-height:44px;padding:11px 14px;background:transparent;color:var(--secondary,#504e49);font-family:var(--ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif);font-size:13px;cursor:pointer}.ds-filters button[aria-pressed=true]{background:var(--sand,#e8e6dc);color:var(--blue,#1b365d);font-weight:600}.ds-filters button:hover{background:#eceae1}.ds-filters button:focus-visible{outline:2px solid var(--blue,#1b365d);outline-offset:4px;}"
+      "refersTo": "category-selected",
+      "description": "Native checkbox remains interactive; signal wash marks a selected label.",
+      "html": "<label class=\"ds-category\"><input type=\"checkbox\" checked>Groceries</label>",
+      "css": ".ds-category{display:inline-flex;align-items:center;gap:7px;min-height:44px;padding:9px 11px;border:1px solid var(--border,rgba(255,255,255,.14));border-radius:2px;background:var(--card,#05070d);color:var(--muted-foreground,#aeb8c7);font-size:13px;cursor:pointer;font-family:var(--ui, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic UI', 'Segoe UI', system-ui, sans-serif);}.ds-category:has(:checked){background:var(--accent,rgba(170,215,220,.1));color:var(--foreground,#f8fafc);border-color:var(--signal,#aad7dc)}.ds-category:hover{border-color:var(--border-strong,rgba(255,255,255,.26))}.ds-category:has(:focus-visible){outline:2px solid var(--ring,#aad7dc);outline-offset:4px}.ds-category input{accent-color:var(--signal,#aad7dc)}"
     },
     {
-      "name": "Monthly folio",
+      "name": "Review panel",
       "kind": "card",
-      "refersTo": "monthly-folio",
-      "description": "Flat ivory grouping for the leading monthly amount.",
-      "html": "<section class=\"ds-folio\" aria-label=\"Monthly summary\"><h2>Net spending</h2><div class=\"ds-amount\">$119.99</div><p>Posted transactions</p></section>",
-      "css": ".ds-folio{padding:27px 30px 24px;border:1px solid var(--line,#deddd3);border-radius:12px;background:var(--ivory,#faf9f5);color:var(--ink,#242620)}.ds-folio h2{margin:0;font-family:var(--serif,Charter,Georgia,serif);font-size:17px;font-weight:500;line-height:1.4;color:var(--secondary,#504e49)}.ds-amount{margin-top:18px;font-family:var(--number,-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif);font-variant-numeric:tabular-nums lining-nums;font-size:48px;font-weight:500;line-height:1.2;letter-spacing:-.025em;color:var(--blue,#1b365d);overflow-wrap:anywhere}.ds-folio p{margin:9px 0 0;font-family:var(--ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif);font-size:12px;color:var(--muted,#6b6a64)}@media(max-width:760px){.ds-amount{font-size:42px}}@media(max-width:370px){.ds-amount{font-size:38px}}"
+      "refersTo": "review-panel",
+      "description": "StarPanel adaptation: solid, flat, hairline-framed; no connector or sky effect.",
+      "html": "<article class=\"ds-review\"><h2>To review</h2><p class=\"ds-review-count\">2</p><button class=\"ds-review-action\" type=\"button\">Review transactions</button></article>",
+      "css": ".ds-review{background:var(--card,#05070d);color:var(--foreground,#f8fafc);border:1px solid var(--border,rgba(255,255,255,.14));border-radius:2px;padding:24px;box-shadow:none;font-family:var(--ui, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic UI', 'Segoe UI', system-ui, sans-serif);}.ds-review h2{margin:0;font-size:16px;font-weight:400}.ds-review-count{margin:10px 0 20px;font-family:var(--number,'Segoe UI',system-ui,sans-serif);font-size:44px;font-weight:300;line-height:1.2;font-variant-numeric:tabular-nums lining-nums}.ds-review-action{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:46px;padding:12px 20px;border:1px solid transparent;border-radius:2px;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:background 180ms ease-out,transform 180ms ease-out;font-family:var(--ui, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic UI', 'Segoe UI', system-ui, sans-serif);min-height:44px;background:transparent;color:var(--muted-foreground,#aeb8c7);border-color:var(--border,rgba(255,255,255,.14))}.ds-review-action:hover{background:var(--accent,rgba(170,215,220,.1));border-color:var(--border-strong,rgba(255,255,255,.26))}.ds-review-action:active{transform:translateY(1px)}.ds-review-action:focus-visible{outline:2px solid var(--ring,#aad7dc);outline-offset:4px}"
+    },
+    {
+      "name": "Measurement",
+      "kind": "custom",
+      "refersTo": "measurement",
+      "description": "Library reading with the ledger's readable currency stack.",
+      "html": "<div class=\"ds-measurement\"><p class=\"ds-measurement-value\">$0.00</p><p class=\"ds-measurement-label\">Income</p></div>",
+      "css": ".ds-measurement{display:grid;align-content:end;gap:10px;padding:21px 18px;min-height:96px;border-top:1px solid var(--border-faint,rgba(255,255,255,.08));background:transparent;color:var(--foreground,#f8fafc)}.ds-measurement-value{margin:0;font-family:var(--number,'Segoe UI',system-ui,sans-serif);font-size:24px;font-weight:400;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums lining-nums}.ds-measurement-label{margin:0;color:var(--muted-foreground,#aeb8c7);font-size:10px;font-weight:600;line-height:1.2;letter-spacing:.16em;text-transform:uppercase;font-family:var(--ui, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic UI', 'Segoe UI', system-ui, sans-serif);}"
     }
   ],
   "narrative": {
-    "northStar": "The Shared Monthly Folio",
-    "overview": "Warm parchment and ivory surfaces support ink-blue actions. Charter-led headings establish sections; system sans-serif labels and tabular amounts keep the ledger easy to scan. Fine rules and restrained surfaces give this working interface its character.\n\nCopy stays short, English, and task-oriented. The folio metaphor guides materials and hierarchy without adding slogans, decorative prose, photography, or illustrations.",
+    "northStar": "The Private Star Atlas",
+    "overview": "This isolated local preview applies the existing Hoshikuzu world to Home Ledger: precise hairlines, light headings, restrained signal colors, and compact instrument labels. Night atlas uses deep-space surfaces; archive sheet uses pale paper. The ledger remains an English, task-oriented shared financial workspace.\n\nThis file describes branch yihui/hoshikuzu-preview, not an approved production redesign. Main and production retain their Kami commitment. The implementation uses the library's source/registry model at d6447fe136485d2cac389041bcdeae595187f723: vendored theme, AtlasMode, Measurement, and StarPanel, with a ledger-specific CSS bridge. No Base UI runtime is used. The direction is inherited from the requested library, not a new brand workshop.",
     "keyCharacteristics": [
-      "Warm neutral surfaces with ink-blue actions.",
-      "Serif headings and sans-serif tabular amounts.",
-      "Ruled transaction rows with explicit status.",
-      "Comfortable mobile controls and compact desktop navigation."
+      "Two modes share semantic colors and the same content hierarchy.",
+      "Light sans headings, readable tabular currency, short tracked labels.",
+      "Hairline sections and nearly square controls with flat resting surfaces.",
+      "Existing ledger navigation, native dialogs, and category checkboxes remain."
     ],
     "rules": [
       {
-        "name": "The Ink Rule",
-        "body": "Use ink-blue for actions, selection, and the primary monthly figure while keeping neutral surfaces dominant.",
+        "name": "The Semantic Mode Rule",
+        "body": "Use the runtime semantic CSS variables so night and archive change together; color never replaces a visible financial or review-state label.",
         "section": "colors"
       },
       {
-        "name": "The Numeric Rule",
-        "body": "All amounts use sans-serif tabular lining numerals; serif type is reserved for headings and the wordmark.",
+        "name": "The Ledger Number Rule",
+        "body": "Currency uses the dedicated Segoe UI/system sans stack with tabular lining numerals, adapting the library's numeric readout style for financial scanning.",
         "section": "typography"
       },
       {
-        "name": "The Flat Surface Rule",
-        "body": "Routine ledger content stays flat; shadows distinguish temporary overlays.",
+        "name": "The Flat Ledger Rule",
+        "body": "Reserve elevation for temporary overlays; the library's optional sky effects are not part of this ledger preview.",
         "section": "elevation"
       }
     ],
     "dos": [
-      "Do keep interface copy in English and state the task directly.",
-      "Do use the existing parchment, ivory, and ink-blue palette.",
-      "Do use sans-serif tabular lining numerals for amounts.",
-      "Do preserve keyboard focus, explicit state labels, and safe-area clearance."
+      "Do verify night and archive together when changing semantic colors.",
+      "Do keep English copy task-oriented and preserve explicit state labels.",
+      "Do keep currency in readable sans-serif tabular lining numerals.",
+      "Do preserve keyboard focus, touch targets, and mobile safe-area clearance."
     ],
     "donts": [
-      "Don't add slogans, cute empty states, or redundant descriptions.",
-      "Don't use serif type for financial amounts.",
-      "Don't communicate financial or review states through color alone.",
-      "Don't add routine card shadows or decorative imagery.\r"
+      "Don't treat this local preview as approval to change main or production.",
+      "Don't place decorative starfields, glow, or gradients behind financial content.",
+      "Don't uppercase sentences or apply label tracking to body copy.",
+      "Don't replace working native ledger interactions solely to imitate library demos."
     ]
   }
 }

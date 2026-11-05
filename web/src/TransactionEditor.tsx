@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { Check, History } from 'lucide-react';
 import { api, ApiError } from './api';
-import { Dialog, Notice } from './components';
+import { ConfirmDialog, Dialog, Notice } from './components';
 import {
   dateText,
   flowNames,
@@ -34,6 +34,7 @@ export function TransactionEditor({
   const [busy, setBusy] = useState(false),
     [error, setError] = useState(''),
     [conflict, setConflict] = useState(false);
+  const [confirmDiscard, setConfirmDiscard] = useState(false);
   const [edits, setEdits] = useState<Edit[] | null>(null),
     [historyOpen, setHistoryOpen] = useState(false),
     [historyError, setHistoryError] = useState('');
@@ -46,7 +47,9 @@ export function TransactionEditor({
     note !== row.note ||
     (flow !== 'income' && reviewed !== row.reviewed);
   function close() {
-    if (!busy && (!dirty || window.confirm('Discard your unsaved changes?'))) onClose();
+    if (busy) return;
+    if (dirty) setConfirmDiscard(true);
+    else onClose();
   }
   async function save(event: FormEvent) {
     event.preventDefault();
@@ -100,171 +103,182 @@ export function TransactionEditor({
       }
   }
   return (
-    <Dialog title="Transaction" onClose={close} className="editor-dialog">
-      <form onSubmit={save}>
-        <div className="editor-summary">
-          <span>{row.merchant || row.name}</span>
-          <strong>
-            {row.amount_cents < 0 ? '+' : '−'}
-            {money(Math.abs(row.amount_cents))}
-          </strong>
-          <p>
-            {dateText(row.date)} · {row.pending ? 'Pending at the bank' : 'Posted'} · USD
-          </p>
-        </div>
-        {row.removed && <Notice>The bank removed this transaction. It is now read-only.</Notice>}
-        {error && (
-          <Notice>
-            {error}
-            {conflict && (
-              <button type="button" className="text-button" onClick={reload} disabled={busy}>
-                Load latest (replaces unsaved edits)
-              </button>
-            )}
-          </Notice>
-        )}
-        <fieldset className="category-picker" disabled={busy || row.removed || !online}>
-          <legend>Categories</legend>
-          <div>
-            <button
-              type="button"
-              className="category-choice"
-              aria-pressed={selected.length === 0}
-              onClick={() => setSelected([])}
-            >
-              Uncategorized
-            </button>
-            {categories
-              .filter((c) => c.active || row.categories.some((saved) => saved.id === c.id))
-              .map((c) => (
-                <label className="category-choice" key={c.id}>
-                  <input
-                    type="checkbox"
-                    checked={selected.includes(c.id)}
-                    onChange={(e) =>
-                      setSelected(
-                        e.target.checked
-                          ? [...selected, c.id]
-                          : selected.filter((id) => id !== c.id),
-                      )
-                    }
-                  />
-                  <span>
-                    {c.name}
-                    {!c.active && ' · Archived'}
-                  </span>
-                </label>
-              ))}
+    <>
+      <Dialog title="Transaction" onClose={close} className="editor-dialog">
+        <form onSubmit={save}>
+          <div className="editor-summary">
+            <span>{row.merchant || row.name}</span>
+            <strong>
+              {row.amount_cents < 0 ? '+' : '−'}
+              {money(Math.abs(row.amount_cents))}
+            </strong>
+            <p>
+              {dateText(row.date)} · {row.pending ? 'Pending at the bank' : 'Posted'} · USD
+            </p>
           </div>
-        </fieldset>
-        <label>
-          Type
-          <select
-            value={flow}
-            onChange={(e) => {
-              const next = e.target.value as Flow;
-              if (flow === 'income' && next !== 'income') setReviewed(false);
-              setFlow(next);
-            }}
-          >
-            {(Object.keys(flowNames) as Flow[])
-              .filter(
-                (f) =>
-                  f === 'transfer' ||
-                  (row.amount_cents < 0 ? f === 'income' || f === 'refund' : f === 'expense'),
-              )
-              .map((f) => (
-                <option key={f} value={f}>
-                  {flowNames[f]}
-                </option>
-              ))}
-          </select>
-        </label>
-        <label>
-          Note<span className="optional">Optional</span>
-          <textarea
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
-            rows={3}
-            maxLength={1000}
-          />
-        </label>
-        {flow !== 'income' && (
-          <label className="check-line">
-            <input
-              type="checkbox"
-              checked={reviewed}
-              onChange={(e) => setReviewed(e.target.checked)}
-              disabled={row.pending}
-            />
-            <span>
-              <strong>Reviewed</strong>
-              <small>
-                {row.pending
-                  ? 'Available after posting.'
-                  : row.reviewed_by_name
-                    ? `Reviewed by ${row.reviewed_by_name}`
-                    : 'Shared with your household.'}
-              </small>
-            </span>
-          </label>
-        )}
-        <button
-          className="button primary full"
-          disabled={!dirty || busy || conflict || !online || row.removed}
-        >
-          {busy ? (
-            'Saving…'
-          ) : (
-            <>
-              <Check size={18} />
-              Save transaction
-            </>
+          {row.removed && <Notice>The bank removed this transaction. It is now read-only.</Notice>}
+          {error && (
+            <Notice>
+              {error}
+              {conflict && (
+                <button type="button" className="text-button" onClick={reload} disabled={busy}>
+                  Load latest (replaces unsaved edits)
+                </button>
+              )}
+            </Notice>
           )}
-        </button>
-        {!online && <p className="helper">Offline. Keep this window open until you can save.</p>}
-        <button
-          type="button"
-          className="history-toggle text-button"
-          onClick={loadHistory}
-          aria-expanded={historyOpen}
-        >
-          <History size={16} />
-          Edit history
-        </button>
-        {historyOpen && (
-          <div className="history-list">
-            {historyError ? (
-              <Notice>{historyError}</Notice>
-            ) : edits === null ? (
-              <p>Loading…</p>
-            ) : edits.length === 0 ? (
-              <p>No edits yet.</p>
+          <fieldset className="category-picker" disabled={busy || row.removed || !online}>
+            <legend>Categories</legend>
+            <div>
+              <button
+                type="button"
+                className="category-choice"
+                aria-pressed={selected.length === 0}
+                onClick={() => setSelected([])}
+              >
+                Uncategorized
+              </button>
+              {categories
+                .filter((c) => c.active || row.categories.some((saved) => saved.id === c.id))
+                .map((c) => (
+                  <label className="category-choice" key={c.id}>
+                    <input
+                      type="checkbox"
+                      checked={selected.includes(c.id)}
+                      onChange={(e) =>
+                        setSelected(
+                          e.target.checked
+                            ? [...selected, c.id]
+                            : selected.filter((id) => id !== c.id),
+                        )
+                      }
+                    />
+                    <span>
+                      {c.name}
+                      {!c.active && ' · Archived'}
+                    </span>
+                  </label>
+                ))}
+            </div>
+          </fieldset>
+          <label>
+            Type
+            <select
+              value={flow}
+              onChange={(e) => {
+                const next = e.target.value as Flow;
+                if (flow === 'income' && next !== 'income') setReviewed(false);
+                setFlow(next);
+              }}
+            >
+              {(Object.keys(flowNames) as Flow[])
+                .filter(
+                  (f) =>
+                    f === 'transfer' ||
+                    (row.amount_cents < 0 ? f === 'income' || f === 'refund' : f === 'expense'),
+                )
+                .map((f) => (
+                  <option key={f} value={f}>
+                    {flowNames[f]}
+                  </option>
+                ))}
+            </select>
+          </label>
+          <label>
+            Note<span className="optional">Optional</span>
+            <textarea
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              rows={3}
+              maxLength={1000}
+            />
+          </label>
+          {flow !== 'income' && (
+            <label className="check-line">
+              <input
+                type="checkbox"
+                checked={reviewed}
+                onChange={(e) => setReviewed(e.target.checked)}
+                disabled={row.pending}
+              />
+              <span>
+                <strong>Reviewed</strong>
+                <small>
+                  {row.pending
+                    ? 'Available after posting.'
+                    : row.reviewed_by_name
+                      ? `Reviewed by ${row.reviewed_by_name}`
+                      : 'Shared with your household.'}
+                </small>
+              </span>
+            </label>
+          )}
+          <button
+            className="button primary full"
+            disabled={!dirty || busy || conflict || !online || row.removed}
+          >
+            {busy ? (
+              'Saving…'
             ) : (
-              edits.map((edit, index) => (
-                <div key={index}>
-                  <strong>{edit.actor || 'Household member'}</strong>
-                  <span>{timeText(edit.created_at)}</span>
-                  <p>
-                    {Object.keys(edit.changes)
-                      .map(
-                        (k) =>
-                          ({
-                            category: 'Category',
-                            categories: 'Categories',
-                            flow: 'Type',
-                            reviewed: 'Review status',
-                            note: 'Note',
-                          })[k] ?? k,
-                      )
-                      .join(', ') || 'Saved'}
-                  </p>
-                </div>
-              ))
+              <>
+                <Check size={18} />
+                Save transaction
+              </>
             )}
-          </div>
-        )}
-      </form>
-    </Dialog>
+          </button>
+          {!online && <p className="helper">Offline. Keep this window open until you can save.</p>}
+          <button
+            type="button"
+            className="history-toggle text-button"
+            onClick={loadHistory}
+            aria-expanded={historyOpen}
+          >
+            <History size={16} />
+            Edit history
+          </button>
+          {historyOpen && (
+            <div className="history-list">
+              {historyError ? (
+                <Notice>{historyError}</Notice>
+              ) : edits === null ? (
+                <p>Loading…</p>
+              ) : edits.length === 0 ? (
+                <p>No edits yet.</p>
+              ) : (
+                edits.map((edit, index) => (
+                  <div key={index}>
+                    <strong>{edit.actor || 'Household member'}</strong>
+                    <span>{timeText(edit.created_at)}</span>
+                    <p>
+                      {Object.keys(edit.changes)
+                        .map(
+                          (k) =>
+                            ({
+                              category: 'Category',
+                              categories: 'Categories',
+                              flow: 'Type',
+                              reviewed: 'Review status',
+                              note: 'Note',
+                            })[k] ?? k,
+                        )
+                        .join(', ') || 'Saved'}
+                    </p>
+                  </div>
+                ))
+              )}
+            </div>
+          )}
+        </form>
+      </Dialog>
+      {confirmDiscard && (
+        <ConfirmDialog
+          title="Discard changes?"
+          confirmLabel="Discard"
+          cancelLabel="Keep editing"
+          onCancel={() => setConfirmDiscard(false)}
+          onConfirm={onClose}
+        />
+      )}
+    </>
   );
 }

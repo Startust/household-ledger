@@ -33,11 +33,13 @@ Notifications currently mean the in-app digest inbox. External Web Push remains 
 Offline shell is allowed, sensitive account responses are not persisted in service-worker caches.
 
 ## Brand Commitments
-User explicitly requested warm, simple, easy to use, with kami and impeccable.
-Use kami's parchment/ink-blue/editorial vocabulary for this dynamic UI; impeccable governs interaction and responsiveness.
+
+Main/production commitment: the user requested warm, simple, easy to use, with kami and impeccable.
+Main retains kami's parchment/ink-blue/editorial vocabulary; impeccable governs interaction and responsiveness.
 English UI and USD amounts. Product name: Home Ledger. No supplied logo or licensed web fonts.
 No slogans, decorative prose, redundant descriptions or cute empty-state copy. Keep copy task-oriented.
-Use clear sans-serif tabular numerals for all amounts and a restrained serif for headings.
+Use clear sans-serif tabular numerals for all amounts; main uses a restrained serif for headings.
+Latest request: preview the existing hoshikuzu-ui visual world locally on isolated branch `yihui/hoshikuzu-preview`. This branch uses the library's night/archive semantic palette, light sans headings, hairlines, and small corners while preserving product behavior. Its DESIGN.md describes that preview only; no production adoption or deployment is implied.
 
 ## Product Principles
 Make pending review easy to find. Distinguish pending/removed/transfer/refund accurately.

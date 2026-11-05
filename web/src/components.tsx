@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useId, useRef, useState, type ReactNode, type RefObject } from 'react';
 import {
   ArrowDownLeft,
   ArrowLeftRight,
@@ -69,28 +69,42 @@ export function Skeleton() {
     </div>
   );
 }
+let openDialogs = 0;
+let bodyOverflowBeforeDialogs = '';
+
 export function Dialog({
   title,
   children,
   onClose,
   className = '',
+  role = 'dialog',
+  initialFocusRef,
 }: {
   title: string;
   children: ReactNode;
   onClose: () => void;
   className?: string;
+  role?: 'dialog' | 'alertdialog';
+  initialFocusRef?: RefObject<HTMLElement | null>;
 }) {
   const ref = useRef<HTMLDialogElement>(null);
+  const titleId = useId();
   useEffect(() => {
     const d = ref.current!;
+    const returnFocus =
+      document.activeElement instanceof HTMLElement ? document.activeElement : null;
     d.showModal();
-    const overflow = document.body.style.overflow;
+    initialFocusRef?.current?.focus({ preventScroll: true });
+    if (openDialogs === 0) bodyOverflowBeforeDialogs = document.body.style.overflow;
+    openDialogs++;
     document.body.style.overflow = 'hidden';
     return () => {
       d.close();
-      document.body.style.overflow = overflow;
+      openDialogs--;
+      if (openDialogs === 0) document.body.style.overflow = bodyOverflowBeforeDialogs;
+      if (returnFocus?.isConnected) returnFocus.focus({ preventScroll: true });
     };
-  }, []);
+  }, [initialFocusRef]);
   return (
     <dialog
       ref={ref}
@@ -111,16 +125,50 @@ export function Dialog({
             onClose();
         }
       }}
-      aria-labelledby="dialog-title"
+      role={role}
+      aria-labelledby={titleId}
     >
       <div className="dialog-heading">
-        <h2 id="dialog-title">{title}</h2>
+        <h2 id={titleId}>{title}</h2>
         <button className="icon-button" aria-label="Close" onClick={onClose}>
           <X size={21} />
         </button>
       </div>
       {children}
     </dialog>
+  );
+}
+export function ConfirmDialog({
+  title,
+  confirmLabel,
+  cancelLabel = 'Cancel',
+  onConfirm,
+  onCancel,
+}: {
+  title: string;
+  confirmLabel: string;
+  cancelLabel?: string;
+  onConfirm: () => void;
+  onCancel: () => void;
+}) {
+  const cancelRef = useRef<HTMLButtonElement>(null);
+  return (
+    <Dialog
+      title={title}
+      onClose={onCancel}
+      role="alertdialog"
+      className="confirmation-dialog"
+      initialFocusRef={cancelRef}
+    >
+      <div className="dialog-actions">
+        <button ref={cancelRef} type="button" className="button secondary" onClick={onCancel}>
+          {cancelLabel}
+        </button>
+        <button type="button" className="button danger" onClick={onConfirm}>
+          {confirmLabel}
+        </button>
+      </div>
+    </Dialog>
   );
 }
 export function InstallHelp({ onClose }: { onClose: () => void }) {

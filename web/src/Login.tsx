@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react';
 import { ArrowRight, Eye, EyeOff } from 'lucide-react';
+import { AtlasModeToggle } from './hoshikuzu/atlas-mode';
 import { api } from './api';
 import { Brand, Notice } from './components';
 import type { User } from './types';
@@ -28,6 +29,7 @@ export function Login({ onLogin, message }: { onLogin: (user: User) => void; mes
       <section className="login-form-panel">
         <div className="login-brand">
           <Brand />
+          <AtlasModeToggle compact />
         </div>
         <form className="login-form" onSubmit={submit}>
           <h1>Sign in</h1>

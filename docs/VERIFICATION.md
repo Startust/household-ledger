@@ -84,3 +84,17 @@ transactions remain. Audit/version increments from QA are intentional.
 - Impeccable detector ran once. Advisory typography/palette drift in existing DESIGN metadata was reported; extension reuses existing sizes and colors. No unrequested design-system repair.
 - iPhone Safari/standalone file handling has not been tested on a physical device; desktop browser mobile sizing is the verified scope.
 - Independent export finish review: ship with no material fixes at the reviewed sizes. Documentation comparison found no new material drift; PRODUCT.md, DESIGN.md and `.impeccable/design.json` hashes unchanged. Records: `.impeccable/review/exports-finish-review.md` and `exports-documentation.md`.
+
+## First production deployment — 2026-11-05
+
+- Created private GitHub repository `Startust/household-ledger`, default branch main. Staged-source scan excluded local and production credentials, database snapshots, dependencies and screenshots. No unrelated Playground files published.
+- Created dedicated Railway project `cb170b23-9d1b-4ecd-8629-16635c4b1909`, production environment `65edffcd-17f8-4890-9e90-81d808bb1db3`. Postgres, Web and worker all report SUCCESS.
+- Application snapshot `dd50ede7f387d2f7fd8470e83fb9de788864b19e` was archived directly from the pushed Git commit and uploaded to both app services. Web deployment `c375baa7-48c9-48be-a67f-b12f0f28d133`; worker deployment `1b68a5a9-9800-47d4-9a98-3b80ac26aa0c`.
+- Railway rejected legacy Config as Code for new services. Migrated to `.railway/railway.ts`, pinned stable SDK 3.16.0, used local CLI 5.71.0. Production dependency audit still reports zero vulnerabilities; CLI installer dependencies are not committed or part of the runtime. Final IaC plan: `No changes.` Existing platform defaults omitted from source after verifying ON_FAILURE/10 retries/no sleep in actual deployment manifests.
+- Railway GitHub integration cannot access the private repository; CLI deployment succeeded instead. GitHub auto-deploy is not enabled. Repository access must be granted in Railway before enabling it.
+- Verified public HTTPS `/health/ready`, PWA shell/manifest/icons/service worker/OAuth route, immutable hashed assets, anonymous transaction/export denial, Secure/HttpOnly/SameSite session cookies, initial account login/logout, empty ledger, seven categories, exact zero summary, CSV and single-page PDF attachments with no-store.
+- Browser signed in as the requested `yihui`, showed the independent empty household, and downloaded production PDF. Screenshot: `.impeccable/review/railway-production.png`. Initial password stored only in ignored `.local/production-login.txt`; no local demo credentials or records were deployed.
+- Worker is running one replica. Remote one-cycle verification returned `Worker cycle completed; synced=0`; no bank credentials are configured. Postgres has a persistent volume and no public TCP proxy; worker has no public domain.
+- Daily volume backup schedule enabled and read back: 10:45 UTC, six-day retention. Restore has not been tested. Backup schedule is managed in Railway outside IaC.
+- Temporary SSH key used for account initialization and worker check was revoked from Railway and removed from both local temporary paths. Local development services remain unchanged.
+- Outstanding external configuration: Plaid credentials/real bank authorization and optional GitHub repository integration. No live bank sync, iPhone device installation, push delivery or restore exercise claimed.

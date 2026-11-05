@@ -30,9 +30,6 @@ export default defineRailway(() => {
       preDeployCommand: ['npm run db:migrate'],
       healthcheckPath: '/health/ready',
       healthcheckTimeout: 120,
-      restartPolicyType: 'ON_FAILURE',
-      restartPolicyMaxRetries: 10,
-      sleepApplication: false,
     },
     replicas: { 'us-east4-eqdc4a': 1 },
   });
@@ -54,9 +51,6 @@ export default defineRailway(() => {
     },
     deploy: {
       startCommand: 'node dist/src/worker.js',
-      restartPolicyType: 'ON_FAILURE',
-      restartPolicyMaxRetries: 10,
-      sleepApplication: false,
     },
     replicas: { 'us-east4-eqdc4a': 1 },
   });

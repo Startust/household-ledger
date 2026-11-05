@@ -2,8 +2,9 @@
 
 两位家庭成员共用一个 USD Checking/debit 账户：共享交易分类、确认状态、备注、月度统计和每日汇总。英文 PWA 和 NestJS 使用同源部署，可在桌面浏览器查看，也可添加到 iPhone 主屏幕。
 
-应用入口：[Home Ledger](http://127.0.0.1:8765/)，接口文档：[Swagger](http://127.0.0.1:8765/api/docs)。
-当前本地演示使用 6 笔模拟交易；真实 BOA 授权、iPhone 真机安装和远程部署尚未验证。
+线上入口：[Home Ledger](https://web-production-53641.up.railway.app/)，源码：[Startust/household-ledger](https://github.com/Startust/household-ledger)（私有）。
+本地演示：[Home Ledger](http://127.0.0.1:8765/)，接口文档：[Swagger](http://127.0.0.1:8765/api/docs)。
+正式环境使用独立空账本和 `yihui` 账号；本地仍为 6 笔模拟交易。真实 BOA 授权、iPhone 真机安装尚未验证。
 
 Overview 的 **Export** 导出所选月份；Transactions 的 **Export** 导出当前搜索/筛选下的全部交易，包含所有分页。
 可选 CSV（Excel/Numbers 可打开）或 PDF（汇总、明细、备注、页码）。Pending 在明细中标识，
@@ -147,7 +148,7 @@ NestJS 使用全新的 PostgreSQL 演示库，不读取旧 SQLite，也没有实
 离线只缓存应用代码和图标，不缓存账户/交易 API，不支持离线提交。
 冷启动断网时显示登录页和重连提示，不显示上次账户的账目。
 
-在 Railway 部署并取得 HTTPS 地址后，用 iPhone Safari 打开并登录，然后 Share → Add to Home Screen。
+用 iPhone Safari 打开上面的线上 HTTPS 地址并登录，然后 Share → Add to Home Screen。
 若系统显示 Open as Web App，启用后点 Add。应用内 Settings → Install app 也有说明。
 本地 127.0.0.1 地址仅属于这台电脑，不能直接在 iPhone 打开。
 参考：[Apple 官方安装说明](https://support.apple.com/guide/iphone/open-as-web-app-iphea86e5236/ios)。

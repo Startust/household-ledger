@@ -1,6 +1,6 @@
 # First Railway deployment
 
-Status: authorized by user, 2026-11-05.
+Status: complete, 2026-11-05.
 Brainstorm Gate: complete. User requested a GitHub repository under Startust before Railway deployment;
 first production username confirmed as yihui. Private repository and empty production ledger are the defaults.
 
@@ -21,7 +21,7 @@ Architecture: APPROVE, same-origin container plus PG/worker matches ADRs and SYS
 Verification: APPROVE, exact service selectors and artifact inspection before upload; online checks after deployment.
 
 ## Execution
-In progress. Railway plugin authentication is expired; existing authenticated CLI is the fallback.
+Railway plugin authentication is expired; existing authenticated CLI was used as the fallback.
 Platform change discovered: new services reject Config as Code. Replaced legacy railway.json files
 with .railway/railway.ts and pinned railway SDK 3.16.0. CLI 5.71.0 is used as an ignored local executable;
 the app/runtime dependency set remains unchanged. Variables stay outside IaC. A read-only baseline plan
@@ -29,3 +29,10 @@ confirmed existing database/volume are preserved; service updates are reviewed b
 Railway GitHub source connection returned “User does not have access to the repo”. The user has
 GitHub org admin access and the private repository is already pushed; deploy the exact committed
 snapshot via authenticated Railway CLI. No GitHub App permission expansion is performed.
+
+Completed: private repo pushed; all three production services SUCCESS; exact pushed Git application
+snapshot dd50ede deployed; first user yihui initialized in an empty household. Browser login/PDF and
+HTTP security/PWA/CSV/PDF checks passed. Worker cycle verified, private networking retained, daily
+backups enabled. Temporary SSH access revoked. Final IaC plan clean, production audit zero.
+Durable details promoted to README, PRODUCT, SYSTEM_MAP, RAILWAY and VERIFICATION.
+Remaining external setup: Plaid credentials/real bank authorization and optional GitHub integration.

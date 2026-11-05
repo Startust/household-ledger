@@ -15,7 +15,7 @@ User confirmed the landing screen should prioritize monthly income/spending with
 
 ## Stack
 Existing NestJS + Prisma + PostgreSQL. Frontend stack delegated in the conversation: React/TypeScript/Vite PWA.
-Local implementation first, eventually same-origin hosting on Railway. No remote deployment this task.
+Local development and same-origin Railway hosting. Private GitHub repository: Startust/household-ledger.
 
 ## Operating Context
 Independent member login; shared categories/notes/review; separate inbox read receipts.
@@ -23,7 +23,8 @@ Bank sync and scheduled daily summaries run on the server. Imported bank facts c
 
 ## Capabilities and Constraints
 One USD Checking account; no credit cards/public registration. Integer cents and optimistic edit versions.
-Current sample contains six clearly labeled demo transactions. Real Plaid/BOA authorization remains unverified.
+Local sample contains six clearly labeled demo transactions; production is an independent empty ledger.
+Real Plaid/BOA authorization remains unverified and credentials are not configured in production.
 Notifications currently mean the in-app digest inbox. External Web Push remains a separately configured channel.
 Offline shell is allowed, sensitive account responses are not persisted in service-worker caches.
 

@@ -2,6 +2,10 @@
 
 私有源码仓库：`Startust/household-ledger`，分支 `main`。
 Railway 项目：`household-ledger`，生产环境与本地演示数据分开。
+应用：https://web-production-53641.up.railway.app
+项目：https://railway.com/project/cb170b23-9d1b-4ecd-8629-16635c4b1909
+Environment ID: `65edffcd-17f8-4890-9e90-81d808bb1db3`。
+Web: `05cee313-f284-4e71-bcd4-eb9b1fff231a`；Worker: `f117ee3d-8616-468a-9b5a-4426b6ca669d`。
 Railway 插件连接过期时使用已登录 CLI；首次上线使用 CLI 5.71.0 和锁定的 IaC SDK 3.16.0。
 旧 `railway.json` 配置已被新服务拒绝，改为 `.railway/railway.ts`；变量由 Railway 管理，不写进 IaC。
 
@@ -45,10 +49,11 @@ push 本身不会自动上线。后续授权此仓库后可为两个应用服务
 
 ## 初始化
 
-在连接到生产环境的交互终端执行：
+首次上线已建立一个空家庭、7 个默认分类和 `yihui` 账号，无银行连接或示例交易。
+初始密码仅存于本机被忽略的 `.local/production-login.txt`，没有上传 GitHub 或部署镜像。
+如需增加第二位成员，在连接到生产环境的交互终端执行（不要重复创建家庭）：
 
 ```sh
-npm run cli -- create-household your_username
 npm run cli -- add-member <household-uuid> spouse_username
 ```
 
@@ -60,9 +65,24 @@ PWA Settings 已提供 Link/选账户/重连，`/oauth` 可恢复当前授权流
 webhook 验签、增量同步去重、银行状态和汇总更新。
 健康检查不代表 worker 或银行连接正常。当前通知只是收件箱，不会发送手机推送/邮件。
 
-数据库私网连接、备份与恢复需在部署时配置。BANK_TOKEN_KEY 不能直接替换，
+数据库无公网 TCP 入口；worker 无公开域名。每日卷快照已启用，平台保留 6 天；尚未进行恢复演练。
+Web/worker 实际部署使用 ON_FAILURE、最多 10 次重试、不休眠；这些平台默认值在 IaC 中省略以避免重复差异。
+BANK_TOKEN_KEY 不能直接替换，
 更换密钥需要重新加密已有银行 token。Web/worker 使用同一代码版本和密钥。
 
 官方参考：[NestJS 部署](https://docs.nestjs.com/deployment)、
-[Railway 配置](https://docs.railway.com/config-as-code/reference)、
+[Railway IaC 配置](https://docs.railway.com/infrastructure-as-code)、
 [Prisma 部署迁移](https://www.prisma.io/docs/orm/prisma-migrate/workflows/development-and-production)。
+
+## 后续发布
+
+先提交并 push，再将该提交的 `git archive` 解包到临时目录，分别执行：
+
+```sh
+railway up <release-directory> --path-as-root --project cb170b23-9d1b-4ecd-8629-16635c4b1909 --environment 65edffcd-17f8-4890-9e90-81d808bb1db3 --service web --detach
+railway up <release-directory> --path-as-root --project cb170b23-9d1b-4ecd-8629-16635c4b1909 --environment 65edffcd-17f8-4890-9e90-81d808bb1db3 --service worker --detach
+```
+
+首次须等 Web 迁移就绪再启动 worker。发布后检查 deployment status 和 `/health/ready`。
+2026-11-05 发布应用提交 `dd50ede7f387d2f7fd8470e83fb9de788864b19e`；随后仅更新运维文档/IaC 默认值。
+Plaid 尚未配置凭据，因此目前不能连接真实银行；不要把本地演示账号或数据库迁移到正式环境。

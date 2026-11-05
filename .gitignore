@@ -20,6 +20,7 @@ coverage/
 .railway/*
 !.railway/railway.ts
 !.railway/README.md
+.railway-config-pull-*/
 .impeccable/review/
 .impeccable/mocks/
 web/.impeccable/

@@ -16,6 +16,7 @@ The theme switch is available on login and in the app header. Preference persist
 
 - Home prioritizes monthly totals and transactions awaiting review.
 - Mobile navigation and primary controls have touch targets of at least 44 pixels.
+- Month navigation arrows have separate 44-pixel hit areas. Keep the transparent native month input clipped to the center label so it cannot overlap the arrows on iOS.
 - Category deletion supports swipe and an accessible Actions menu. It requires an app-styled confirmation.
 - Closing a changed transaction opens a themed discard confirmation. Keep editing is the safe default. Dialogs trap focus, restore focus on close, and support Escape.
 - Saving is explicit. Stale edits report a conflict rather than overwriting another member's changes.

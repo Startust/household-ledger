@@ -23,8 +23,12 @@ Category changes/deletion, transaction edits and bank sync serialize on the hous
 - Local API deletion QA removed the disposable Weekend trips category while retaining its $100 transaction and Groceries label. QA did not mutate production ledger data.
 - Documentation comparison is in `.impeccable/review/category-documentation.md`. Both design files remain unchanged. The detector's 143 advisory metadata findings (115 type size, 23 color, 5 radius; no non-advisories) are recorded without repair.
 
-## Pending rollout and limits
+## Rollout and limits
 
-Railway IaC now gives the worker the same migration pre-deploy command as web. The pinned infrastructure plan was applied with only that worker pre-deploy update (zero additions/deletions, one update); application code deployment is still pending. Deploy **worker first**, verify the migration and worker startup, then deploy **web**. This makes background processing label-aware before the new picker is exposed. No deployment was performed by this documentation pass.
+Released Git commit `e940933` from a clean Git archive after pushing to `Startust/household-ledger` main. Railway IaC gives the worker the same migration pre-deploy command as web. The pinned infrastructure plan changed only that worker command (zero additions/deletions, one update).
 
-The initial production ledger was empty; current production contents were not verified. Authenticated production API smoke was not rerun: the initial-password helper returned HTTP 403, and Railway SSH was unavailable because no key was registered. No credential reset, retry loop or SSH-key addition was performed. Deployment/migration logs and public health/build identity can verify rollout separately; they do not establish authenticated API behavior or production data correctness.
+Worker deployment `3f926f01-d6dc-4b37-a488-6263fec47156` reached SUCCESS first; its logs confirm migration `202611050003_category_labels` applied successfully and the container started. Web deployment `ec0500ae-66e2-4b9d-8ec4-c3f5b2afb205` then reached SUCCESS. Both use the same release archive. Worker error-log query returned no entries, and the final IaC plan has no changes.
+
+Public checks at https://home-ledger.hoshikuzu.io passed: HTTPS and readiness, exact frontend JS/CSS hashes, category DELETE and categories-array OpenAPI definitions, protected unauthenticated category API, manifest and service worker. Temporary local QA category/transaction were removed; the original six demo transactions were retained.
+
+The initial production ledger was empty; current production contents were not verified. Authenticated production API smoke was not rerun: the initial-password helper returned HTTP 403, and Railway SSH was unavailable because no key was registered. No credential reset, retry loop or SSH-key addition was performed. The verified deployment/migration logs and public health/build identity do not establish authenticated API behavior or production data correctness.

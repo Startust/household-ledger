@@ -3,7 +3,7 @@
 ## Scope
 One private household, two provisioned members, one USD checking/debit account.
 English React PWA and NestJS backend share one origin. Client Link/OAuth flow is implemented; real bank authorization,
-actual iPhone installation and external push remain unverified/follow-up. The original Railway deployment is verified; the category-label rollout is pending.
+actual iPhone installation and external push remain unverified/follow-up. Railway category-label deployment, migrations, public health and release assets are verified; authenticated production flows were not rerun for this release.
 Multiple Household rows enforce/test isolation, not public signup.
 
 ## Modules
@@ -49,7 +49,7 @@ Web + one worker + Postgres locally and on Railway; no Redis, SQLite or Python r
 Worker scans every 30s, retries capped at 6h, catch-up sync every 6h. One worker replica.
 GET /health/ready checks DB only. Client must show bank state/last sync; worker presence needs operational monitoring.
 Sessions/CSRF are same-origin. Production trusts one Railway proxy hop and redirects HTTP to configured HTTPS origin.
-Secrets are runtime env vars. IaC now configures migrations in both web and worker pre-deploy; the category-label rollout is pending.
+Secrets are runtime env vars. Migrations run in both web and worker pre-deploy.
 Deploy worker first, verify migration/startup, then deploy web so both processes preserve labels before the new picker is exposed.
 Migration 202611050003_category_labels adds/backfills TransactionCategory from existing category_id values and marks existing unreviewed income reviewed with a version increment. The compatibility column is retained.
 Production: https://home-ledger.hoshikuzu.io, Railway project household-ledger.

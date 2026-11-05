@@ -24,8 +24,8 @@
     "cli": "node dist/src/cli.js",
     "seed:demo": "node dist/src/cli.js seed-demo",
     "test": "npm run build && node --test --test-concurrency=1 dist/test/*.test.js",
-    "format": "prettier --write src test web/src web/index.html web/vite.config.ts web/tsconfig.json scripts/*.mjs prisma.config.ts *.json *.yaml",
-    "format:check": "prettier --check src test web/src web/index.html web/vite.config.ts web/tsconfig.json scripts/*.mjs prisma.config.ts *.json *.yaml",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "smoke": "node scripts/smoke.mjs"
   },
   "dependencies": {
@@ -59,9 +59,18 @@
     "@types/pg": "8.23.1",
     "@types/supertest": "7.2.1",
     "prettier": "3.9.10",
-    "railway": "3.16.0",
     "sharp": "0.35.5",
     "supertest": "7.3.1",
     "typescript": "6.0.3"
-  }
+  },
+  "description": "A self-hosted household ledger with bank sync, shared transaction review, and an installable PWA.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Startust/household-ledger.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Startust/household-ledger/issues"
+  },
+  "homepage": "https://github.com/Startust/household-ledger#readme"
 }

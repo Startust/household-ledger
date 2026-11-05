@@ -9,4 +9,4 @@ This is the library's registry distribution model: source lives in the consuming
 - Local adaptation: AtlasModeProvider also updates the browser theme-color metadata.
 - Touch targets and ledger layout are adapted in `../hoshikuzu.css`.
 
-No full UI-kit installation or server changes are required for this style preview.
+The application's Night and Archive themes use this source directly. No full UI-kit installation is required. See [third-party notices](../../../THIRD_PARTY_NOTICES.md) for licensing.

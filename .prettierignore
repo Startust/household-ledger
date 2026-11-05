@@ -1,8 +1,11 @@
-src/generated/
-dist/
 node_modules/
-.local/
-package-lock.json
+dist/
 web/dist/
+src/generated/
+.local/
+.railway/
 .impeccable/
 web/.impeccable/
+package-lock.json
+assets/fonts/
+prisma/migrations/

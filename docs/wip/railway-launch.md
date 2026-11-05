@@ -26,3 +26,6 @@ Platform change discovered: new services reject Config as Code. Replaced legacy 
 with .railway/railway.ts and pinned railway SDK 3.16.0. CLI 5.71.0 is used as an ignored local executable;
 the app/runtime dependency set remains unchanged. Variables stay outside IaC. A read-only baseline plan
 confirmed existing database/volume are preserved; service updates are reviewed before applying.
+Railway GitHub source connection returned “User does not have access to the repo”. The user has
+GitHub org admin access and the private repository is already pushed; deploy the exact committed
+snapshot via authenticated Railway CLI. No GitHub App permission expansion is performed.

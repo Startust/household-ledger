@@ -1,4 +1,4 @@
-import { defineRailway, github, postgres, project, service, volume } from 'railway/iac';
+import { defineRailway, postgres, project, service, volume } from 'railway/iac';
 
 export default defineRailway(() => {
   const Postgres = postgres('Postgres', { region: 'us-east4-eqdc4a' });
@@ -10,7 +10,6 @@ export default defineRailway(() => {
     sizeMB: 50000,
   });
   const web = service('web', {
-    source: github('Startust/household-ledger', { branch: 'main' }),
     build: {
       buildEnvironment: 'V3',
       builder: 'RAILPACK',
@@ -38,7 +37,6 @@ export default defineRailway(() => {
     replicas: { 'us-east4-eqdc4a': 1 },
   });
   const worker = service('worker', {
-    source: github('Startust/household-ledger', { branch: 'main' }),
     build: {
       buildEnvironment: 'V3',
       builder: 'RAILPACK',

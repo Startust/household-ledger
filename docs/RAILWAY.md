@@ -16,9 +16,11 @@ Railway 插件连接过期时使用已登录 CLI；首次上线使用 CLI 5.71.0
 - 首次先完成 Web 迁移，再启动 worker；后续使用兼容旧版本的数据库迁移。
 
 使用 CLI 5.71.0 或更新兼容版本，`npm ci` 安装已锁定的 IaC SDK，然后执行 `railway config plan`。
-确认计划仅包含预期服务变更后 `railway config apply`。普通应用代码 push 到 main 自动部署；
-IaC 变更需要单独 plan/apply。构建监听源码、web、prisma、字体、包锁、Dockerfile 和 TS/Prisma 配置；
-仅文档更新不会触发构建。数据库服务和卷也在完整 IaC 图中保留，不能从文件中随意移除。
+确认计划仅包含预期服务变更后 `railway config apply`。IaC 变更需要单独 plan/apply。
+当前 Railway GitHub 集成无权读取私有仓库，源码通过 CLI 从已提交并推送的 Git 快照上传；
+push 本身不会自动上线。后续授权此仓库后可为两个应用服务连接 main 分支，并在 IaC 中加入 GitHub source。
+构建监听源码、web、prisma、字体、包锁、Dockerfile 和 TS/Prisma 配置。
+数据库服务和卷也在完整 IaC 图中保留，不能从文件中随意移除。
 
 两个应用服务共享：
 

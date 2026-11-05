@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   Param,
@@ -66,6 +67,12 @@ export class LedgerController {
   }
   @Get('transactions') transactions(@Req() req: Request, @Query() query: TransactionQuery) {
     return this.ledger.transactions(req.principal, query);
+  }
+  @Delete('categories/:id') @HttpCode(204) deleteCategory(
+    @Req() req: Request,
+    @Param('id', ParseIntPipe) id: number,
+  ) {
+    return this.ledger.deleteCategory(req.principal, id);
   }
   @Get('transactions/:id') transaction(
     @Req() req: Request,

@@ -23,7 +23,11 @@ Bank sync and scheduled daily summaries run on the server. Imported bank facts c
 
 ## Capabilities and Constraints
 One USD Checking account; no credit cards/public registration. Integer cents and optimistic edit versions.
-Local sample contains six clearly labeled demo transactions; production is an independent empty ledger.
+Local sample starts with six clearly labeled demo transactions; the initial production deployment used an independent empty ledger. Current production data was not reverified for the category-label extension.
+Transactions can have multiple category labels without splitting amounts. Overall totals count each transaction once; each assigned category receives its full expense/refund amount, so category subtotals can overlap.
+Deleting a category requires confirmation and removes only that label; transactions and other labels remain. Swipe left or use Actions to reveal Delete.
+Income is automatically reviewed and has no manual review control or review badge; bank Pending status remains visible. Review queues and counts exclude income.
+CSV/PDF exports keep one row per transaction and include all category labels together.
 Plaid Production credentials and the custom-domain OAuth callback are configured. Production Link token creation is verified; real Plaid/BOA authorization remains unverified and must be completed by the account holder.
 Notifications currently mean the in-app digest inbox. External Web Push remains a separately configured channel.
 Offline shell is allowed, sensitive account responses are not persisted in service-worker caches.

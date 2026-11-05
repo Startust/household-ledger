@@ -105,6 +105,11 @@ try {
             provider_id: `demo-${index}`,
             date: new Date(now.toISOString().slice(0, 10) + 'T00:00:00Z'),
             category_id: home.categories.find((c) => c.name === category)?.id,
+            labels: {
+              create: home.categories
+                .filter((c) => c.name === category)
+                .map((c) => ({ category_id: c.id })),
+            },
             notify_at: row.pending ? null : new Date(now.getTime() - 60000),
           },
         });

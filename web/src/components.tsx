@@ -189,13 +189,13 @@ export function TransactionRows({
           <button
             className="transaction-row"
             onClick={() => onSelect(row)}
-            aria-label={`${row.merchant || row.name} ${money(Math.abs(row.amount_cents))} ${row.pending ? 'Pending' : row.reviewed ? 'Reviewed' : 'To review'}`}
+            aria-label={`${row.merchant || row.name} ${money(Math.abs(row.amount_cents))} ${row.pending ? 'Pending' : row.flow === 'income' ? 'Income' : row.reviewed ? 'Reviewed' : 'To review'}`}
           >
             <MerchantIcon row={row} />
             <span className="transaction-copy">
               <strong>{row.merchant || row.name}</strong>
               <span className="transaction-meta">
-                {row.category_name ||
+                {row.categories.map((c) => c.name).join(' · ') ||
                   (row.flow === 'transfer'
                     ? 'Account transfer'
                     : row.flow === 'income'
@@ -215,20 +215,22 @@ export function TransactionRows({
                 {row.amount_cents < 0 ? '+' : '−'}
                 {money(Math.abs(row.amount_cents))}
               </strong>
-              <span
-                className={`state ${row.pending ? 'pending' : row.reviewed ? 'reviewed' : 'unreviewed'}`}
-              >
-                {row.pending ? (
-                  'Pending'
-                ) : row.reviewed ? (
-                  <>
-                    <Check size={12} />
-                    Reviewed
-                  </>
-                ) : (
-                  'To review'
-                )}
-              </span>
+              {(row.pending || row.flow !== 'income') && (
+                <span
+                  className={`state ${row.pending ? 'pending' : row.reviewed ? 'reviewed' : 'unreviewed'}`}
+                >
+                  {row.pending ? (
+                    'Pending'
+                  ) : row.reviewed ? (
+                    <>
+                      <Check size={12} />
+                      Reviewed
+                    </>
+                  ) : (
+                    'To review'
+                  )}
+                </span>
+              )}
             </span>
             <ChevronRight className="row-chevron" size={16} />
           </button>

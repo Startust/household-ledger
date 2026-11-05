@@ -27,7 +27,7 @@ export function TransactionEditor({
   online: boolean;
 }) {
   const [row, setRow] = useState(initial),
-    [category, setCategory] = useState(initial.category?.toString() ?? '');
+    [selected, setSelected] = useState(initial.categories.map((c) => c.id));
   const [flow, setFlow] = useState<Flow>(initial.flow),
     [note, setNote] = useState(initial.note),
     [reviewed, setReviewed] = useState(initial.reviewed);
@@ -37,11 +37,14 @@ export function TransactionEditor({
   const [edits, setEdits] = useState<Edit[] | null>(null),
     [historyOpen, setHistoryOpen] = useState(false),
     [historyError, setHistoryError] = useState('');
+  const categoriesChanged =
+    selected.length !== row.categories.length ||
+    selected.some((id) => !row.categories.some((c) => c.id === id));
   const dirty =
-    category !== (row.category?.toString() ?? '') ||
+    categoriesChanged ||
     flow !== row.flow ||
     note !== row.note ||
-    reviewed !== row.reviewed;
+    (flow !== 'income' && reviewed !== row.reviewed);
   function close() {
     if (!busy && (!dirty || window.confirm('Discard your unsaved changes?'))) onClose();
   }
@@ -52,12 +55,10 @@ export function TransactionEditor({
     try {
       const result = await api<Transaction>(`/api/transactions/${row.id}`, 'PATCH', {
         version: row.version,
-        ...(category !== (row.category?.toString() ?? '')
-          ? { category: category ? Number(category) : null }
-          : {}),
+        ...(categoriesChanged ? { categories: selected } : {}),
         ...(flow !== row.flow ? { flow } : {}),
         ...(note !== row.note ? { note } : {}),
-        ...(reviewed !== row.reviewed ? { reviewed } : {}),
+        ...(flow !== 'income' && reviewed !== row.reviewed ? { reviewed } : {}),
       });
       onSaved(result);
       onClose();
@@ -76,7 +77,7 @@ export function TransactionEditor({
     try {
       const fresh = await api<Transaction>(`/api/transactions/${row.id}`);
       setRow(fresh);
-      setCategory(fresh.category?.toString() ?? '');
+      setSelected(fresh.categories.map((c) => c.id));
       setFlow(fresh.flow);
       setNote(fresh.note);
       setReviewed(fresh.reviewed);
@@ -122,38 +123,63 @@ export function TransactionEditor({
             )}
           </Notice>
         )}
-        <div className="form-grid">
-          <label>
-            Category
-            <select value={category} onChange={(e) => setCategory(e.target.value)}>
-              <option value="">Uncategorized</option>
-              {categories
-                .filter((c) => c.active || c.id === row.category)
-                .map((c) => (
-                  <option key={c.id} value={c.id}>
+        <fieldset className="category-picker" disabled={busy || row.removed || !online}>
+          <legend>Categories</legend>
+          <div>
+            <button
+              type="button"
+              className="category-choice"
+              aria-pressed={selected.length === 0}
+              onClick={() => setSelected([])}
+            >
+              Uncategorized
+            </button>
+            {categories
+              .filter((c) => c.active || row.categories.some((saved) => saved.id === c.id))
+              .map((c) => (
+                <label className="category-choice" key={c.id}>
+                  <input
+                    type="checkbox"
+                    checked={selected.includes(c.id)}
+                    onChange={(e) =>
+                      setSelected(
+                        e.target.checked
+                          ? [...selected, c.id]
+                          : selected.filter((id) => id !== c.id),
+                      )
+                    }
+                  />
+                  <span>
                     {c.name}
-                    {!c.active ? ' · Archived' : ''}
-                  </option>
-                ))}
-            </select>
-          </label>
-          <label>
-            Type
-            <select value={flow} onChange={(e) => setFlow(e.target.value as Flow)}>
-              {(Object.keys(flowNames) as Flow[])
-                .filter(
-                  (f) =>
-                    f === 'transfer' ||
-                    (row.amount_cents < 0 ? f === 'income' || f === 'refund' : f === 'expense'),
-                )
-                .map((f) => (
-                  <option key={f} value={f}>
-                    {flowNames[f]}
-                  </option>
-                ))}
-            </select>
-          </label>
-        </div>
+                    {!c.active && ' · Archived'}
+                  </span>
+                </label>
+              ))}
+          </div>
+        </fieldset>
+        <label>
+          Type
+          <select
+            value={flow}
+            onChange={(e) => {
+              const next = e.target.value as Flow;
+              if (flow === 'income' && next !== 'income') setReviewed(false);
+              setFlow(next);
+            }}
+          >
+            {(Object.keys(flowNames) as Flow[])
+              .filter(
+                (f) =>
+                  f === 'transfer' ||
+                  (row.amount_cents < 0 ? f === 'income' || f === 'refund' : f === 'expense'),
+              )
+              .map((f) => (
+                <option key={f} value={f}>
+                  {flowNames[f]}
+                </option>
+              ))}
+          </select>
+        </label>
         <label>
           Note<span className="optional">Optional</span>
           <textarea
@@ -163,24 +189,26 @@ export function TransactionEditor({
             maxLength={1000}
           />
         </label>
-        <label className="check-line">
-          <input
-            type="checkbox"
-            checked={reviewed}
-            onChange={(e) => setReviewed(e.target.checked)}
-            disabled={row.pending}
-          />
-          <span>
-            <strong>Reviewed</strong>
-            <small>
-              {row.pending
-                ? 'Available after posting.'
-                : row.reviewed_by_name
-                  ? `Reviewed by ${row.reviewed_by_name}`
-                  : 'Shared with your household.'}
-            </small>
-          </span>
-        </label>
+        {flow !== 'income' && (
+          <label className="check-line">
+            <input
+              type="checkbox"
+              checked={reviewed}
+              onChange={(e) => setReviewed(e.target.checked)}
+              disabled={row.pending}
+            />
+            <span>
+              <strong>Reviewed</strong>
+              <small>
+                {row.pending
+                  ? 'Available after posting.'
+                  : row.reviewed_by_name
+                    ? `Reviewed by ${row.reviewed_by_name}`
+                    : 'Shared with your household.'}
+              </small>
+            </span>
+          </label>
+        )}
         <button
           className="button primary full"
           disabled={!dirty || busy || conflict || !online || row.removed}
@@ -223,6 +251,7 @@ export function TransactionEditor({
                         (k) =>
                           ({
                             category: 'Category',
+                            categories: 'Categories',
                             flow: 'Type',
                             reviewed: 'Review status',
                             note: 'Note',

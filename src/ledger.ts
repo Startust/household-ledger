@@ -16,11 +16,21 @@ import type {
 
 export const transactionInclude = {
   category: true,
+  labels: { include: { category: true }, orderBy: { category_id: 'asc' } },
   reviewed_by: { select: { username: true } },
 } as const;
 export type FullTransaction = Prisma.LedgerTransactionGetPayload<{
   include: typeof transactionInclude;
 }>;
+export function transactionCategories(row: Pick<FullTransaction, 'labels' | 'category'>) {
+  // The compatibility column also reflects writes by the old web process during rollout.
+  if (!row.category) return [];
+  return row.labels.some((label) => label.category_id === row.category!.id)
+    ? row.labels.map((label) => label.category)
+    : row.category
+      ? [row.category]
+      : [];
+}
 export function transactionWhere(
   user: Principal,
   query: Omit<TransactionQuery, 'page'>,
@@ -39,7 +49,11 @@ export function transactionWhere(
     removed: false,
     ...(date ? { date } : {}),
     ...(query.pending ? { pending: query.pending === 'true' } : {}),
-    ...(query.reviewed ? { reviewed: query.reviewed === 'true' } : {}),
+    ...(query.reviewed === 'false'
+      ? { reviewed: false, flow: { not: 'income' } }
+      : query.reviewed === 'true'
+        ? { AND: [{ OR: [{ reviewed: true }, { flow: 'income' }] }] }
+        : {}),
     ...(query.uncategorized === 'true'
       ? { category_id: null }
       : query.uncategorized === 'false'
@@ -68,8 +82,9 @@ export function transactionJson(row: FullTransaction) {
     suggested_category: row.suggested_category,
     category: row.category_id,
     category_name: row.category?.name ?? null,
+    categories: transactionCategories(row).map(({ id, name, active }) => ({ id, name, active })),
     flow: row.flow,
-    reviewed: row.reviewed,
+    reviewed: row.flow === 'income' || row.reviewed,
     reviewed_by_name: row.reviewed_by?.username ?? null,
     reviewed_at: row.reviewed_at,
     note: row.note,
@@ -140,12 +155,55 @@ export class LedgerService {
     return { id: row.id, name: row.name, active: row.active };
   }
   async updateCategory(user: Principal, id: number, patch: CategoryPatchDto) {
-    await this.category(user, id);
-    await this.db.category.update({
-      where: { id },
-      data: { ...patch, ...(patch.name !== undefined ? { name: categoryName(patch.name) } : {}) },
+    return this.db.$transaction(async (tx) => {
+      await lockHome(tx, user.household_id);
+      if (!(await tx.category.findFirst({ where: { id, household_id: user.household_id } })))
+        throw new NotFoundException();
+      const { household_id, ...row } = await tx.category.update({
+        where: { id },
+        data: { ...patch, ...(patch.name !== undefined ? { name: categoryName(patch.name) } : {}) },
+      });
+      return row;
     });
-    return this.category(user, id);
+  }
+  async deleteCategory(user: Principal, id: number) {
+    await this.db.$transaction(async (tx) => {
+      // Same lock order as bank sync and transaction edits.
+      await lockHome(tx, user.household_id);
+      const category = await tx.category.findFirst({
+        where: { id, household_id: user.household_id },
+      });
+      if (!category) throw new NotFoundException();
+      const rows = await tx.ledgerTransaction.findMany({
+        where: {
+          bank: { household_id: user.household_id },
+          OR: [{ category_id: id }, { labels: { some: { category_id: id } } }],
+        },
+        include: transactionInclude,
+      });
+      for (const row of rows) {
+        const before = transactionCategories(row).map((c) => c.id);
+        if (!before.includes(id)) continue;
+        const after = before.filter((categoryId) => categoryId !== id);
+        await tx.ledgerTransaction.update({
+          where: { id: row.id },
+          data: {
+            category_id: after[0] ?? null,
+            labels: { deleteMany: { category_id: id } },
+            version: { increment: 1 },
+            updated_at: new Date(),
+          },
+        });
+        await tx.transactionEdit.create({
+          data: {
+            transaction_id: row.id,
+            actor_id: user.id,
+            changes: { categories: { before, after, deleted_name: category.name } },
+          },
+        });
+      }
+      await tx.category.delete({ where: { id } });
+    });
   }
   async transactions(user: Principal, query: TransactionQuery) {
     const where = transactionWhere(user, query);
@@ -184,6 +242,7 @@ export class LedgerService {
     if (Object.keys(input).filter((k) => k !== 'version').length === 0)
       throw new BadRequestException('Change at least one field.');
     return this.db.$transaction(async (tx) => {
+      await lockHome(tx, user.household_id);
       // Check scope before taking a lock on a supplied UUID.
       if (
         !(await tx.ledgerTransaction.findFirst({
@@ -192,16 +251,33 @@ export class LedgerService {
       )
         throw new NotFoundException();
       await lockTransaction(tx, id);
-      const row = await tx.ledgerTransaction.findUniqueOrThrow({ where: { id } });
+      const row = await tx.ledgerTransaction.findUniqueOrThrow({
+        where: { id },
+        include: transactionInclude,
+      });
       if (row.version !== input.version || row.removed)
         throw new ConflictException('This transaction changed or was removed. Reload it.');
-      if (
-        input.category != null &&
-        !(await tx.category.findFirst({
-          where: { id: input.category, household_id: user.household_id, active: true },
-        }))
-      )
-        throw new BadRequestException('This category is unavailable or archived.');
+      if (input.category !== undefined && input.categories !== undefined)
+        throw new BadRequestException('Use categories or category, not both.');
+      const beforeCategories = transactionCategories(row).map((c) => c.id);
+      const categoryIds =
+        input.categories ??
+        (input.category !== undefined
+          ? input.category === null
+            ? []
+            : [input.category]
+          : undefined);
+      if (categoryIds !== undefined) {
+        const available = await tx.category.findMany({
+          where: { id: { in: categoryIds }, household_id: user.household_id },
+        });
+        if (
+          available.length !== categoryIds.length ||
+          available.some((c) => !c.active && !beforeCategories.includes(c.id))
+        )
+          throw new BadRequestException('This category is unavailable or archived.');
+        categoryIds.sort((a, b) => a - b);
+      }
       const flow = input.flow ?? row.flow;
       if (
         (flow === 'expense' && row.amount_cents < 0n) ||
@@ -215,17 +291,32 @@ export class LedgerService {
         updated_at: new Date(),
       };
       const changes: Record<string, { before: unknown; after: unknown }> = {};
-      for (const key of ['category', 'flow', 'reviewed', 'note'] as const) {
+      for (const key of ['flow', 'note'] as const) {
         if (input[key] !== undefined) {
-          const field = key === 'category' ? 'category_id' : key;
+          const field = key;
           if (row[field] !== input[key]) changes[key] = { before: row[field], after: input[key] };
           Object.assign(data, { [field]: input[key] });
         }
       }
+      if (categoryIds !== undefined) {
+        if (JSON.stringify(beforeCategories) !== JSON.stringify(categoryIds))
+          changes.categories = { before: beforeCategories, after: categoryIds };
+        data.category_id = categoryIds[0] ?? null;
+        data.labels = {
+          deleteMany: {},
+          create: categoryIds.map((category_id) => ({ category_id })),
+        };
+      }
       if (input.flow !== undefined) data.flow_manual = true;
-      if (input.reviewed !== undefined) {
-        data.reviewed_by_id = input.reviewed ? user.id : null;
-        data.reviewed_at = input.reviewed ? new Date() : null;
+      const reviewed =
+        flow === 'income'
+          ? true
+          : (input.reviewed ?? (row.flow === 'income' ? false : row.reviewed));
+      if (reviewed !== row.reviewed) changes.reviewed = { before: row.reviewed, after: reviewed };
+      if (input.reviewed !== undefined || reviewed !== row.reviewed || flow !== row.flow) {
+        data.reviewed = reviewed;
+        data.reviewed_by_id = reviewed && flow !== 'income' ? user.id : null;
+        data.reviewed_at = reviewed ? new Date() : null;
       }
       const updated = await tx.ledgerTransaction.update({
         where: { id },
@@ -267,7 +358,7 @@ export class LedgerService {
         removed: false,
         date: { gte: start, lt: end },
       },
-      include: { category: true },
+      include: transactionInclude,
     });
     let expense = 0n,
       refund = 0n,
@@ -288,16 +379,25 @@ export class LedgerService {
       }
       if (row.flow === 'refund') refund -= row.amount_cents;
       else expense += row.amount_cents;
-      const group = groups.get(row.category_id) ?? {
-        category_id: row.category_id,
-        name: row.category?.name ?? 'Uncategorized',
-        net_spend_cents: 0n,
-      };
-      group.net_spend_cents += row.amount_cents;
-      groups.set(row.category_id, group);
+      const labels = transactionCategories(row);
+      for (const category of labels.length ? labels : [{ id: null, name: 'Uncategorized' }]) {
+        const group = groups.get(category.id) ?? {
+          category_id: category.id,
+          name: category.name,
+          net_spend_cents: 0n,
+        };
+        group.net_spend_cents += row.amount_cents;
+        groups.set(category.id, group);
+      }
     }
     const unreviewed = await this.db.ledgerTransaction.count({
-      where: { bank: { household_id: home.id }, pending: false, removed: false, reviewed: false },
+      where: {
+        bank: { household_id: home.id },
+        pending: false,
+        removed: false,
+        reviewed: false,
+        flow: { not: 'income' },
+      },
     });
     return {
       month,
@@ -340,7 +440,9 @@ export class DigestService {
       const rows = await tx.ledgerTransaction.findMany({
         where: { ...where, notify_at: { gt: start, lte: now } },
       });
-      const unreviewed = await tx.ledgerTransaction.count({ where: { ...where, reviewed: false } });
+      const unreviewed = await tx.ledgerTransaction.count({
+        where: { ...where, reviewed: false, flow: { not: 'income' } },
+      });
       return tx.dailyDigest.create({
         data: {
           household_id: householdId,
@@ -363,7 +465,7 @@ export class DigestService {
               name: r.name,
               amount_cents: Number(r.amount_cents),
               flow: r.flow,
-              reviewed: r.reviewed,
+              reviewed: r.flow === 'income' || r.reviewed,
             })),
           },
         },

@@ -1,6 +1,9 @@
 import { ApiProperty, ApiPropertyOptional, OmitType } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
+  ArrayMaxSize,
+  ArrayUnique,
+  IsArray,
   IsBoolean,
   IsIn,
   IsInt,
@@ -67,6 +70,14 @@ export class TransactionPatchDto {
   @IsInt()
   @Min(1)
   category?: number | null;
+  @ApiPropertyOptional({ type: [Number], maxItems: 50 })
+  @ValidateIf((_, v) => v !== undefined)
+  @IsArray()
+  @ArrayMaxSize(50)
+  @ArrayUnique()
+  @IsInt({ each: true })
+  @Min(1, { each: true })
+  categories?: number[];
   @ApiPropertyOptional({ enum: ['expense', 'income', 'transfer', 'refund'] })
   @ValidateIf((_, v) => v !== undefined)
   @IsIn(['expense', 'income', 'transfer', 'refund'])

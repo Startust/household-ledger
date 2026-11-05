@@ -2,6 +2,7 @@ import PDFDocument from 'pdfkit';
 import { UnprocessableEntityException } from '@nestjs/common';
 import { resolve } from 'node:path';
 import type { ExportData } from './exports.js';
+import { transactionCategories } from './ledger.js';
 
 const colors = {
   paper: '#f5f4ed',
@@ -39,7 +40,7 @@ export function renderCsv(data: ExportData) {
     'Money out (USD)',
     'Money in (USD)',
     'Type',
-    'Category',
+    'Categories',
     'Status',
     'Review status',
     'Reviewed by',
@@ -56,10 +57,22 @@ export function renderCsv(data: ExportData) {
         row.amount_cents >= 0n ? decimal(row.amount_cents) : '',
         row.amount_cents < 0n ? decimal(-row.amount_cents) : '',
         csvText(flowNames[row.flow]),
-        csvText(row.category?.name ?? 'Uncategorized'),
+        csvText(
+          transactionCategories(row)
+            .map((c) => c.name)
+            .join('; ') || 'Uncategorized',
+        ),
         csvText(row.pending ? 'Pending' : 'Posted'),
-        csvText(row.pending ? 'Not available' : row.reviewed ? 'Reviewed' : 'To review'),
-        csvText(row.pending ? '' : (row.reviewed_by?.username ?? '')),
+        csvText(
+          row.flow === 'income'
+            ? 'Not required'
+            : row.pending
+              ? 'Not available'
+              : row.reviewed
+                ? 'Reviewed'
+                : 'To review',
+        ),
+        csvText(row.pending || row.flow === 'income' ? '' : (row.reviewed_by?.username ?? '')),
         csvText(row.note),
         csvText(row.id),
       ].join(','),
@@ -213,12 +226,18 @@ export async function renderPdf(data: ExportData): Promise<Buffer> {
     if (!data.rows.length) text('No matching transactions.', 42, y + 14, width, 10, colors.muted);
     for (const row of data.rows) {
       const merchant = compact(row.merchant || row.name);
-      const details = `${compact(row.category?.name ?? 'Uncategorized')} / ${flowNames[row.flow]}`;
+      const details = `${compact(
+        transactionCategories(row)
+          .map((c) => c.name)
+          .join('; ') || 'Uncategorized',
+      )} / ${flowNames[row.flow]}`;
       const status = row.pending
         ? 'Pending'
-        : row.reviewed
-          ? 'Posted\nReviewed'
-          : 'Posted\nTo review';
+        : row.flow === 'income'
+          ? 'Posted'
+          : row.reviewed
+            ? 'Posted\nReviewed'
+            : 'Posted\nTo review';
       const merchantHeight = height(merchant, 250, 9.5);
       const detailHeight = height(details, 250, 8);
       const description =

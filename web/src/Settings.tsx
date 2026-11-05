@@ -1,8 +1,9 @@
 import { useState, type FormEvent } from 'react';
-import { ArrowRight, Bell, Check, Download, LogOut, Pencil, Plus, Users } from 'lucide-react';
+import { ArrowRight, Bell, Check, Download, LogOut, Users } from 'lucide-react';
 import { api } from './api';
 import { Dialog, InstallHelp, Notice } from './components';
 import { BankPanel } from './BankPanel';
+import { CategoryList } from './CategoryList';
 import type { Bank, Category, Household, User } from './types';
 
 function CategoryForm({
@@ -283,26 +284,12 @@ export function Settings({
           <BankPanel bank={bank} refresh={refresh} online={online} />
         </div>
         <div>
-          <section className="settings-section">
-            <div className="section-heading">
-              <h2>Categories</h2>
-              <button className="text-button" onClick={() => setCategory(null)} disabled={!online}>
-                <Plus size={16} />
-                Add
-              </button>
-            </div>
-            <div className="category-settings">
-              {categories.map((c) => (
-                <button key={c.id} onClick={() => setCategory(c)} disabled={!online}>
-                  <span>
-                    {c.name}
-                    {!c.active && <small>Archived</small>}
-                  </span>
-                  <Pencil size={15} />
-                </button>
-              ))}
-            </div>
-          </section>
+          <CategoryList
+            categories={categories}
+            edit={setCategory}
+            refresh={refresh}
+            online={online}
+          />
           <section className="settings-section">
             <h2>Install app</h2>
             <button className="setting-action" onClick={() => setInstall(true)}>

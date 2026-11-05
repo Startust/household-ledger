@@ -55,6 +55,7 @@ export default defineRailway(() => {
     },
     deploy: {
       startCommand: 'node dist/src/worker.js',
+      preDeployCommand: ['npm run db:migrate'],
     },
     replicas: { 'us-east4-eqdc4a': 1 },
   });

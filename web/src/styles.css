@@ -1252,29 +1252,133 @@
     font-size: 11px;
     margin-top: 3px;
   }
-  .category-settings > button {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    border: 0;
+  .category-swipe {
+    position: relative;
+    overflow: hidden;
     border-bottom: 1px solid var(--line);
+  }
+  .category-front {
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    background: var(--paper);
+    touch-action: pan-y;
+    transition:
+      transform 180ms cubic-bezier(0.16, 1, 0.3, 1),
+      padding-left 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .category-front.dragging {
+    transition: none;
+    user-select: none;
+  }
+  .category-edit {
+    width: 100%;
+    min-width: 0;
+    border: 0;
     background: none;
-    min-height: 49px;
+    min-height: 52px;
     padding: 10px 0;
     text-align: left;
     font-size: 13px;
+    overflow-wrap: anywhere;
   }
-  .category-settings > button:hover {
+  .category-edit:hover {
     color: var(--blue);
   }
-  .category-settings svg {
-    color: #7b7b6e;
+  .category-more {
+    flex-shrink: 0;
+    color: var(--muted);
+  }
+  .category-swipe button:focus-visible {
+    outline-offset: -3px;
+  }
+  .category-delete {
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: 86px;
+    border: 0;
+    background: var(--error);
+    color: var(--ivory);
+    font-size: 13px;
+  }
+  .category-delete[aria-hidden='true'] {
+    pointer-events: none;
   }
   .category-settings small {
     color: var(--muted);
     font-size: 10px;
     margin-left: 9px;
+  }
+  .button.danger {
+    background: var(--error);
+    color: var(--ivory);
+    border-color: var(--error);
+  }
+  .button.danger:hover,
+  .category-delete:hover {
+    filter: brightness(0.9);
+  }
+  .delete-category-name {
+    overflow-wrap: anywhere;
+    margin: 0 0 24px;
+  }
+  .dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .category-picker {
+    border: 0;
+    padding: 0;
+    margin: 0 0 24px;
+    min-width: 0;
+  }
+  .category-picker legend {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    padding: 0;
+  }
+  .category-picker > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .category-choice {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 7px;
+    min-height: 44px;
+    max-width: 100%;
+    padding: 9px 11px;
+    margin: 0;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    background: var(--ivory);
+    font-size: 13px;
+    font-weight: 400;
+    overflow-wrap: anywhere;
+    cursor: pointer;
+  }
+  .category-choice:has(:checked),
+  .category-choice[aria-pressed='true'] {
+    border-color: var(--blue);
+    color: var(--blue);
+    background: var(--paper);
+  }
+  .category-choice:hover {
+    border-color: var(--blue);
+  }
+  .category-choice input[type='checkbox'] {
+    width: 16px;
+    height: 16px;
+    margin: 0;
+  }
+  .category-picker:disabled .category-choice {
+    opacity: 0.55;
+    cursor: not-allowed;
   }
   .bank-summary {
     display: flex;

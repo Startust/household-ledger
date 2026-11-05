@@ -42,6 +42,7 @@ model Category {
   name String @db.VarChar(60)
   active Boolean @default(true)
   transactions LedgerTransaction[]
+  labels TransactionCategory[]
   @@unique([household_id, name])
 }
 model BankConnection {
@@ -83,6 +84,7 @@ model LedgerTransaction {
   suggested_category String @default("") @db.VarChar(150)
   category_id Int?
   category Category? @relation(fields:[category_id], references:[id], onDelete:Restrict)
+  labels TransactionCategory[]
   flow Flow
   flow_manual Boolean @default(false)
   reviewed Boolean @default(false)
@@ -98,6 +100,14 @@ model LedgerTransaction {
   @@unique([bank_id, provider_id])
   @@index([bank_id, date])
   @@index([notify_at])
+}
+model TransactionCategory {
+  transaction_id String @db.Uuid
+  category_id Int
+  transaction LedgerTransaction @relation(fields:[transaction_id], references:[id], onDelete:Cascade)
+  category Category @relation(fields:[category_id], references:[id], onDelete:Cascade)
+  @@id([transaction_id, category_id])
+  @@index([category_id])
 }
 model TransactionEdit {
   id Int @id @default(autoincrement())

@@ -475,6 +475,241 @@ test('notes and review can be edited while keeping an archived category', async 
   assert.equal(updated.reviewed, true);
   assert.equal(updated.note, 'Weekly groceries');
 });
+
+test('multiple labels count money once, export on one row, and support legacy clearing', async () => {
+  const row = await imported();
+  const second = await ledger.createCategory(alice, 'Family');
+  const assigned = await ledger.edit(alice, row.id, {
+    version: 1,
+    categories: [second.id, categoryId],
+  });
+  assert.deepEqual(
+    assigned.categories.map((c) => c.id),
+    [categoryId, second.id],
+  );
+  assert.equal(assigned.category, categoryId);
+  const summary = await ledger.summary(alice, '2026-11');
+  assert.equal(summary.expense_cents, 1234n);
+  assert.deepEqual(
+    summary.categories.map((c) => c.net_spend_cents),
+    [1234n, 1234n],
+  );
+  assert.equal((await ledger.transactions(alice, { uncategorized: 'true' })).count, 0);
+  assert.equal((await ledger.transactions(alice, { uncategorized: 'false' })).count, 1);
+  const { agent } = await login();
+  const csv = await agent.get('/api/exports/transactions?format=csv').expect(200);
+  assert.match(csv.text, /买菜; Family/);
+  assert.equal(csv.text.split(row.id).length - 1, 1);
+  await agent.get('/api/exports/transactions?format=pdf').expect(200);
+  const cleared = await ledger.edit(alice, row.id, { version: assigned.version, category: null });
+  assert.deepEqual(cleared.categories, []);
+  assert.equal((await ledger.transactions(alice, { uncategorized: 'true' })).count, 1);
+});
+
+test('label validation rejects duplicates, foreign, archived, invalid and ambiguous assignments', async () => {
+  const row = await imported();
+  const other = await db.household.create({
+    data: { categories: { create: { name: 'Private' } } },
+    include: { categories: true },
+  });
+  const archived = await ledger.createCategory(alice, 'Archived');
+  await ledger.updateCategory(alice, archived.id, { active: false });
+  const { agent, token } = await login();
+  for (const fields of [
+    { categories: [categoryId, categoryId] },
+    { categories: null },
+    { categories: '1' },
+    { categories: [0] },
+    { categories: ['1'] },
+    { categories: [1.5] },
+    { categories: Array.from({ length: 51 }, (_, i) => i + 1) },
+    { categories: [other.categories[0].id] },
+    { categories: [archived.id] },
+    { categories: [], category: categoryId },
+  ])
+    await agent
+      .patch(`/api/transactions/${row.id}`)
+      .set('X-CSRFToken', token)
+      .send({ version: 1, ...fields })
+      .expect(400);
+  let current = await ledger.edit(alice, row.id, { version: 1, categories: [categoryId] });
+  await ledger.updateCategory(alice, categoryId, { active: false });
+  current = await ledger.edit(alice, row.id, {
+    version: current.version,
+    categories: [categoryId],
+    note: 'Keep archived',
+  });
+  assert.equal(current.categories[0].active, false);
+  current = await ledger.edit(alice, row.id, { version: current.version, categories: [] });
+  assert.deepEqual(current.categories, []);
+});
+
+test('legacy category writes during rollout remain authoritative over backfilled links', async () => {
+  const row = await imported();
+  await ledger.edit(alice, row.id, { version: 1, categories: [categoryId] });
+  const second = await ledger.createCategory(alice, 'Family');
+  await db.ledgerTransaction.update({ where: { id: row.id }, data: { category_id: second.id } });
+  assert.deepEqual(
+    (await ledger.transaction(alice, row.id)).categories.map((c) => c.id),
+    [second.id],
+  );
+  await ledger.deleteCategory(alice, categoryId);
+  assert.deepEqual(
+    (await ledger.transaction(alice, row.id)).categories.map((c) => c.id),
+    [second.id],
+  );
+  await db.ledgerTransaction.update({ where: { id: row.id }, data: { category_id: null } });
+  assert.deepEqual((await ledger.transaction(alice, row.id)).categories, []);
+  assert.equal((await ledger.transactions(alice, { uncategorized: 'true' })).count, 1);
+});
+
+test('deleting a label preserves transactions and remaining labels with history and stale-edit protection', async () => {
+  const row = await imported();
+  const second = await ledger.createCategory(alice, 'Family');
+  const assigned = await ledger.edit(alice, row.id, {
+    version: 1,
+    categories: [categoryId, second.id],
+    note: 'Keep me',
+    reviewed: true,
+  });
+  const { agent, token } = await login();
+  await agent.delete(`/api/categories/${categoryId}`).set('X-CSRFToken', token).expect(204);
+  let current = await ledger.transaction(alice, row.id);
+  assert.deepEqual(
+    current.categories.map((c) => c.id),
+    [second.id],
+  );
+  assert.equal(current.category, second.id);
+  assert.equal(current.version, assigned.version + 1);
+  assert.equal(current.amount_cents, 1234);
+  assert.equal(current.note, 'Keep me');
+  assert.equal(current.reviewed, true);
+  assert.equal(current.reviewed_by_name, 'alice');
+  assert.deepEqual((await ledger.history(alice, row.id))[0].changes, {
+    categories: { before: [categoryId, second.id], after: [second.id], deleted_name: '买菜' },
+  });
+  await agent
+    .patch(`/api/transactions/${row.id}`)
+    .set('X-CSRFToken', token)
+    .send({ version: assigned.version, note: 'Stale' })
+    .expect(409);
+  await ledger.deleteCategory(alice, second.id);
+  current = await ledger.transaction(alice, row.id);
+  assert.deepEqual(current.categories, []);
+  assert.equal(current.category, null);
+  assert.equal(await db.ledgerTransaction.count(), 1);
+  assert.equal((await ledger.summary(alice, '2026-11')).categories[0].name, 'Uncategorized');
+});
+
+test('category deletion requires session, CSRF and household ownership and handles legacy removed rows', async () => {
+  await request(app.getHttpServer()).delete(`/api/categories/${categoryId}`).expect(403);
+  const { agent, token } = await login();
+  await agent.delete(`/api/categories/${categoryId}`).expect(403);
+  const other = await db.household.create({
+    data: { categories: { create: { name: 'Private' } } },
+    include: { categories: true },
+  });
+  await agent
+    .delete(`/api/categories/${other.categories[0].id}`)
+    .set('X-CSRFToken', token)
+    .expect(404);
+  const row = await imported();
+  await db.ledgerTransaction.update({
+    where: { id: row.id },
+    data: { category_id: categoryId, removed: true },
+  });
+  await agent.delete(`/api/categories/${categoryId}`).set('X-CSRFToken', token).expect(204);
+  await agent.delete(`/api/categories/${categoryId}`).set('X-CSRFToken', token).expect(404);
+  const current = await ledger.transaction(alice, row.id);
+  assert.equal(current.category, null);
+  assert.equal(current.removed, true);
+  assert.equal(await db.category.count(), 1);
+});
+
+test('pending replacement preserves every label and deletion serializes with sync and edits', async () => {
+  fakePages([page([item('pending', { pending: true })])]);
+  await sync.run(bankId, true);
+  const row = await db.ledgerTransaction.findFirstOrThrow();
+  const second = await ledger.createCategory(alice, 'Family');
+  await ledger.edit(alice, row.id, { version: 1, categories: [categoryId, second.id] });
+  fakePages([page([item('posted', { pending_transaction_id: 'pending' })])]);
+  await sync.run(bankId, true);
+  const posted = await db.ledgerTransaction.findFirstOrThrow({ where: { provider_id: 'posted' } });
+  assert.deepEqual(
+    (await ledger.transaction(alice, posted.id)).categories.map((c) => c.id),
+    [categoryId, second.id],
+  );
+  fakePages([page([], { modified: [item('posted', { amount: 15 })] })]);
+  const results = await Promise.allSettled([
+    sync.run(bankId, true),
+    ledger.deleteCategory(alice, categoryId),
+    ledger.edit(bob, posted.id, { version: posted.version, categories: [categoryId, second.id] }),
+  ]);
+  assert.equal(results[0].status, 'fulfilled');
+  assert.equal(results[1].status, 'fulfilled');
+  const current = await ledger.transaction(alice, posted.id);
+  assert.deepEqual(
+    current.categories.map((c) => c.id),
+    [second.id],
+  );
+  assert.equal(current.amount_cents, 1500);
+  assert.equal(await db.transactionCategory.count({ where: { category_id: categoryId } }), 0);
+});
+
+test('income is automatically reviewed on import, changes and posting, and never enters the review queue', async () => {
+  fakePages([page([item('salary', { amount: -3000, pending: true }), item('expense')])]);
+  await sync.run(bankId, true);
+  const expense = await db.ledgerTransaction.findFirstOrThrow({
+    where: { provider_id: 'expense' },
+  });
+  await ledger.edit(bob, expense.id, { version: expense.version, reviewed: true });
+  fakePages([page([], { modified: [item('expense', { amount: -12.34 })] })]);
+  await sync.run(bankId, true);
+  const automatic = await ledger.transaction(alice, expense.id);
+  assert.equal(automatic.reviewed, true);
+  assert.equal(automatic.reviewed_by_name, null);
+  fakePages([page([], { modified: [item('expense')] })]);
+  await sync.run(bankId, true);
+  assert.equal((await ledger.transaction(alice, expense.id)).reviewed, false);
+  const salary = await db.ledgerTransaction.findFirstOrThrow({ where: { provider_id: 'salary' } });
+  assert.equal(salary.reviewed, true);
+  fakePages([page([item('salary-posted', { amount: -3100, pending_transaction_id: 'salary' })])]);
+  await sync.run(bankId, true);
+  const posted = await db.ledgerTransaction.findFirstOrThrow({
+    where: { provider_id: 'salary-posted' },
+  });
+  assert.equal(posted.reviewed, true);
+  assert.equal(posted.reviewed_by_id, null);
+  fakePages([
+    page([], { modified: [item('salary-posted', { amount: -3200, name: 'Updated pay' })] }),
+  ]);
+  await sync.run(bankId, true);
+  let current = await ledger.transaction(alice, posted.id);
+  current = await ledger.edit(alice, current.id, { version: current.version, reviewed: false });
+  assert.equal(current.reviewed, true);
+  assert.equal(
+    (await ledger.transactions(alice, { reviewed: 'false', pending: 'false' })).count,
+    1,
+  );
+  assert.equal((await ledger.summary(alice, '2026-11')).unreviewed_count, 1);
+  assert.equal(
+    (await digests.generate(homeId, new Date('2026-11-07T02:00:00Z'), true))!.unreviewed_count,
+    1,
+  );
+  current = await ledger.edit(alice, current.id, { version: current.version, flow: 'refund' });
+  assert.equal(current.reviewed, false);
+  assert.equal(
+    (await ledger.transactions(alice, { reviewed: 'false', pending: 'false' })).count,
+    2,
+  );
+  current = await ledger.edit(alice, current.id, { version: current.version, flow: 'income' });
+  assert.equal(current.reviewed, true);
+  // Also tolerate an older worker's write during deployment.
+  await db.ledgerTransaction.update({ where: { id: current.id }, data: { reviewed: false } });
+  assert.equal((await ledger.transaction(alice, current.id)).reviewed, true);
+  assert.equal((await ledger.transactions(alice, { reviewed: 'false' })).count, 1);
+  assert.equal((await ledger.transactions(alice, { reviewed: 'true' })).count, 1);
+});
 test('initial sync and replay preserve exactly one transaction and one version', async () => {
   const cursors = fakePages([page([item()]), page([item()])]);
   assert.equal(await sync.run(bankId, true), true);

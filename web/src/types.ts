@@ -24,6 +24,7 @@ export type Transaction = {
   suggested_category: string;
   category: number | null;
   category_name: string | null;
+  categories: Category[];
   flow: Flow;
   reviewed: boolean;
   reviewed_by_name: string | null;

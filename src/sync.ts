@@ -8,6 +8,7 @@ import {
   type SyncPage,
 } from './plaid.js';
 import type { BankConnection, Flow } from './generated/prisma/client.js';
+import { transactionCategories, transactionInclude } from './ledger.js';
 
 export function usdCents(amount: number | string) {
   const text = String(amount);
@@ -131,13 +132,21 @@ export class SyncService {
         const reviewChanged =
           row.amount_cents !== values.amount_cents ||
           row.name !== values.name ||
-          !compatibleFlow(row.flow, values.amount_cents);
+          row.flow !== values.flow;
         await tx.ledgerTransaction.update({
           where: { id: row.id },
           data: {
             ...values,
             flow_manual: manual,
-            ...(reviewChanged ? { reviewed: false, reviewed_at: null, reviewed_by_id: null } : {}),
+            ...(values.flow === 'income'
+              ? {
+                  reviewed: true,
+                  reviewed_at: row.flow === 'income' ? (row.reviewed_at ?? now) : now,
+                  reviewed_by_id: null,
+                }
+              : reviewChanged
+                ? { reviewed: false, reviewed_at: null, reviewed_by_id: null }
+                : {}),
             ...(row.pending && !values.pending && bank.initial_sync_complete
               ? { notify_at: now }
               : {}),
@@ -151,29 +160,42 @@ export class SyncService {
               where: {
                 bank_id_provider_id: { bank_id: bank.id, provider_id: item.pending_transaction_id },
               },
+              include: transactionInclude,
             })
           : null;
         if (old) {
           await lockTransaction(tx, old.id);
-          old = await tx.ledgerTransaction.findUniqueOrThrow({ where: { id: old.id } });
+          old = await tx.ledgerTransaction.findUniqueOrThrow({
+            where: { id: old.id },
+            include: transactionInclude,
+          });
         }
         const manual = old?.flow_manual && compatibleFlow(old.flow, values.amount_cents);
+        const flow = manual ? old!.flow : values.flow;
         const reviewed =
-          old?.reviewed && old.amount_cents === values.amount_cents && old.name === values.name;
+          flow === 'income' ||
+          (old?.flow !== 'income' &&
+            old?.reviewed &&
+            old.amount_cents === values.amount_cents &&
+            old.name === values.name &&
+            old.flow === flow);
         await tx.ledgerTransaction.create({
           data: {
             ...values,
             bank_id: bank.id,
             provider_id: item.transaction_id,
+            flow,
+            reviewed: !!reviewed,
+            reviewed_at: reviewed ? (old?.reviewed_at ?? now) : null,
+            reviewed_by_id: reviewed && flow !== 'income' ? old?.reviewed_by_id : null,
             ...(old
               ? {
                   category_id: old.category_id,
+                  labels: {
+                    create: transactionCategories(old).map((c) => ({ category_id: c.id })),
+                  },
                   note: old.note,
                   flow_manual: !!manual,
-                  flow: manual ? old.flow : values.flow,
-                  reviewed: !!reviewed,
-                  reviewed_at: reviewed ? old.reviewed_at : null,
-                  reviewed_by_id: reviewed ? old.reviewed_by_id : null,
                   first_seen_at: old.first_seen_at,
                 }
               : {}),
